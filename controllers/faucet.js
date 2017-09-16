@@ -1,3 +1,8 @@
+const altcoin = require('node-altcoin')()
+
+altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
+altcoin.set('host', process.env.rpchost)
+altcoin.set({port:process.env.rpcport})
 /**
  * GET /
  * Home page.

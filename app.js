@@ -45,8 +45,8 @@ mongoose.connection.on('error', (err) => {
   process.exit();
 });
 
-app.get('/', recaptcha.middleware.render, faucetController.index(altcoin));
-app.post('/', recaptcha.middleware.verify, faucetController.post(altcoin));
+app.get('/', recaptcha.middleware.render, faucetController.index);
+app.post('/', recaptcha.middleware.verify, faucetController.post);
 
 
 
