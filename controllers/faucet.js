@@ -7,6 +7,21 @@ exports.index = (req, res) => {
         if(err) { return next(err)}*/
     req.session.returnTo = req.path
     res.render('home', {
-        title: 'Pradinis'
+        title: 'Pradinis',
+        captcha: req.recaptcha
     })
 };
+exports.post = (req, res) => {
+    function(req, res){
+    if (!req.recaptcha.error) {
+        res.render('home', {
+            title: 'Home',
+            message: 'Success' 
+        })      
+    } else {
+        res.render('home', {
+            title: 'home',
+            error: 'Invalid reCaptcha'
+        })
+    }
+}
