@@ -2,9 +2,11 @@ extends layout
 
 block content
 	h1 here be faucet
-	p faucet balance #{balance}
+	p faucet balance !{balance}
 	form(method='POST', action='/')
+		label(for='address')
+		input(type='text', name='address', class='address')
 		| !{captcha}
-		input(type='submit', value='Check Recaptcha')
+		input(type='submit', value='Submit Recaptcha and claim DeepOnion coins now!')
 	p #{message}
 	p #{error}
