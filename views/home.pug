@@ -4,7 +4,7 @@ block content
 	h1 here be faucet
 	p faucet balance #{balance}
 	form(method='POST', action='/')
-		| !{captha}
+		| !{captcha}
 		input(type='submit', value='Check Recaptcha')
 	p #{message}
 	p #{error}
