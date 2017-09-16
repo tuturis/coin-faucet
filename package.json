@@ -19,6 +19,7 @@
     "mongoose": "^4.11.11",
     "node-altcoin": "^0.1.2",
     "path": "^0.12.7",
+    "pug": "^2.0.0-rc.4",
     "underscore": "^1.8.3"
   }
 }
