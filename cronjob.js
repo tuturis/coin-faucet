@@ -37,9 +37,8 @@ gettingProxies.on('data', function(proxies) {
     console.log(`ip saved`);
   })
   .catch((err) => {
-    // Handle rejections returned from increment()
-    console.log(err);
-  });
+    
+    });
   })
 });
 
