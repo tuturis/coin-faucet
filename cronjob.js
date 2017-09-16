@@ -25,6 +25,7 @@ job.start();*/
 
 var options = {
   filterMode: 'loose',
+  sourcesBlackList : ['bitproxies', 'kingproxies']
 };
 var gettingProxies = ProxyLists.getProxies(options);
 
@@ -39,6 +40,7 @@ gettingProxies.on('data', function(proxies) {
 gettingProxies.on('error', function(error) {
   // Some error has occurred.
   console.error(error);
+  process.exit();
 });
 
 gettingProxies.once('end', function() {

@@ -4,8 +4,8 @@ block content
 	h1 here be faucet
 	p faucet balance !{balance}
 	form(method='POST', action='/')
-		label(for='address')
-		input(type='text', name='address', class='address')
+		label(for='address') Enter your DeepOnion address
+		input(type='text', name='address', class='address', placeholder="Enter your DeepOnion address")
 		| !{captcha}
 		input(type='submit', value='Submit Recaptcha and claim DeepOnion coins now!')
 	p #{message}
