@@ -12,6 +12,7 @@ exports.index = (req, res) => {
         if(err) { return next(err)}*/
     //req.session.returnTo = req.path
     altcoin.getBalance(function(balance) {
+        console.log('balance %d', balance)
         res.render('home', {
             title: 'Pradinis',
             captcha: req.recaptcha,
