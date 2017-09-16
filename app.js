@@ -17,13 +17,12 @@ const chalk = require('chalk');
 const app = express();
 
 recaptcha.init(process.env.RECAPTCHA_SITE_KEY, process.env.RECAPTCHA_SECRET_KEY);
+
 altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
 altcoin.set('host', process.env.rpchost)
 altcoin.set({port:process.env.rpcport})
-altcoin.getDifficulty(function() {
-    console.log(arguments);
-})
-app.use(altcoin())
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.set('port', process.env.PORT || 3000);
