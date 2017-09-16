@@ -40,7 +40,6 @@ gettingProxies.on('data', function(proxies) {
 gettingProxies.on('error', function(error) {
   // Some error has occurred.
   console.error(error);
-  process.exit();
 });
 
 gettingProxies.once('end', function() {
