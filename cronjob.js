@@ -33,7 +33,13 @@ gettingProxies.on('data', function(proxies) {
   proxies.map((proxy) => {
     pf = new Pf()
     pf.ip = proxy.ipAddress
-    pf.save()
+    pf.save().then(() => {
+    console.log(`ip saved`);
+  })
+  .catch((err) => {
+    // Handle rejections returned from increment()
+    console.log(err);
+  });
   })
 });
 
