@@ -42,7 +42,7 @@ mongoose.connection.on('error', (err) => {
 
 app.get('/', recaptcha.middleware.render, faucetController.index);
 app.post('/', recaptcha.middleware.verify, faucetController.post);
-});
+
 
 altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
 altcoin.set('host', process.env.rpchost)
