@@ -6,3 +6,5 @@ block content
 	form(method='POST', action='/')
 		| !{captha}
 		input(type='submit', value='Check Recaptcha')
+	p #{message}
+	p #{error}
