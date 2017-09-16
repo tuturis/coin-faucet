@@ -3,5 +3,6 @@ extends layout
 block content
 	h1 here be faucet
 	p faucet balance !{balance}
-	form 
+	form(method='POST', action='/')
 		!= captha
+		input(type='submit', value='Check Recaptcha')

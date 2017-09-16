@@ -1,4 +1,3 @@
-const altcoin = require('node-altcoin')()
 /**
  * GET /
  * Home page.
