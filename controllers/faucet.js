@@ -16,7 +16,6 @@ exports.index = (req, res) => {
     })
 };
 exports.post = (req, res) => {
-    function(req, res){
     if (!req.recaptcha.error) {
         res.render('home', {
             title: 'Home',
