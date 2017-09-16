@@ -6,7 +6,7 @@ const altcoin = require('node-altcoin')()
 exports.index = (req, res) => {
     /*this.getAssociationsCities(req, res, (err, cities) => {
         if(err) { return next(err)}*/
-    req.session.returnTo = req.path
+    //req.session.returnTo = req.path
     altcoin.getBalance(function(balance) {
         res.render('home', {
             title: 'Pradinis',
