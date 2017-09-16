@@ -16,7 +16,7 @@ exports.index = (req, res) => {
         res.render('home', {
             title: 'Pradinis',
             captcha: req.recaptcha,
-            balance: balance 
+            balance: balance.toString() 
         })
     })
 };
