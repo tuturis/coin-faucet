@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express');
 const session = require('express-session');
 const recaptcha = require('express-recaptcha');
+const flash = require('express-flash');
 const compression = require('compression');
 
 const bodyParser = require('body-parser');
@@ -29,6 +30,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(compression());
+app.use(flash());
 /**
  * Controllers (route handlers).
  */
