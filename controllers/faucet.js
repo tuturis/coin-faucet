@@ -26,7 +26,7 @@ exports.post = (req, res) => {
             message: 'Success' 
         })      
     } else {
-        req.flash(error, {message : req.recaptcha.error})
+        req.flash('error', {message : req.recaptcha.error})
         res.reidrect('/')
     }
 }
