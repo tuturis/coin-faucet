@@ -27,6 +27,6 @@ exports.post = (req, res) => {
         })      
     } else {
         req.flash('error', {message : req.recaptcha.error})
-        res.reidrect('/')
+        res.redirect('/')
     }
 }
