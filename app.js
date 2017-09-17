@@ -4,7 +4,6 @@ const express = require('express');
 const session = require('express-session');
 const recaptcha = require('express-recaptcha');
 const flash = require('express-flash');
-const session = require('express-session');
 const compression = require('compression');
 
 const bodyParser = require('body-parser');
