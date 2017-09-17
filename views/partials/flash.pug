@@ -1,0 +1,20 @@
+if messages.error
+  span.toast-content
+    for error in messages.error
+        = error.message
+
+if messages.info
+  span.toast-content
+    for info in messages.info
+      = info.message
+
+if messages.success
+  span.toast-content
+    for success in messages.success
+      = success.message
+
+//- if messages.errors || messages.info || messages.success
+//-   script. 
+//-     var $toastContent = $('.toast-content');
+//-     Materialize.toast($toastContent, 5000);  
+//-     console.log($toastContent)

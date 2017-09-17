@@ -46,7 +46,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 app.get('/', recaptcha.middleware.render, faucetController.index);
-app.post('/', recaptcha.middleware.verify, faucetController.post);
+app.post('/', recaptcha.middleware.verify, recaptcha.middleware.render, faucetController.post);
 
 
 
