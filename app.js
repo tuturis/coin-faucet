@@ -30,7 +30,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(compression());
 app.use(flash());
-app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(session({ 
+	resave: true,
+  	saveUninitialized: true,
+  	secret: process.env.SESSION_SECRET,
+	cookie: { maxAge: 60000 }
+}));
 
 /**
  * Controllers (route handlers).
