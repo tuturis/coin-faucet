@@ -4,6 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const recaptcha = require('express-recaptcha');
 const flash = require('express-flash');
+const session = require('express-session');
 const compression = require('compression');
 
 const bodyParser = require('body-parser');
@@ -23,7 +24,6 @@ altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
 altcoin.set('host', process.env.rpchost)
 altcoin.set({port:process.env.rpcport})
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('port', process.env.PORT || 3000);
@@ -31,6 +31,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(compression());
 app.use(flash());
+app.use(session({ cookie: { maxAge: 60000 }}));
+
 /**
  * Controllers (route handlers).
  */
