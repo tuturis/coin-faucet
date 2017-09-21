@@ -21,15 +21,16 @@ exports.index = (req, res) => {
 };
 exports.post = (req, res) => {
     let pq = new PaymentQ()
+    let claim = getRandomArbitrary(config.payout.min, config.payout.max)
     pq.address = req.address;
     pq.ip = req.ip;
-    pq.amount = getRandomArbitrary(config.payout.min, config.payout.max)
+    pq.amount = claim;
     pq.save((err) => {
         if(err) {
             req.flash('error', {message : 'Internal error'})
             res.redirect('/');
         }
-            req.flash('success', {message : 'Your payout is under way!'})
+            req.flash('success', {message : `Your claim of ${claim} ${config.coin.name} is under way!`})
             res.redirect('/');      
     });
 } 
