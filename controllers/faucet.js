@@ -15,7 +15,13 @@ exports.index = (req, res) => {
             title: 'Home',
             captcha: req.recaptcha,
             balance: balance,
-            coinName : config.coin.name
+            info : {
+                coinName : config.coin.name,
+                minClaim : config.payout.min,
+                maxClaim : config.payout.max,
+                interval : config.payout.interval,
+            }
+            
         })
     })
 };

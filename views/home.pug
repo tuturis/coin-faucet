@@ -3,6 +3,8 @@ extends layout
 block content
 	h1 here be faucet
 	p faucet balance !{balance}
+	p Payouts: minumum - !{info.minClaim}, maximum !{info.maxClaim}, every !{info.interval} hours per IP or !{info.coinName} address
+	p No proxy or TOR IP addresses due to abuse
 	form(method='POST', action='/')
 		label(for='address') Enter your DeepOnion address
 		input(type='text', name='address', class='address', placeholder=`Enter your ${coinName} address`)
