@@ -40,7 +40,7 @@ exports.validateAdress = (req, res, next) => {
             req.flash('error', {message : 'Internal error'})
             res.redirect('/')                
         }
-        console.log(`info ${JSON.stringify(err)}`);
+        console.log(`info ${JSON.stringify(info)}`);
         next();
     })
 }
