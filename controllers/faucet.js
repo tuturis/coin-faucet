@@ -19,30 +19,31 @@ exports.index = (req, res) => {
     })
 };
 exports.post = (req, res) => {
-    if (!req.recaptcha.error) {
-        altcoin.exec('validateaddress', req.body.address, (err, info) => {
-            if(err) {
-                req.flash('error', {message : 'invalid coin address, try again'})
-                res.redirect('/')                
-            }
-            let pq = new PaymentQ()
-            pq.address = req.address;
-            pq.ip = req.ip;
-            pq.amount = getRandomArbitrary(config.payout.min, config.payout.max)
-            pq.save((err) => {
-                if(err) {
-                    req.flash('error', {message : 'Internal error'})
-                    res.redirect('/');
-                }
-                    req.flash('success', {message : 'Your payout is under way!'})
-                    res.redirect('/');      
-            });
-        }) 
-    } else {
-        req.flash('error', {message : 'invalid reCaptcha, try again'})
-        res.redirect('/')
-    }
-};
+    let pq = new PaymentQ()
+    pq.address = req.address;
+    pq.ip = req.ip;
+    pq.amount = getRandomArbitrary(config.payout.min, config.payout.max)
+    pq.save((err) => {
+        if(err) {
+            req.flash('error', {message : 'Internal error'})
+            res.redirect('/');
+        }
+            req.flash('success', {message : 'Your payout is under way!'})
+            res.redirect('/');      
+    });
+} 
+
+exports.validateAdress = (req, res, next) => {
+    altcoin.exec('validateaddress', req.body.address, (err, info) => {
+        if(err) {
+            console.log(`info ${err}`);
+            req.flash('error', {message : 'invalid coin address, try again'})
+            res.redirect('/')                
+        }
+        console.log(`info ${info}`);
+        next();
+    })
+}
 exports.proxyFilter = (req, res, next) => {
     proxy_list.count({ip : req.ip}, (err, count) => {
         if(err) {
@@ -58,8 +59,33 @@ exports.proxyFilter = (req, res, next) => {
         }
     })
 };
+exports.captchaCheck = (req, res, next) => {
+    if (!req.recaptcha.error) {
+        next()
+    } else {
+        req.flash('error', {message : 'invalid reCaptcha, try again'})
+        res.redirect('/')
+    }
+}
 exports.checkClaimed = (req, res, next) => {
-
+    let now = new Date();
+    let interval = now.setHours(now.getHours() - config.payout.interval) 
+    PaymentQ.find({$and: [
+            { $or:[{ip : req.ip}, {address : req.body.address}]},
+            { createdAt: {$gt : interval}}
+            ]}, (err, results) => {
+        if(err) {
+            console.log(`ERROR ${err}`)
+            req.flash('error', {message : 'Internal error'})
+            res.redirect('/')       
+        }
+        if(results && results.length) {
+            req.flash('error', {message : `You can claim coins only every ${config.payout.interval} per same IP or ${config.coin.name} address`})
+            res.redirect('/');
+        } else {
+            next()
+        }
+    })
 }
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;

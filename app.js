@@ -50,7 +50,13 @@ mongoose.connection.on('error', (err) => {
 });
 
 app.get('/', recaptcha.middleware.render, faucetController.index);
-app.post('/', recaptcha.middleware.verify, faucetController.proxyFilter, faucetController.checkClaimed, faucetController.post);
+app.post('/', 
+	recaptcha.middleware.verify,
+	faucetController.captchaCheck,
+	faucetController.validateAdress,
+	faucetController.proxyFilter, 
+	faucetController.checkClaimed, 
+	faucetController.post);
 
 
 
