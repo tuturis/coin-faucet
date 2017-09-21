@@ -45,6 +45,11 @@ exports.post = (req, res) => {
 };
 exports.proxyFilter = (req, res, next) => {
     proxy_list.findOne({ip : req.ip}, (err, result) => {
+        if(err) {
+            console.log(`error ${err}`)
+            req.flash('error', {message : `ERROR ${err}`})
+            res.redirect('/');
+        }
         if(result.length) {
             req.flash('error', {message : 'Requests from TOR or Proxy services is not allowed due to abuse'})
             res.redirect('/');
