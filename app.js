@@ -19,10 +19,6 @@ const app = express();
 
 recaptcha.init(process.env.RECAPTCHA_SITE_KEY, process.env.RECAPTCHA_SECRET_KEY);
 
-altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
-altcoin.set('host', process.env.rpchost)
-altcoin.set({port:process.env.rpcport})
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('port', process.env.PORT || 3000);
@@ -54,7 +50,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 app.get('/', recaptcha.middleware.render, faucetController.index);
-app.post('/', recaptcha.middleware.verify, faucetController.post);
+app.post('/', recaptcha.middleware.verify, faucetController.proxyFilter, faucetController.checkClaimed, faucetController.post);
 
 
 
