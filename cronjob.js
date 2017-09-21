@@ -39,7 +39,7 @@ var job2 = new CronJob({
 job2.start();
 */
 function payToPq() {
-  altcoin.exec('getnewaddress', {account : "faucet" }, (err, address) => {
+  altcoin.exec('getnewaddress', "faucet" , (err, address) => {
       if(err) {
         console.log(err)
       }
