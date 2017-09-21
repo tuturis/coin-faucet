@@ -14,6 +14,9 @@ mongoose.connection.on('error', (err) => {
   console.error(err);
   process.exit();
 });
+altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
+altcoin.set('host', process.env.rpchost)
+altcoin.set({port:process.env.rpcport})
 /*
 var job = new CronJob({
   cronTime: '0 * * * *',
@@ -35,17 +38,24 @@ var job2 = new CronJob({
 job2.start();
 */
 function payToPq() {
-  var bulk = PQ.collection.initializeOrderedBulkOp();
-      bulk.find({'claimed': false}, (err, results) => {
-        if(err) {
-          console.log(err)
-          process.exit()
-        }
-        console.log(results)
-      }).update({$set: {'claimed': false}});
-      bulk.execute(function (error) {
-           callback();                   
-      });
+  altcoin.exec('getnewaddress', {account : "faucet" }, (err, address) => {
+      if(err) {
+        console.log(err)
+      }
+      console.log(address)
+  })
+    PQ.find({'claimed': false}, (err, results) => {
+      if(err) {
+        console.log(err)
+        process.exit()
+      }
+      results.map((result) => {
+
+      })
+    }) 
+    .setOptions({ multi: true })
+    .update({$set: {'claimed': true}});
+    
 }
 payToPq()
 function getPf() {
