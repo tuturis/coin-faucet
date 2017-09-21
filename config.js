@@ -1,4 +1,4 @@
-exports.config = {
+var config = {
 	payout: {
 		min : 0.0001,
 		max : 0.001,
@@ -8,3 +8,4 @@ exports.config = {
 		name: "DeepOnion"
 	}
 }
+module.exports = config
