@@ -14,7 +14,8 @@ exports.index = (req, res) => {
         res.render('home', {
             title: 'Home',
             captcha: req.recaptcha,
-            balance: balance 
+            balance: balance,
+            coinName : config.coin.name
         })
     })
 };
@@ -86,7 +87,7 @@ exports.checkClaimed = (req, res, next) => {
                 res.redirect('/')       
             }
             if(count > 0) {
-                req.flash('error', {message : `You can claim coins only every ${config.payout.interval} per same IP or ${config.coin.name} address`})
+                req.flash('error', {message : `You can claim coins only every ${config.payout.interval} hours per same IP or ${config.coin.name} address`})
                 res.redirect('/');
             } else {
                 next()

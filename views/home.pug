@@ -5,8 +5,8 @@ block content
 	p faucet balance !{balance}
 	form(method='POST', action='/')
 		label(for='address') Enter your DeepOnion address
-		input(type='text', name='address', class='address', placeholder="Enter your DeepOnion address")
+		input(type='text', name='address', class='address', placeholder=`Enter your ${coinName} address`)
 		| !{captcha}
-		input(type='submit', value='Submit Recaptcha and claim DeepOnion coins now!')
+		input(type='submit', value=`Submit Recaptcha and claim ${coinName} coins now!`)
 	p #{message}
 	p #{error}
