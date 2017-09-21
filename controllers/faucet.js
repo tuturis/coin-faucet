@@ -36,11 +36,11 @@ exports.post = (req, res) => {
 exports.validateAdress = (req, res, next) => {
     altcoin.exec('validateaddress', req.body.address, (err, info) => {
         if(err) {
-            console.log(`info ${err}`);
-            req.flash('error', {message : 'invalid coin address, try again'})
+            console.log(`ERR ${JSON.stringify(err)}`);
+            req.flash('error', {message : 'Internal error'})
             res.redirect('/')                
         }
-        console.log(`info ${info}`);
+        console.log(`info ${JSON.stringify(err)}`);
         next();
     })
 }
