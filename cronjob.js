@@ -1,5 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose');
+const altcoin = require('node-altcoin')();
 
 const CronJob = require('cron').CronJob;
 const ProxyLists = require('proxy-lists');
