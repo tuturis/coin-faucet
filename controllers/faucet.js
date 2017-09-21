@@ -40,8 +40,12 @@ exports.validateAdress = (req, res, next) => {
             req.flash('error', {message : 'Internal error'})
             res.redirect('/')                
         }
-        console.log(`info ${JSON.stringify(info)}`);
-        next();
+        if(info.isvalid == true) {
+            next();
+        } else {
+            req.flash('error', {message : `Invalid ${config.coin.name} address`})
+            res.redirect('/')                   
+        }
     })
 }
 exports.proxyFilter = (req, res, next) => {
@@ -70,21 +74,23 @@ exports.captchaCheck = (req, res, next) => {
 exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
-    PaymentQ.find({$and: [
+    PaymentQ.count(
+        {$and: [
             { $or:[{ip : req.ip}, {address : req.body.address}]},
             { createdAt: {$gt : interval}}
-            ]}, (err, results) => {
-        if(err) {
-            console.log(`ERROR ${err}`)
-            req.flash('error', {message : 'Internal error'})
-            res.redirect('/')       
-        }
-        if(results && results.length) {
-            req.flash('error', {message : `You can claim coins only every ${config.payout.interval} per same IP or ${config.coin.name} address`})
-            res.redirect('/');
-        } else {
-            next()
-        }
+            ]}, 
+        (err, count) => {
+            if(err) {
+                console.log(`ERROR ${err}`)
+                req.flash('error', {message : 'Internal error'})
+                res.redirect('/')       
+            }
+            if(count > 0) {
+                req.flash('error', {message : `You can claim coins only every ${config.payout.interval} per same IP or ${config.coin.name} address`})
+                res.redirect('/');
+            } else {
+                next()
+            }
     })
 }
 function getRandomArbitrary(min, max) {
