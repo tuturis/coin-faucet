@@ -4,11 +4,12 @@ block content
 	h1 here be faucet
 	p faucet balance !{balance}
 	p Payouts: minumum - !{info.minClaim}, maximum !{info.maxClaim}, every !{info.interval} hours per IP or !{info.coinName} address
-	p No proxy or TOR IP addresses due to abuse
+	p No Proxy or TOR IP addresses due to abuse
 	form(method='POST', action='/')
-		label(for='address') Enter your DeepOnion address
-		input(type='text', name='address', class='address', placeholder=`Enter your ${coinName} address`)
+		label(for='address') Enter your !{info.coinName} address
+		br
+		input(type='text', name='address', class='address', placeholder=`Enter your ${info.coinName} address`)
 		| !{captcha}
-		input(type='submit', value=`Submit Recaptcha and claim ${coinName} coins now!`)
+		input(type='submit', value=`Submit Recaptcha and claim ${info.coinName} coins now!`)
 	p #{message}
 	p #{error}
