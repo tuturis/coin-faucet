@@ -13,5 +13,8 @@ block content
 		input(type='text', name='address', class='address', placeholder=`Enter your ${info.coinName} address`)
 		| !{captcha}
 		input(type='submit', value=`Submit Recaptcha and claim ${info.coinName} coins now!`)
-	p #{message}
-	p #{error}
+	p.message #{message}
+	p.error #{error}
+
+	h2 About !{info.coinName}
+	p !{info.coinInfo}
