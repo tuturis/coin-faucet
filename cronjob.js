@@ -60,7 +60,7 @@ function payToPq() {
       results.map((result) => {
         pqa.push({address : result.address, amount : result.amount})   
       })
-      let sendparams = ""
+      let sendparams = [];
       sendparams.push("{");
       pqa.map(p=>{
         sendparams.push(`\"${p.address}\":${p.amount}`)
