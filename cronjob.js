@@ -64,7 +64,8 @@ function payToPq() {
         console.log(err)
         /*process.exit()*/
       }
-      let pqa = [];
+      console.log(results)
+/*      let pqa = [];
       results.map((result) => {
         pqa.push({address : result.address, amount : result.amount})   
       })
@@ -87,7 +88,7 @@ function payToPq() {
         }
         console.log(cb)
         
-      })
+      })*/
     }) 
     .setOptions({ multi: true })
     .update({$set: {'claimed': false}});   
