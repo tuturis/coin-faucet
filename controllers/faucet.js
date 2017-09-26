@@ -59,8 +59,9 @@ exports.validateAdress = (req, res, next) => {
     })
 }
 exports.proxyFilter = (req, res, next) => {
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     proxy_list.count({ip : req.ip}, (err, count) => {
-        console.log(`ip - ${req.ip}, ips - ${req.ips}`)
+        console.log(`ip - ${req.ip}, ips - ${req.ips}, x-forwarded-for ${ip}`)
         if(err) {
             console.log(`error ${err}`)
             req.flash('error', {message : `ERROR ${err}`})
