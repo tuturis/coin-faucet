@@ -1,27 +1,29 @@
 extends layout
 
 block content
-	h1 !{info.coinName} faucet
-	p faucet balance !{balance}
-	p Payouts: minumum - !{info.minClaim}, maximum !{info.maxClaim}, every !{info.interval} hours per IP or !{info.coinName} address
-	p !{info.coinName} faucet donation address - !{info.address}
-	p No Proxy or TOR IP addresses due to abuse
-	p Claims are processed every 30 minutes in bulk so the payment might be delayed 
-	form(method='POST', action='/')
-		label(for='address') Enter your !{info.coinName} address
-		br
-		input(type='text', name='address', class='address', placeholder=`Enter your ${info.coinName} address`)
-		| !{captcha}
-		input(type='submit', value=`Submit Recaptcha and claim ${info.coinName} coins now!`)
-	p.message #{message}
-	p.error #{error}
+	.row
+		.center-align
+			h1 !{info.coinName} faucet
+		p Faucet balance !{balance}
+		p Payouts: minumum - !{info.minClaim}, maximum !{info.maxClaim}, every !{info.interval} hours per IP or !{info.coinName} address
+		p !{info.coinName} faucet donation address - !{info.address}
+		p No Proxy or TOR IP addresses due to abuse
+		p Claims are processed every 30 minutes in bulk so the payment might be delayed 
+		form(method='POST', action='/')
+			label(for='address') Enter your !{info.coinName} address
+			br
+			input(type='text', name='address', class='address', placeholder=`Enter your ${info.coinName} address`)
+			| !{captcha}
+			input(type='submit', value=`Submit Recaptcha and claim ${info.coinName} coins now!`)
+		p.message #{message}
+		p.error #{error}
 
-	h2 Where to buy and trade !{info.coinName}?
-	p 
-		|
-		a(href="https://novaexchange.com/market/BTC_ONION/?re=pud127q1c1b3989waadm") novaexchange.com
-	br
-	h2 About !{info.coinName}
-	p !{info.coinInfo}
-	br
+		h3 Where to buy and trade !{info.coinName}?
+		p.flow-text 
+			|
+			a(href="https://novaexchange.com/market/BTC_ONION/?re=pud127q1c1b3989waadm") novaexchange.com
+		br
+		h3 About !{info.coinName}
+		p !{info.coinInfo}
+		br
 
