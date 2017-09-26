@@ -43,13 +43,16 @@ var job2 = new CronJob({
 job2.start();
 */
 function payToPq() {
- /* altcoin.exec('getnewaddress', "faucet" , (err, address) => {
+   let add 
+    altcoin.exec('getnewaddress', "faucet" , (err, address) => {
       if(err) {
         console.log(err)
       }
+      add = address
       console.log(address)
-  })*/
-    altcoin.exec('getaccount', 'Dr4Ryg9NLjDw9VxSgXCjnaA8XJ8NRe7jkx', (err, account) => {
+    })
+
+    altcoin.exec('getaccount', add, (err, account) => {
       if(err) {
         console.log(`error getaccount - ${err}`)
       }
