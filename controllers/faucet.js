@@ -84,7 +84,7 @@ exports.checkClaimed = (req, res, next) => {
     let interval = now.setHours(now.getHours() - config.payout.interval) 
     PaymentQ.count(
         {$and: [
-            { $or:[{ip : req.ip}, {address : req.body.address}]},
+            { $and:[{ip : req.ip}, {address : req.body.address}]},
             { createdAt: {$gt : interval}}
             ]}, 
         (err, count) => {

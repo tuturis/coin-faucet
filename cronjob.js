@@ -50,8 +50,9 @@ function payToPq() {
         console.log(err)
         process.exit()
       }
+      var pq = [];
       results.map((result) => {
-        console.log(result)
+        
       })
     }) 
     .setOptions({ multi: true })
