@@ -13,7 +13,7 @@ const client = new Client({
   password: process.env.rpcpassword,
   port: process.env.rpcport,
   host: process.env.rpchost
-}});
+});
 
 const CronJob = require('cron').CronJob;
 const ProxyLists = require('proxy-lists');
