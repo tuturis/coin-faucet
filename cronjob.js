@@ -70,9 +70,13 @@ function payToPq() {
       })
       let sendparams = [];
       sendparams.push("{");
-      pqa.map(p=>{
-        sendparams.push(`\"${p.address}\":${p.amount}`)
-      })
+      for(i=0; i<results.length(); i++) {
+        if(results.length() - 1 == 0) {
+          sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount}`)  
+        } else {
+          sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount},`)  
+        }
+      }
       sendparams.push("}");
       sp = sendparams.join("");
       console.log(sp)
