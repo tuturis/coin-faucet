@@ -81,7 +81,10 @@ function payToPq() {
       }
     }) 
     .setOptions({ multi: true })
-    .update({$set: {'claimed': true}});   
+    .update({$set: {'claimed': true}}, (err, success) => {
+      if(err) {console.log(`${err} when updating`)};
+      console.log(`update ${success}`)
+    }); 
 }
 
 
