@@ -2,7 +2,7 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const altcoin = require('node-altcoin')({
       passphrasecallback: function(command, args, callback) {
-        callback(null, '', 30);
+        callback(null, process.env.WALLET_PASSPHRASE, 30);
     }
 });
 
