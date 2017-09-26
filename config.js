@@ -7,7 +7,7 @@ var config = {
 	coin: {
 		name: "DeepOnion",
 		address: "DmkLHSA2nPrznFRhoyQ2hZEVwstK4kxtNz", // address for donation
-		info: "Todo"
+		info: "Todo",
 	site: {
 		name: "OnionFaucet.win"
 	}
