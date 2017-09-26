@@ -94,7 +94,7 @@ exports.checkClaimed = (req, res, next) => {
                 req.flash('error', {message : 'Internal error'})
                 res.redirect('/')       
             }
-            if(count > 0) {
+            if(pqs.length > 0) {
                 req.flash('error', {message : `You can claim coins only every ${config.payout.interval} hours per same IP or ${config.coin.name} address`})
                 res.redirect('/');
             } else {
