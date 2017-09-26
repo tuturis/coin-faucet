@@ -60,6 +60,7 @@ exports.validateAdress = (req, res, next) => {
 }
 exports.proxyFilter = (req, res, next) => {
     proxy_list.count({ip : req.ip}, (err, count) => {
+        console.log(`ip - ${req.ip}, ips - ${req.ips}`)
         if(err) {
             console.log(`error ${err}`)
             req.flash('error', {message : `ERROR ${err}`})
