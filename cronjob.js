@@ -77,41 +77,23 @@ function payToPq() {
         results.map((result) => {
           pqa[result.address] = result.amount  
         })
-        console.log(pqa)
-/*        
-        let sendparams = [];
-
-        sendparams.push("{");
-        let pl = pqa.length
-        for(i=0; i<pl; i++) {
-          if((i + 1 ) == (pl)) {
-            sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount}`)  
-          } else {
-            sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount},`)  
-          }
-        }
-        sendparams.push("}");
-        sp = sendparams.join("");
-
-*/        //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
-        //altcoin.exec('walletpassphrase', `${process.env.WALLET_PASSPHRASE} 120 false`, (err, cb) => {
 
         client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
           if(err) {
               console.log(`err unlock - ${err}`)
             }
           /*altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {*/
-          client.sendMany('faucet', pqa, 1, "Ilgas komentaras", (err, cb) => {
+          client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
             if(err) {
               console.log(`err sendmany - ${err}`)
             }
-            console.log(`'done '  ${cb}`)
+            console.log(`paid to   ${results.length}`)
           })
         })
       }
     }) 
     .setOptions({ multi: true })
-    .update({$set: {'claimed': false}});   
+    .update({$set: {'claimed': true}});   
 }
 payToPq()
 function getPf() {
