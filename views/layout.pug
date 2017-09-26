@@ -29,8 +29,6 @@ html
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
 
     title #{title} 
-    //- link(rel='shortcut icon', href='/favicon.png')
-    //- link(rel="stylesheet", href="http://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel='stylesheet', href='/css/main.css')
 
   body
@@ -38,14 +36,8 @@ html
       .row
         div.col.s12
           iframe(data-aa="671008", src="//acceptable.a-ads.com/671008", scrolling="no", style="border:0px; padding:0;overflow:hidden", allowtransparency="true")
-            
       block content
-      include partials/flash
 
-    //- include partials/footer
-
-    //- script(src='/js/lib/jquery-3.1.1.min.js')
-    //- script(src='/js/main.js')
     script(type="text/javascript", src="https://code.jquery.com/jquery-3.2.1.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
     script.
@@ -55,3 +47,4 @@ html
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-106566819-1', 'auto');
       ga('send', 'pageview');
+    include partials/flash
