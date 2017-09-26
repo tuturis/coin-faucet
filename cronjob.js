@@ -86,13 +86,17 @@ function payToPq() {
 
         console.log(sp)
         //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
-        altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {
+        altcoin.exec('walletpassphrase', [process.env.WALLET_PASSPHRASE, 2, false], (err, cb) => {
           if(err) {
-            console.log(`err sendmany - ${err}`)
-          }
-          console.log(cb)
-          
-        })
+              console.log(`err unlock - ${err}`)
+            }
+          altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {
+            if(err) {
+              console.log(`err sendmany - ${err}`)
+            }
+            console.log(cb)
+          })
+        }
       }
     }) 
     .setOptions({ multi: true })
