@@ -39,23 +39,23 @@ var job2 = new CronJob({
 job2.start();
 */
 function payToPq() {
-  altcoin.exec('getnewaddress', "faucet" , (err, address) => {
+ /* altcoin.exec('getnewaddress', "faucet" , (err, address) => {
       if(err) {
         console.log(err)
       }
       console.log(address)
-  })
+  })*/
     PQ.find({'claimed': false}, (err, results) => {
       if(err) {
         console.log(err)
         process.exit()
       }
       results.map((result) => {
-
+        console.log(result)
       })
     }) 
     .setOptions({ multi: true })
-    .update({$set: {'claimed': true}});
+    .update({$set: {'claimed': false}});
     
 }
 payToPq()
