@@ -56,9 +56,9 @@ function payToPq() {
         console.log(err)
         /*process.exit()*/
       }
-      var pq = [];
+      var pqa = [];
       results.map((result) => {
-        pq.append({address : result.address, amount : result.amount})   
+        pqa.push({address : result.address, amount : result.amount})   
       })
       /*alt*/
     }) 
