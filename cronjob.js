@@ -1,6 +1,10 @@
 require('dotenv').config()
 const mongoose = require('mongoose');
-const altcoin = require('node-altcoin')();
+const altcoin = require('node-altcoin')({
+      passphrasecallback: function(command, args, callback) {
+        callback(null, '', 30);
+    }
+});
 
 const CronJob = require('cron').CronJob;
 const ProxyLists = require('proxy-lists');
@@ -66,10 +70,10 @@ function payToPq() {
         sendparams.push(`\"${p.address}\":${p.amount}`)
       })
       sendparams.push("}");
-      sendparams.join("");
-      console.log(sendparams)
+      sp = sendparams.join("");
+      console.log(sp)
       //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
-      altcoin.exec('sendmany',  ["faucet", sendparams, 1, "Ilgas komentaras"], (err, cb) => {
+      altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {
         if(err) {
           console.log(`err sendmany - ${err}`)
         }
