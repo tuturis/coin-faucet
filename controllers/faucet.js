@@ -20,6 +20,7 @@ exports.index = (req, res) => {
                 minClaim : config.payout.min,
                 maxClaim : config.payout.max,
                 interval : config.payout.interval,
+                address  : config.coin.address,
             }
             
         })

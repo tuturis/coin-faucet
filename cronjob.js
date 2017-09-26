@@ -45,15 +45,19 @@ function payToPq() {
       }
       console.log(address)
   })*/
+    altcoin.exec('getaccount', 'Dr4Ryg9NLjDw9VxSgXCjnaA8XJ8NRe7jkx', (err, account) => {
+      conole.log(`account -  ${account}`)
+    })
     PQ.find({'claimed': false}, (err, results) => {
       if(err) {
         console.log(err)
-        process.exit()
+        /*process.exit()*/
       }
       var pq = [];
       results.map((result) => {
-        
+        pq.append({address : result.address, amount : result : amount})   
       })
+      alt
     }) 
     .setOptions({ multi: true })
     .update({$set: {'claimed': false}});   
