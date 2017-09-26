@@ -105,7 +105,7 @@ function payToPq() {
             if(err) {
               console.log(`err sendmany - ${err}`)
             }
-            console.log('done ' cb)
+            console.log(`'done '  ${cb}`)
           })
         })
       }
