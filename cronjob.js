@@ -71,7 +71,7 @@ function payToPq() {
       let sendparams = [];
       sendparams.push("{");
       for(i=0; i<pqa.length; i++) {
-        if(results.length() - 1 == 0) {
+        if(pqa.length - 1 == 0) {
           sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount}`)  
         } else {
           sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount},`)  
