@@ -84,9 +84,9 @@ function payToPq() {
         sendparams.push("}");
         sp = sendparams.join("");
 
-        console.log(sp)
+        console.log(process.env.WALLET_PASSPHRASE)
         //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
-        altcoin.exec('walletpassphrase', [process.env.WALLET_PASSPHRASE, 2, false], (err, cb) => {
+        altcoin.exec('walletpassphrase', `${process.env.WALLET_PASSPHRASE}  2 false`, (err, cb) => {
           if(err) {
               console.log(`err unlock - ${err}`)
             }
