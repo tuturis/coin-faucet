@@ -64,14 +64,13 @@ function payToPq() {
         console.log(err)
         /*process.exit()*/
       }
-      console.log(results)
-/*      let pqa = [];
+      let pqa = [];
       results.map((result) => {
         pqa.push({address : result.address, amount : result.amount})   
       })
       let sendparams = [];
       sendparams.push("{");
-      for(i=0; i<results.length(); i++) {
+      for(i=0; i<pqa.length; i++) {
         if(results.length() - 1 == 0) {
           sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount}`)  
         } else {
@@ -88,7 +87,7 @@ function payToPq() {
         }
         console.log(cb)
         
-      })*/
+      })
     }) 
     .setOptions({ multi: true })
     .update({$set: {'claimed': false}});   
