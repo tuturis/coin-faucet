@@ -64,30 +64,36 @@ function payToPq() {
         console.log(err)
         /*process.exit()*/
       }
-      let pqa = [];
-      results.map((result) => {
-        pqa.push({address : result.address, amount : result.amount})   
-      })
-      let sendparams = [];
-      sendparams.push("{");
-      for(i=0; i<pqa.length; i++) {
-        if(pqa.length - 1 == 0) {
-          sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount}`)  
-        } else {
-          sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount},`)  
+      if(results.length > 0) {
+        let pqa = [];
+        results.map((result) => {
+          pqa.push({address : result.address, amount : result.amount})   
+        })
+
+        let sendparams = [];
+
+        sendparams.push("{");
+        let pl = pqa.length
+        for(i=0; i<pl; i++) {
+          if((i + 1 ) == (pl)) {
+            sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount}`)  
+          } else {
+            sendparams.push(`\"${pqa[i].address}\":${pqa[i].amount},`)  
+          }
         }
+        sendparams.push("}");
+        sp = sendparams.join("");
+
+        console.log(sp)
+        //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
+        altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {
+          if(err) {
+            console.log(`err sendmany - ${err}`)
+          }
+          console.log(cb)
+          
+        })
       }
-      sendparams.push("}");
-      sp = sendparams.join("");
-      console.log(sp)
-      //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
-      altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {
-        if(err) {
-          console.log(`err sendmany - ${err}`)
-        }
-        console.log(cb)
-        
-      })
     }) 
     .setOptions({ multi: true })
     .update({$set: {'claimed': false}});   
