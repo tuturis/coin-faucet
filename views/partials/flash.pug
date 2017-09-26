@@ -13,8 +13,8 @@ if messages.success
     for success in messages.success
       = success.message
 
-//- if messages.errors || messages.info || messages.success
-//-   script. 
-//-     var $toastContent = $('.toast-content');
-//-     Materialize.toast($toastContent, 5000);  
-//-     console.log($toastContent)
+if messages.errors || messages.info || messages.success
+  script. 
+    var $toastContent = $('.toast-content');
+    Materialize.toast($toastContent, 5000);  
+    console.log($toastContent)
