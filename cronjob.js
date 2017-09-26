@@ -1,11 +1,19 @@
 require('dotenv').config()
 const mongoose = require('mongoose');
-const altcoin = require('node-altcoin')({
+/*const altcoin = require('node-altcoin')({
       passphrasecallback: function(command, args, callback) {
         console.log(` pass = ${process.env.WALLET_PASSPHRASE}`)
         callback(null, process.env.WALLET_PASSPHRASE, 120);
     }
 });
+*/
+const Client = require('bitcoin-core');
+const client = new Client({
+  username: process.env.rpcuser,
+  password: process.env.rpcpassword,
+  port: process.env.rpcport,
+  host: process.env.rpchost
+}});
 
 const CronJob = require('cron').CronJob;
 const ProxyLists = require('proxy-lists');
@@ -20,9 +28,9 @@ mongoose.connection.on('error', (err) => {
   console.error(err);
   process.exit();
 });
-altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
+/*altcoin.auth()
 altcoin.set('host', process.env.rpchost)
-altcoin.set({port:process.env.rpcport})
+altcoin.set({port:process.env.rpcport})*/
 /*
 var job = new CronJob({
   cronTime: '0 * * * *',
@@ -52,24 +60,25 @@ function payToPq() {
       add = address
       console.log(address)
     })*/
-
+/*
     altcoin.exec('getaccount', "DmkLHSA2nPrznFRhoyQ2hZEVwstK4kxtNz", (err, account) => {
       if(err) {
         console.log(`error getaccount - ${err}`)
       }
       console.log(`account - ${account}`)
-    })
+    })*/
     PQ.find({'claimed': false}, (err, results) => {
       if(err) {
         console.log(err)
         /*process.exit()*/
       }
       if(results.length > 0) {
-        let pqa = [];
+        let pqa = {};
         results.map((result) => {
-          pqa.push({address : result.address, amount : result.amount})   
+          pqa[result.address] = result.amount  
         })
-
+        console.log(pqa)
+/*        
         let sendparams = [];
 
         sendparams.push("{");
@@ -84,17 +93,19 @@ function payToPq() {
         sendparams.push("}");
         sp = sendparams.join("");
 
-        console.log(process.env.WALLET_PASSPHRASE)
-        //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
-        altcoin.exec('walletpassphrase', `${process.env.WALLET_PASSPHRASE}  2 false`, (err, cb) => {
+*/        //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
+        //altcoin.exec('walletpassphrase', `${process.env.WALLET_PASSPHRASE} 120 false`, (err, cb) => {
+
+        client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
           if(err) {
               console.log(`err unlock - ${err}`)
             }
-          altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {
+          /*altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {*/
+          client.sendMany('faucet', pqa, 1, "Ilgas komentaras", (err, cb) => {
             if(err) {
               console.log(`err sendmany - ${err}`)
             }
-            console.log(cb)
+            console.log('done ' cb)
           })
         })
       }
