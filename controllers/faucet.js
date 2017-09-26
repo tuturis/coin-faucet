@@ -28,7 +28,7 @@ exports.index = (req, res) => {
 exports.post = (req, res) => {
     let pq = new PaymentQ()
     let claim = getRandomArbitrary(config.payout.min, config.payout.max)
-    pq.address = req.address;
+    pq.address = req.body.address;
     pq.ip = req.ip;
     pq.amount = claim;
     pq.save((err) => {
