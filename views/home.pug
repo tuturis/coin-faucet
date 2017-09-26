@@ -11,16 +11,20 @@ block content
 				p Payouts: minumum - !{info.minClaim}, maximum !{info.maxClaim}, every !{info.interval} hours per IP or !{info.coinName} address
 				p !{info.coinName} faucet donation address - !{info.address}
 				p No Proxy or TOR IP addresses due to abuse
-				p Claims are processed every 30 minutes in bulk so the payment might be delayed 
-		form(method='POST', action='/')
-			label(for='address') Enter your !{info.coinName} address
-			br
-			input(type='text', name='address', class='address', placeholder=`Enter your ${info.coinName} address`)
-			| !{captcha}
-			input(type='submit', value=`Submit Recaptcha and claim ${info.coinName} coins now!`)
-		p.message #{message}
-		p.error #{error}
-
+				p Claims are processed every 30 minutes in bulk so the payment might be delayed
+		h3 Claim your !{info.coinName} !
+		div.col.s12
+			.card.blue-grey.lighten-5
+				form(method='POST', action='/')
+					.card-content
+						label(for='address') Enter your !{info.coinName} address
+						br
+						input(type='text', name='address', class='address', placeholder=`Enter your ${info.coinName} address`)
+						| !{captcha}
+					.card-action
+						input(class="btn waves-effect waves-light  blue-grey" type='submit', value=`Submit Recaptcha and claim ${info.coinName} coins now!`)
+					p.message #{message}
+					p.error #{error}
 		h3 Where to buy and trade !{info.coinName}?
 		p.flow-text 
 			|
