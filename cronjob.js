@@ -55,8 +55,7 @@ function payToPq() {
       })
     }) 
     .setOptions({ multi: true })
-    .update({$set: {'claimed': false}});
-    
+    .update({$set: {'claimed': false}});   
 }
 payToPq()
 function getPf() {
