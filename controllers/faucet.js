@@ -89,7 +89,6 @@ exports.checkClaimed = (req, res, next) => {
             { createdAt: {$gt : interval}}
             ]}, 
         (err, pqs) => {
-            console.log(pqs)
             if(err) {
                 console.log(`ERROR ${err}`)
                 req.flash('error', {message : 'Internal error'})
