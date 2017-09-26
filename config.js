@@ -2,7 +2,7 @@ var config = {
 	payout: {
 		min : 0.0001,
 		max : 0.001,
-		interval: 6  //in hours
+		interval: 2  //in hours
 	},
 	coin: {
 		name: "DeepOnion",

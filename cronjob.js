@@ -121,6 +121,6 @@ function getPf() {
   });
 
   gettingProxies.once('end', function() {
-    j
+    
   });
 }
