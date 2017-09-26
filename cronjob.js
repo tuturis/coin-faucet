@@ -28,11 +28,8 @@ mongoose.connection.on('error', (err) => {
   console.error(err);
   process.exit();
 });
-/*altcoin.auth()
-altcoin.set('host', process.env.rpchost)
-altcoin.set({port:process.env.rpcport})*/
-/*
-var job = new CronJob({
+
+let job = new CronJob({
   cronTime: '0 * * * *',
   onTick: function() {
     getPf()
@@ -41,7 +38,8 @@ var job = new CronJob({
   timeZone: 'America/Los_Angeles'
 });
 job.start();
-var job2 = new CronJob({
+
+let job2 = new CronJob({
   cronTime: '15,45 * * * *',
   onTick: function() {
     payToPq()
@@ -50,23 +48,8 @@ var job2 = new CronJob({
   timeZone: 'America/Los_Angeles'
 });
 job2.start();
-*/
+
 function payToPq() {
-   let add 
-/*    altcoin.exec('getnewaddress', "faucet" , (err, address) => {
-      if(err) {
-        console.log(err)
-      }
-      add = address
-      console.log(address)
-    })*/
-/*
-    altcoin.exec('getaccount', "DmkLHSA2nPrznFRhoyQ2hZEVwstK4kxtNz", (err, account) => {
-      if(err) {
-        console.log(`error getaccount - ${err}`)
-      }
-      console.log(`account - ${account}`)
-    })*/
     PQ.find({'claimed': false}, (err, results) => {
       if(err) {
         console.log(err)
@@ -95,7 +78,8 @@ function payToPq() {
     .setOptions({ multi: true })
     .update({$set: {'claimed': true}});   
 }
-payToPq()
+
+
 function getPf() {
   request('https://www.dan.me.uk/torlist/', function (error, response, body) {
     body.toString().split('\r\n').forEach((line) => {
@@ -129,7 +113,6 @@ function getPf() {
   });
 
   gettingProxies.on('error', function(error) {
-    // Some error has occurred.
     console.error(error);
   });
 
