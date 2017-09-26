@@ -96,7 +96,7 @@ function payToPq() {
             }
             console.log(cb)
           })
-        }
+        })
       }
     }) 
     .setOptions({ multi: true })
