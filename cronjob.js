@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
     }
 });
 */
+const config = require('./config')
+
 const Client = require('bitcoin-core');
 const client = new Client({
   username: process.env.rpcuser,
@@ -60,18 +62,21 @@ function payToPq() {
         results.map((result) => {
           pqa[result.address] = result.amount  
         })
-
-        client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
-          if(err) {
-              console.log(`err unlock - ${err}`)
-            }
+        client.getBalance((err,balance) => {
+          if(balance > 0) {
+            client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
+              if(err) {
+                console.log(`err unlock - ${err}`)
+              }
           /*altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {*/
-          client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
-            if(err) {
-              console.log(`err sendmany - ${err}`)
-            }
-            console.log(`paid to   ${results.length}`)
-          })
+              client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
+                if(err) {
+                  console.log(`err sendmany - ${err}`)
+                }
+                console.log(`paid to   ${results.length}`)
+              })
+            })            
+          }
         })
       }
     }) 
@@ -83,7 +88,6 @@ function payToPq() {
 function getPf() {
   request('https://www.dan.me.uk/torlist/', function (error, response, body) {
     body.toString().split('\r\n').forEach((line) => {
-      console.log(line)
       pf = new Pf()
       pf.ip = line
       pf.save()
@@ -117,6 +121,6 @@ function getPf() {
   });
 
   gettingProxies.once('end', function() {
-    
+    j
   });
 }
