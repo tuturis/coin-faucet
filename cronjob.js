@@ -56,11 +56,20 @@ function payToPq() {
         console.log(err)
         /*process.exit()*/
       }
-      var pqa = [];
+      let pqa = [];
       results.map((result) => {
         pqa.push({address : result.address, amount : result.amount})   
       })
-      altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":"0.01",\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":"0.01"}", 1, "Ilgas komentaras"], (err, cb) => {
+      let sendparams = ""
+      sendparams.push("{");
+      pqa.map(p=>{
+        sendparams.push(`\"${p.address}\":${p.amount}`)
+      })
+      sendparams.push("}");
+      sendparams.join("");
+      console.log(sendparams)
+      //altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
+      altcoin.exec('sendmany',  sendparams, 1, "Ilgas komentaras"], (err, cb) => {
         if(err) {
           console.log(`err sendmany - ${err}`)
         }
