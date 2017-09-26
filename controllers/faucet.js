@@ -82,12 +82,13 @@ exports.captchaCheck = (req, res, next) => {
 exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
-    PaymentQ.count(
+    PaymentQ.find(
         {$and: [
             { $and:[{ip : req.ip}, {address : req.body.address}]},
             { createdAt: {$gt : interval}}
             ]}, 
-        (err, count) => {
+        (err, pqs) => {
+            console.log(pqs)
             if(err) {
                 console.log(`ERROR ${err}`)
                 req.flash('error', {message : 'Internal error'})
