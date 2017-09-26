@@ -59,7 +59,7 @@ exports.validateAdress = (req, res, next) => {
     })
 }
 exports.proxyFilter = (req, res, next) => {
-    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    var ip = req.headers['X-Real-IP'] || req.connection.remoteAddress;
     proxy_list.count({ip : req.ip}, (err, count) => {
         console.log(`ip - ${req.ip}, ips - ${req.ips}, x-forwarded-for ${ip}`)
         if(err) {
