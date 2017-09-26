@@ -6,7 +6,7 @@ var config = {
 	},
 	coin: {
 		name: "DeepOnion",
-		address: "Dr4Ryg9NLjDw9VxSgXCjnaA8XJ8NRe7jkx" // address for donation
+		address: "DmkLHSA2nPrznFRhoyQ2hZEVwstK4kxtNz" // address for donation
 	}
 }
 module.exports = config

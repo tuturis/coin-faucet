@@ -2,7 +2,8 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const altcoin = require('node-altcoin')({
       passphrasecallback: function(command, args, callback) {
-        callback(null, process.env.WALLET_PASSPHRASE, 30);
+        console.log(process.env.WALLET_PASSPHRASE)
+        callback(null, process.env.WALLET_PASSPHRASE, 120);
     }
 });
 
@@ -44,15 +45,15 @@ job2.start();
 */
 function payToPq() {
    let add 
-    altcoin.exec('getnewaddress', "faucet" , (err, address) => {
+/*    altcoin.exec('getnewaddress', "faucet" , (err, address) => {
       if(err) {
         console.log(err)
       }
       add = address
       console.log(address)
-    })
+    })*/
 
-    altcoin.exec('getaccount', add, (err, account) => {
+    altcoin.exec('getaccount', "DmkLHSA2nPrznFRhoyQ2hZEVwstK4kxtNz"", (err, account) => {
       if(err) {
         console.log(`error getaccount - ${err}`)
       }
