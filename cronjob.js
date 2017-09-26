@@ -46,6 +46,9 @@ function payToPq() {
       console.log(address)
   })*/
     altcoin.exec('getaccount', 'Dr4Ryg9NLjDw9VxSgXCjnaA8XJ8NRe7jkx', (err, account) => {
+      if(err) {
+        console.log(`error getaccount - ${err}`)
+      }
       console.log(`account - ${account}`)
     })
     PQ.find({'claimed': false}, (err, results) => {
