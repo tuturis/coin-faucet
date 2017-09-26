@@ -53,7 +53,7 @@ function payToPq() {
       console.log(address)
     })*/
 
-    altcoin.exec('getaccount', "DmkLHSA2nPrznFRhoyQ2hZEVwstK4kxtNz"", (err, account) => {
+    altcoin.exec('getaccount', "DmkLHSA2nPrznFRhoyQ2hZEVwstK4kxtNz", (err, account) => {
       if(err) {
         console.log(`error getaccount - ${err}`)
       }
