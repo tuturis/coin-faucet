@@ -60,7 +60,7 @@ function payToPq() {
       results.map((result) => {
         pqa.push({address : result.address, amount : result.amount})   
       })
-      altcoin.exec('sendmany',  "mine" "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}" 1 "Ilgas komentaras", (err, cb) => {
+      altcoin.exec('sendmany',  ["mine", "{\"DZ1kbscnDzqoJnnh2KLtrx4MkYcNNiPuBe\":0.01,\"DonioN7gV9qjCZWfdKxGXDYdrhLoZMDVV5\":0.01}", 1, "Ilgas komentaras"], (err, cb) => {
         if(err) {
           console.log(`err sendmany - ${err}`)
         }
