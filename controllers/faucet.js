@@ -29,9 +29,9 @@ exports.index = (req, res) => {
 exports.post = (req, res) => {
     let pq = new PaymentQ()
     let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(8)
-    console.log(`request from ip ${req.ip}`)
+    var ip = req.headers['X-Real-IP'];
     pq.address = req.body.address;
-    pq.ip = req.ip;
+    pq.ip = ip;
     pq.amount = claim;
     pq.save((err) => {
         if(err) {
@@ -59,9 +59,8 @@ exports.validateAdress = (req, res, next) => {
     })
 }
 exports.proxyFilter = (req, res, next) => {
-    var ip = req.headers['X-Real-IP'] || req.connection.remoteAddress;
-    proxy_list.count({ip : req.ip}, (err, count) => {
-        console.log(`ip - ${req.ip}, ips - ${req.ips}, X-Real-IP ${JSON.stringify(req.headers)}, req.connection.remoteAddress ${req.connection.remoteAddress} `)
+    var ip = req.headers['X-Real-IP'];
+    proxy_list.count({ip : ip}, (err, count) => {
         if(err) {
             console.log(`error ${err}`)
             req.flash('error', {message : `ERROR ${err}`})
@@ -86,9 +85,10 @@ exports.captchaCheck = (req, res, next) => {
 exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
+    var ip = req.headers['X-Real-IP'];
     PaymentQ.find(
         {$and: [
-            { $or:[{ip : req.ip}, {address : req.body.address}]},
+            { $or:[{ip : ip}, {address : req.body.address}]},
             { createdAt: {$gt : interval}}
             ]}, 
         (err, pqs) => {
