@@ -32,7 +32,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 let job = new CronJob({
-  cronTime: '0 * * * *',
+  cronTime: '0 6,18 * * *',
   onTick: function() {
     getPf()
   },
@@ -42,7 +42,7 @@ let job = new CronJob({
 job.start();
 
 let job2 = new CronJob({
-  cronTime: '0 6,12 * * *',
+  cronTime: '15,45 * * * *',
   onTick: function() {
     payToPq()
   },
