@@ -29,7 +29,7 @@ exports.index = (req, res) => {
 exports.post = (req, res) => {
     let pq = new PaymentQ()
     let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(8)
-    let ip = req.headers['X-Real-IP'];
+    let ip = req.headers['x-real-ip'];
 
     console.log(` 3 ip request headers - ${ip}, req.ip - ${req.ip}`)
 
@@ -67,8 +67,8 @@ exports.validateAdress = (req, res, next) => {
     })
 }
 exports.proxyFilter = (req, res, next) => {
-    let ip = req.headers['X-Real-IP'];
-    console.log(` 2 req.headers['X-Real-IP'] ${req.headers['X-Real-IP']}`)
+    let ip = req.headers['x-real-ip'];
+    console.log(` 2 req.headers['x-real-ip'] ${req.headers['x-real-ip']}`)
     console.log(` 2 req.headers['x-Real-ip'] (lowercase) ${req.headers['x-real-ip']}`)
     console.log(` 2 req.headers[ X-Forwarded-For'] ${req.headers[' X-Forwarded-For']}`)
     console.log(` 2 ip request headers - ${ip}, req.ip - ${req.ips} `)
@@ -97,7 +97,7 @@ exports.captchaCheck = (req, res, next) => {
 exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
-    let ip = req.headers['X-Real-IP'];
+    let ip = req.headers['x-real-ip'];
 
     console.log(` 1 ip request headers - ${ip}, req.ip - ${req.ip}`)
     PaymentQ.find(
