@@ -68,6 +68,9 @@ exports.validateAdress = (req, res, next) => {
 }
 exports.proxyFilter = (req, res, next) => {
     let ip = req.headers['X-Real-IP'];
+    console.log(`req.headers['X-Real-IP'] ${req.headers['X-Real-IP']}`)
+    console.log(`req.headers[ X-Forwarded-For'] ${req.headers[' X-Forwarded-For']}`)
+    console.log(`ip request headers - ${ip}, req.ip - ${req.ips} `)
     proxy_list.count({ip : ip}, (err, count) => {
         if(err) {
             console.log(`error ${err}`)
@@ -94,6 +97,8 @@ exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
     let ip = req.headers['X-Real-IP'];
+
+    console.log(`ip request headers - ${ip}, req.ip - ${req.ip}`)
     PaymentQ.find(
         {$and: [
             { $or:[{ip : ip}, {address : req.body.address}]},
