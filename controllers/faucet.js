@@ -69,6 +69,7 @@ exports.validateAdress = (req, res, next) => {
 exports.proxyFilter = (req, res, next) => {
     let ip = req.headers['X-Real-IP'];
     console.log(` 2 req.headers['X-Real-IP'] ${req.headers['X-Real-IP']}`)
+    console.log(` 2 req.headers['x-Real-ip'] (lowercase) ${req.headers['x-real-ip']}`)
     console.log(` 2 req.headers[ X-Forwarded-For'] ${req.headers[' X-Forwarded-For']}`)
     console.log(` 2 ip request headers - ${ip}, req.ip - ${req.ips} `)
     proxy_list.count({ip : ip}, (err, count) => {
