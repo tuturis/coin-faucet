@@ -30,17 +30,23 @@ exports.post = (req, res) => {
     let pq = new PaymentQ()
     let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(8)
     var ip = req.headers['X-Real-IP'];
-    pq.address = req.body.address;
-    pq.ip = ip;
-    pq.amount = claim;
-    pq.save((err) => {
-        if(err) {
-            req.flash('error', {message : 'Internal error'})
-            res.redirect('/');
-        }
-            req.flash('success', {message : `Your claim of ${claim} ${config.coin.name} is under way!`})
-            res.redirect('/');      
-    });
+    console.log(ip)
+    if(ip) {
+        pq.address = req.body.address;
+        pq.ip = ip;
+        pq.amount = claim;
+        pq.save((err) => {
+            if(err) {
+                req.flash('error', {message : 'Internal error'})
+                res.redirect('/');
+            }
+                req.flash('success', {message : `Your claim of ${claim} ${config.coin.name} is under way!`})
+                res.redirect('/');      
+        });
+    } else {
+        req.flash('error', {message : 'Something went wrong...'})
+        res.redirect('/');
+    }
 } 
 
 exports.validateAdress = (req, res, next) => {
