@@ -42,7 +42,7 @@ let job = new CronJob({
 job.start();
 
 let job2 = new CronJob({
-  cronTime: '15,45 * * * *',
+  cronTime: '0 6,12 * * *',
   onTick: function() {
     payToPq()
   },
@@ -83,7 +83,7 @@ function payToPq() {
     .setOptions({ multi: true })
     .update({$set: {'claimed': true}}, (err, success) => {
       if(err) {console.log(`${err} when updating`)};
-      console.log(`update ${success}`)
+      console.log(`update ${JSON.stringify(success)}`)
     }); 
 }
 
