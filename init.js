@@ -7,7 +7,7 @@ const client = new Client({
   port: process.env.rpcport,
   host: process.env.rpchost
 });
-client.command({ method: 'getnewaddress', parameters: ['faucet'] }).then((res) => {
+client.command([{ method: 'getnewaddress', parameters: ['faucet'] }]).then((res) => {
 	console.log(res)
 })
 client.getBalance((err, balance)=> {
