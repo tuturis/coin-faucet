@@ -12,5 +12,9 @@ var config = {
 	site: {
 		name: "OnionFaucet.win"
 	}
+	ads: {
+		aads: "",
+		coinurl: ""
+	}
 }
 module.exports = config
