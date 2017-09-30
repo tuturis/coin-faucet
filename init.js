@@ -11,5 +11,6 @@ client.command({ method: 'getnewaddress', parameters: ['faucet'] }).then((res) =
 	console.log(res)
 })
 client.getBalance((err, balance)=> {
+	console.log(`err ${err}`)
 	console.log(`balance ${balance}`)
 })
