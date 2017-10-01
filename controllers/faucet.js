@@ -21,7 +21,10 @@ exports.index = (req, res) => {
                 maxClaim : config.payout.max,
                 interval : config.payout.interval,
                 address  : config.coin.address,
-                coinInfo : config.coin.info
+                coinInfo : config.coin.info,
+                aads     : config.ads.aads,
+                coinurl  : config.ads.coinurl,
+                ganalytics : config.analytics.google
             }
         })
     })
