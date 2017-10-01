@@ -93,10 +93,10 @@ exports.captchaCheck = (req, res, next) => {
 }
 exports.addressBalance = (req, res, next) => {
     PaymentQ.aggregate([
-    { '$match' : {'address' : req.body.address},
+    { '$match' : {'address' : req.body.address}},
     { '$group': {  
         '_id': { 'address': '$address' }
-        'balance': { '$sum': '$amount' }}}
+        'balance': { '$sum': '$amount' }}
     }],
     (err, result) => {
         console.log(err)
