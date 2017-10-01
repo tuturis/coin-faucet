@@ -41,10 +41,10 @@ exports.post = (req, res) => {
         pq.amount = claim;
         pq.save((err) => {
             if(err) {
-                req.flash('error', {message : 'Internal error'})
+                req.flash('error', 'Internal error')
                 res.redirect('/');
             }
-                req.flash('success', {message : `Your claim of ${claim} ${config.coin.name} is under way!`})
+                req.flash('success',`Your claim of ${claim} ${config.coin.name} is under way!`)
                 res.redirect('/');      
         });
     } else {
@@ -57,13 +57,13 @@ exports.validateAdress = (req, res, next) => {
     altcoin.exec('validateaddress', req.body.address, (err, info) => {
         if(err) {
             console.log(`ERR ${JSON.stringify(err)}`);
-            req.flash('error', {message : 'Internal error'})
+            req.flash('error', 'Internal error')
             res.redirect('/')                
         }
         if(info.isvalid == true) {
             next();
         } else {
-            req.flash('error', {message : `Invalid ${config.coin.name} address`})
+            req.flash('error', `Invalid ${config.coin.name} address`)
             res.redirect('/')                   
         }
     })
@@ -73,11 +73,11 @@ exports.proxyFilter = (req, res, next) => {
     proxy_list.count({ip : ip}, (err, count) => {
         if(err) {
             console.log(`error ${err}`)
-            req.flash('error', {message : `ERROR ${err}`})
+            req.flash('error', `ERROR ${err}`)
             res.redirect('/');
         }
         if(count > 0) {
-            req.flash('error', {message : 'Requests from TOR or Proxy services is not allowed due to abuse'})
+            req.flash('error','Requests from TOR or Proxy services is not allowed due to abuse')
             res.redirect('/');
         } else {
             next();
@@ -88,7 +88,7 @@ exports.captchaCheck = (req, res, next) => {
     if (!req.recaptcha.error) {
         next()
     } else {
-        req.flash('error', {message : 'invalid reCaptcha, try again'})
+        req.flash('error', 'invalid reCaptcha, try again')
         res.redirect('/')
     }
 }
@@ -143,11 +143,11 @@ exports.checkClaimed = (req, res, next) => {
         (err, pqs) => {
             if(err) {
                 console.log(`ERROR ${err}`)
-                req.flash('error', {message : 'Internal error'})
+                req.flash('error', 'Internal error')
                 res.redirect('/')       
             }
             if(pqs.length > 0) {
-                req.flash('error', {message : `You can claim coins only every ${config.payout.interval} hours per same IP or ${config.coin.name} address`})
+                req.flash('error', `You can claim coins only every ${config.payout.interval} hours per same IP or ${config.coin.name} address`)
                 res.redirect('/');
             } else {
                 next()
