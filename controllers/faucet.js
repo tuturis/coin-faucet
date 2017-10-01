@@ -105,7 +105,7 @@ exports.addressBalance = (req, res, next) => {
         }
     }],
     (err, result) => {
-        req.addressBalance = result
+        req.flash('ainfo', {message : `Your address claimed total of ${result}`})
         next()
     })
 }
