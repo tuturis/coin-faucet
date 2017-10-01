@@ -54,8 +54,8 @@ PQ.aggregate({
       results.map((result) => {
           pqa[result.address] = result.amount  
       })
-      console.log(`aggregate results - ${results}`)
-      console.log(`payment q aggregate - ${pqa}`)
+      console.log(`aggregate results - ${JSON.stringify(results)}`)
+      console.log(`payment q aggregate - ${JSON.stringify(pqa)}`)
   }
 }) 
 /*.setOptions({ multi: true })
