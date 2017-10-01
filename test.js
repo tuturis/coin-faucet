@@ -40,26 +40,26 @@ PQ.aggregate({
     'amount': 
       {'$sum': 
         {'$cond' : [ 
-          { "$eq": [ "$claimed", true ] }, "$amount", 0 
+          { "$eq": [ "$claimed", false ] }, "$amount", 0 
           ]}
       }
     }
   }*/
   (err, results) => {
-  if(err) {
-    console.log(err)
-  }
-  if(results.length > 0) {
-    let pqa = {};
-    results.map((result) => {
-        pqa[result.address] = result.amount  
-    })
-    console.log(`aggregate results - ${results}`)
-    console.log(`payment q aggregate - ${pqa}`)
+    if(err) {
+      console.log(err)
+    }
+    if(results.length > 0) {
+      let pqa = {};
+      results.map((result) => {
+          pqa[result.address] = result.amount  
+      })
+      console.log(`aggregate results - ${results}`)
+      console.log(`payment q aggregate - ${pqa}`)
   }
 }) 
-.setOptions({ multi: true })
+/*.setOptions({ multi: true })
 .update({$set: {'claimed': true}}, (err, success) => {
   if(err) {console.log(err)};
   console.log(`up ${success}`)
-}); 
+}); */
