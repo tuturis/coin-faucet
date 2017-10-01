@@ -30,7 +30,10 @@ block content
 		if messages.ainfo
 			div.col.s12
 				div.card-panel.blue-grey.lighten-5
-					p !{messages.ainfo}
+					p
+						for info in messages.info
+      						= info.message
+					
 		h3 Where to buy and trade !{info.coinName}?
 		div.col.s12
 			div.card-panel.blue-grey.lighten-5
