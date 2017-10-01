@@ -43,8 +43,8 @@ PQ.aggregate({
           { "$eq": [ "$claimed", true ] }, "$amount", 0 
           ]}
       }
-    },*/
-  }
+    }
+  }*/
   (err, results) => {
   if(err) {
     console.log(err)
