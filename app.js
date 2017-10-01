@@ -57,7 +57,8 @@ app.post('/',
 	recaptcha.middleware.verify,
 	faucetController.captchaCheck,
 	faucetController.validateAdress,
-	faucetController.proxyFilter, 
+	faucetController.proxyFilter,
+	faucetController.addressBalance, 
 	faucetController.checkClaimed, 
 	faucetController.post);
 

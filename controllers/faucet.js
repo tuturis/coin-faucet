@@ -91,6 +91,18 @@ exports.captchaCheck = (req, res, next) => {
         res.redirect('/')
     }
 }
+exports.addressBalance = (req, res, next) => {
+    PaymentQ.aggregate([
+    { '$match' : {'address' : req.body.address},
+    { '$group': {  
+        '_id': { 'address': '$address' }
+        'balance': { '$sum': '$amount' }}}
+    }],
+    (err, result) => {
+        console.log(err)
+        console.log(result)
+    })
+}
 exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
