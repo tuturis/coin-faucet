@@ -98,9 +98,10 @@ exports.addressBalance = (req, res, next) => {
         'address' : req.body.address
         }
     },
-    { '$group': {  
-        'account': { "address": "$address"},
-        'balance': { '$sum': '$amount' }
+    { '$group': {
+        '_id'    : null,  
+        'balance': { '$sum': '$amount' },
+        'count' : {'$sum': 1}
         }
     }],
     (err, result) => {
