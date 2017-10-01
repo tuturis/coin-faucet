@@ -36,8 +36,8 @@ PQ.aggregate({
     {'claimed': false}
   }, {
   '$group': {
-    '_id': null,
-    'amount': 
+    _id: null,
+    amount: 
       {'$gte' : [ 
         {'$sum': '$amount'}, config.payout.threshold
       ]}
