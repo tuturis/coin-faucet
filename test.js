@@ -42,12 +42,8 @@ PQ.aggregate({
         {'$cond' : [ 
           { "$eq": [ "$claimed", true ] }, "$amount", 0 
           ]}
-      }*/
-/*      {'$gte' : [ 
-        {'$sum': '$amount'}, config.payout.threshold
-      ]}*/
-    },
-
+      }
+    },*/
   }
   (err, results) => {
   if(err) {
