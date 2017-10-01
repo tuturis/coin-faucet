@@ -33,18 +33,19 @@ mongoose.connection.on('error', (err) => {
 
 PQ.aggregate({
   '$match' :
-    {'claimed': false}
-  }, /*{
+    {'claimed': true}
+  }, {
   '$group': {
-    '_id': {'address':'$address'},
-    'amount': 
-      {'$sum': 
+    '_id': null,
+    'amount': {'$sum': '$amount'} 
+    'count': {'$sum': 1} 
+      /*{'$sum': 
         {'$cond' : [ 
           { "$eq": [ "$claimed", false ] }, "$amount", 0 
           ]}
-      }
+      }*/
     }
-  }*/
+  }
   (err, results) => {
     if(err) {
       console.log(err)
@@ -52,9 +53,12 @@ PQ.aggregate({
     if(results.length > 0) {
       let pqa = {};
       results.map((result) => {
-          pqa[result.address] = result.amount  
+          pqa[result.address] = {
+            amount : result.amount,
+            /*count  : result.count,*/
+          } 
       })
-      console.log(`aggregate results - ${JSON.stringify(results)}`)
+      //console.log(`aggregate results - ${JSON.stringify(results)}`)
       console.log(`payment q aggregate - ${JSON.stringify(pqa)}`)
   }
 }) 
