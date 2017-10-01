@@ -31,12 +31,17 @@ mongoose.connection.on('error', (err) => {
   process.exit();
 });
 
-PQ.aggregate({'$match' :
+PQ.aggregate({
+  '$match' :
     {'claimed': false}
-  }, {'$group' : {
-    'address': '$address',
-    'sum': '$amount'
-  }}
+  }, {
+  '$group' : {
+    '_id': '$address',
+    'amount': {'$gte' : [ 
+      {'$sum': '$amount'}, config.payout.threshold
+      ]}
+    }
+  }
   (err, results) => {
   if(err) {
     console.log(err)
