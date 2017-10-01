@@ -34,18 +34,18 @@ mongoose.connection.on('error', (err) => {
 PQ.aggregate([
   { '$match' :
     {'claimed': true}
-  }/*, 
+  }, 
   { '$group': {
-      '_id': null,
-      'amount': {'$sum': '$amount'},
+      '_id': "$address",
+/*      'amount': {'$sum': '$amount'},
       'count': {'$sum': 1} 
       {'$sum': 
         {'$cond' : [ 
           { "$eq": [ "$claimed", false ] }, "$amount", 0 
           ]}
-      }
+      }*/
     }
-  }*/],
+  }],
   (err, results) => {
     if(err) {
       console.log(err)
