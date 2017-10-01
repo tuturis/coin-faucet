@@ -39,11 +39,6 @@ PQ.aggregate([
       '_id': "$address",
       'amount': {'$sum': '$amount'},
       'count': {'$sum': 1}, 
-      /*{'$sum': 
-        {'$cond' : [ 
-          { "$eq": [ "$claimed", false ] }, "$amount", 0 
-          ]}
-      }*/
     }
   }],
   (err, results) => {
@@ -53,10 +48,9 @@ PQ.aggregate([
     if(results.length > 0) {
       let pqa = {};
       results.map((result) => {
-          pqa[result.address] = {
-            amount : result.amount,
-            /*count  : result.count,*/
-          } 
+        if (result.amount >= config.payout.treshold) {
+          pqa[result._id] = result.amount
+        }
       })
       console.log(`aggregate results - ${JSON.stringify(results)}`)
       console.log(`payment q aggregate - ${JSON.stringify(pqa)}`)
