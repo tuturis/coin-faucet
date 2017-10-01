@@ -105,7 +105,9 @@ exports.addressBalance = (req, res, next) => {
         }
     }],
     (err, result) => {
+        if(result.length > 0) {
         req.flash('ainfo', {message : `Your address (${req.body.address}) claimed total of ${result[0].balance}, ${result[0].count} times`})
+        }
         next()
     })
 }
@@ -122,12 +124,10 @@ exports.unpaidBalance = (req, res, next) => {
         }
     }],
     (err, result) => {
-        if(length > 0) {
+        if(result.length > 0) {
             req.flash('ainfo', {message : `Unpaid balance is ${result[0].balance}`})
-            next()
-        } else {
-            next()
-        }
+         }
+        next()
     })   
 }
 exports.checkClaimed = (req, res, next) => {
