@@ -37,9 +37,9 @@ PQ.aggregate([
   }, 
   { '$group': {
       '_id': "$address",
-/*      'amount': {'$sum': '$amount'},
-      'count': {'$sum': 1} 
-      {'$sum': 
+      'amount': {'$sum': '$amount'},
+      'count': {'$sum': 1}, 
+      /*{'$sum': 
         {'$cond' : [ 
           { "$eq": [ "$claimed", false ] }, "$amount", 0 
           ]}
