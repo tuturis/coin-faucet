@@ -105,9 +105,30 @@ exports.addressBalance = (req, res, next) => {
         }
     }],
     (err, result) => {
-        req.flash('ainfo', {message : `Your address claimed total of ${result[0].balance}, ${result[0].count} times`})
+        req.flash('ainfo', {message : `Your address (${req.body.address}) claimed total of ${result[0].balance}, ${result[0].count} times`})
         next()
     })
+}
+exports.unpaidBalance = (req, res, next) => {
+ PaymentQ.aggregate([
+    { '$match' : {
+        'address' : req.body.address,
+        'claimed' : false
+        }
+    },
+    { '$group': {
+        '_id'    : null,  
+        'balance': { '$sum': '$amount' },
+        }
+    }],
+    (err, result) => {
+        if(length > 0) {
+            req.flash('ainfo', {message : `Unpaid balance is ${result[0].balance}`})
+            next()
+        } else {
+            next()
+        }
+    })   
 }
 exports.checkClaimed = (req, res, next) => {
     let now = new Date();
