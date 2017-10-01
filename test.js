@@ -58,7 +58,7 @@ PQ.aggregate([
             /*count  : result.count,*/
           } 
       })
-      //console.log(`aggregate results - ${JSON.stringify(results)}`)
+      console.log(`aggregate results - ${JSON.stringify(results)}`)
       console.log(`payment q aggregate - ${JSON.stringify(pqa)}`)
   }
 }) 
