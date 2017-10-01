@@ -125,7 +125,9 @@ exports.unpaidBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            req.flash('ainfo', `Unpaid balance is ${result[0].balance}`)
+            req.flash('ainfo', `Unpaid amount is ${result[0].balance}`)
+         } else {
+            req.flash('ainfo', `All claims to your address were paid!`)
          }
         next()
     })   
