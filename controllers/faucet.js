@@ -15,7 +15,7 @@ exports.index = (req, res) => {
             title: 'Home',
             captcha: req.recaptcha,
             balance: balance,
-            addressBalance : req.addressBalance
+            addressBalance : req.addressBalance,
             info : {
                 coinName : config.coin.name,
                 minClaim : config.payout.min,
