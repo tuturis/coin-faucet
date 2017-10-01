@@ -37,7 +37,7 @@ PQ.aggregate({
   }, {
   '$group': {
     '_id': null,
-    'amount': {'$sum': '$amount'} 
+    'amount': {'$sum': '$amount'},
     'count': {'$sum': 1} 
       /*{'$sum': 
         {'$cond' : [ 
