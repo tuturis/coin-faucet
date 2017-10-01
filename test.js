@@ -39,9 +39,9 @@ PQ.aggregate(/*{
     '_id': '$address',
     'amount': 
       {'$sum': 
-        '$cond' : [ 
+        {'$cond' : [ 
           { "$eq": [ "$claimed", true ] }, "$amount", 0 
-          ]
+          ]}
       }
 /*      {'$gte' : [ 
         {'$sum': '$amount'}, config.payout.threshold
