@@ -6,7 +6,7 @@ block content
 			h2 !{info.coinName} faucet
 		h3 Faucet information
 		div(style="display:inline-flex").col.s12
-			iframe(scrolling="no", style="margin:0 auto; border: 0; width: 728px; height: 90px;", src=`//coinurl.com/get.php?id=${coinurl}&SSL=1`)
+			iframe(scrolling="no", style="margin:0 auto; border: 0; width: 728px; height: 90px;", src=`//coinurl.com/get.php?id=${info.coinurl}&SSL=1`)
 		div.col.s12
 			div.card-panel.blue-grey.lighten-5
 				p Faucet balance !{balance}
