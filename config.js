@@ -3,6 +3,7 @@ var config = {
 		min : 0.0001,
 		max : 0.001,
 		interval: 2  //in hours
+		treshold: 0.01
 	},
 	coin: {
 		name: "DeepOnion",
@@ -15,6 +16,6 @@ var config = {
 	ads: {
 		aads: "",
 		coinurl: ""
-	}
+	},
 }
 module.exports = config
