@@ -2,8 +2,8 @@
 Faucet written in express mongo 
 
 # TODO LIST
-1. implement databse (mysql / mongodb?)
-2. add ssl?
-4. build frontend
-5. add ads
+1. build frontend
+2. Add donators 
+3. Add referals
+4. Add link to exchange
 

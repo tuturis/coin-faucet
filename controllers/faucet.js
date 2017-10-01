@@ -15,6 +15,7 @@ exports.index = (req, res) => {
             title: 'Home',
             captcha: req.recaptcha,
             balance: balance,
+            addressBalance : req.addressBalance
             info : {
                 coinName : config.coin.name,
                 minClaim : config.payout.min,
@@ -93,14 +94,18 @@ exports.captchaCheck = (req, res, next) => {
 }
 exports.addressBalance = (req, res, next) => {
     PaymentQ.aggregate([
-    { '$match' : {'address' : req.body.address}},
+    { '$match' : {
+        'address' : req.body.address
+        }
+    },
     { '$group': {  
-        '_id': { 'address': '$address' },
-        'balance': { '$sum': '$amount' }}
+        'address': '$address',
+        'balance': { '$sum': '$amount' }
+        }
     }],
     (err, result) => {
-        console.log(err)
-        console.log(result)
+        req.addressBalance = result
+        next()
     })
 }
 exports.checkClaimed = (req, res, next) => {
