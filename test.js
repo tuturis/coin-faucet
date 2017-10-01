@@ -36,7 +36,7 @@ PQ.aggregate(/*{
     {'claimed': false}
   },*/ {
   '$group': {
-    '_id': null,
+    '_id': {'$address'},
     'amount': 
       {'$sum': 
         {'$cond' : [ 
