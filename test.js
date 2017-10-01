@@ -33,12 +33,13 @@ mongoose.connection.on('error', (err) => {
 
 PQ.aggregate([
   { '$match' :
-    {'claimed': false}
+    {'claimed': true}
   }, 
   { '$group': {
       '_id': "$address",
       'amount': {'$sum': '$amount'},
       'count': {'$sum': 1}, 
+      'ids' : {'$push' : {'id' :'$_id'}}
     }
   }],
   (err, results) => {
@@ -61,3 +62,21 @@ PQ.aggregate([
   if(err) {console.log(err)};
   console.log(`up ${success}`)
 }); */
+
+function sendMany(pqa) {
+  client.getBalance((err,balance) => {
+    if(balance > 0) {
+      client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
+        if(err) {
+          console.log(`err unlock - ${err}`)
+        }
+        client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
+          if(err) {
+            console.log(`err sendmany - ${err}`)
+          }
+          console.log(`paid to   ${results.length}`)
+        })
+      })            
+    }
+  })
+}

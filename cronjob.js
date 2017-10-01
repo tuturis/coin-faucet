@@ -62,22 +62,7 @@ function payToPq() {
         results.map((result) => {
           pqa[result.address] = result.amount  
         })
-        client.getBalance((err,balance) => {
-          if(balance > 0) {
-            client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
-              if(err) {
-                console.log(`err unlock - ${err}`)
-              }
-          /*altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {*/
-              client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
-                if(err) {
-                  console.log(`err sendmany - ${err}`)
-                }
-                console.log(`paid to   ${results.length}`)
-              })
-            })            
-          }
-        })
+        sendMany(pqa)
       }
     }) 
     .setOptions({ multi: true })
@@ -126,4 +111,22 @@ function getPf() {
   gettingProxies.once('end', function() {
     
   });
+}
+
+function sendMany(pqa) {
+  client.getBalance((err,balance) => {
+    if(balance > 0) {
+      client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
+        if(err) {
+          console.log(`err unlock - ${err}`)
+        }
+        client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
+          if(err) {
+            console.log(`err sendmany - ${err}`)
+          }
+          console.log(`paid to   ${results.length}`)
+        })
+      })            
+    }
+  })
 }
