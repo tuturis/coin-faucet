@@ -95,7 +95,7 @@ exports.addressBalance = (req, res, next) => {
     PaymentQ.aggregate([
     { '$match' : {'address' : req.body.address}},
     { '$group': {  
-        '_id': { 'address': '$address' }
+        '_id': { 'address': '$address' },
         'balance': { '$sum': '$amount' }}
     }],
     (err, result) => {
