@@ -53,8 +53,8 @@ PQ.aggregate([
           pqa[result._id] = result.amount
         }
       })
-      console.log(`aggregate results - ${JSON.stringify(results)}`)
-      console.log(`payment q aggregate - ${JSON.stringify(pqa)}`)
+      console.log(`aggregate results - ${JSON.stringify(results, null, '\t')}`)
+      console.log(`payment q aggregate - ${JSON.stringify(pqa, null, '\t')}`)
   }
 }) 
 /*.setOptions({ multi: true })
