@@ -124,7 +124,6 @@ exports.unpaidBalance = (req, res, next) => {
         }
     }],
     (err, result) => {
-        console.log(result)
         if(result.length > 0) {
             req.flash('ainfo', `Unpaid balance is ${result[0].balance}`)
          }
