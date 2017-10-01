@@ -99,7 +99,7 @@ exports.addressBalance = (req, res, next) => {
         }
     },
     { '$group': {  
-        'address': { "address": "$address",
+        'address': { "address": "$address"},
         'balance': { '$sum': '$amount' }
         }
     }],
