@@ -35,10 +35,11 @@ PQ.aggregate({
   '$match' :
     {'claimed': false}
   }, {
-  '$group' : {
-    '_id': '$address',
-    'amount': {'$gte' : [ 
-      {'$sum': '$amount'}, config.payout.threshold
+  '$group': {
+    '_id': null,
+    'amount': 
+      {'$gte' : [ 
+        {'$sum': '$amount'}, config.payout.threshold
       ]}
     }
   }
