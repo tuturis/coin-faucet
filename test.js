@@ -53,14 +53,14 @@ PQ.aggregate([
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
           result.ids.map((id) => {
-              idsToUpdate.push(id)
-            })
-          }
+            idsToUpdate.push(id)
+          })
         }
       })
-      console.log(`aggregate results - ${JSON.stringify(results, null, '\t')}`)
-      console.log(`payment q aggregate - ${JSON.stringify(pqa, null, '\t')}`)
-      console.log(`ids to update - ${JSON.stringify(idsToUpdate, null, '\t')}`)
+    }
+    console.log(`aggregate results - ${JSON.stringify(results, null, '\t')}`)
+    console.log(`payment q aggregate - ${JSON.stringify(pqa, null, '\t')}`)
+    console.log(`ids to update - ${JSON.stringify(idsToUpdate, null, '\t')}`)
   }
 }) 
 /*.setOptions({ multi: true })
