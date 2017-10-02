@@ -57,17 +57,19 @@ PQ.aggregate([
           })
         }
       })
-      console.log(`payment q aggregate - ${JSON.stringify(pqa, null, '\t')}`)
-      console.log(`ids to update - ${JSON.stringify(idsToUpdate, null, '\t')}`)
+      PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
+        if(err) {console.log(`${err} when updating`)};
+        console.log(`update ${JSON.stringify(success)}`)
+      })
+      .setOptions({ multi: true })
+      .update({$set: {'claimed': true}}, (err, success) => {
+        if(err) {console.log(err)};
+        console.log(`up ${success}`)
+      });
     }
-    console.log(`aggregate results - ${JSON.stringify(results, null, '\t')}`)
   }
 ) 
-/*.setOptions({ multi: true })
-.update({$set: {'claimed': true}}, (err, success) => {
-  if(err) {console.log(err)};
-  console.log(`up ${success}`)
-}); */
+
 
 function sendMany(pqa) {
   client.getBalance((err,balance) => {
