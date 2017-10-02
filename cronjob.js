@@ -67,7 +67,7 @@ function payToPq() {
       if(err) {
         console.log(err)
       }
-      if(results.length > 0) {
+      if(results && results.length > 0) {
         let pqa = {};
         let idsToUpdate = [];
         results.map((result) => {
@@ -132,7 +132,7 @@ function getPf() {
   });
 }
 
-function sendMany(pqa) {
+function sendMany(pqa, addressCount) {
   client.getBalance((err,balance) => {
     if(balance > 0) {
       client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
@@ -143,7 +143,7 @@ function sendMany(pqa) {
           if(err) {
             console.log(`err sendmany - ${err}`)
           }
-          console.log(`paid to   ${results.length}`)
+          console.log(`paid to   ${addressCount}`)
         })
       })            
     }
