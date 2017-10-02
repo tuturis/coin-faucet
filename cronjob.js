@@ -78,18 +78,20 @@ function payToPq() {
             })
           }
         })
-        PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
-          if(err) {console.log(`${err} when updating`)};
-            let addressCount = results.length
-            console.log(`results.length addressCount ${addressCount}`)
-            console.log(`pqa -  ${pqa}`)
+        if(Object.keys(pqa).length > 0) {
+          PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
+            if(err) {console.log(`${err} when updating`)};
+            let addressCount = Object.keys(pqa).length
+            console.log(`addressCount ${addressCount}`)
+            console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
             sendMany(pqa)
-        })
-        .setOptions({ multi: true })
-        .update({$set: {'claimed': true}}, (err, success) => {
-          if(err) {console.log(err)};
-          console.log(`update ${JSON.stringify(success)}`)
-        });
+          })
+          .setOptions({ multi: true })
+          .update({$set: {'claimed': true}}, (err, success) => {
+            if(err) {console.log(err)};
+            console.log(`update ${JSON.stringify(success)}`)
+          });
+        }
       }
     }
   ) 
