@@ -1,8 +1,9 @@
 var config = {
 	payout: {
-		min : 0.000001,
-		max : 0.00001,
-		interval: 2
+		min : 0.0001,
+		max : 0.001,
+		interval: 2  //in hours
+		treshold: 0.01
 	},
 	coin: {
 		name: "Lite Coins",

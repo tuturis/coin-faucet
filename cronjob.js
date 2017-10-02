@@ -52,41 +52,50 @@ let job2 = new CronJob({
 job2.start();
 
 function payToPq() {
-    PQ.find({'claimed': false}, (err, results) => {
+  PQ.aggregate([
+    { '$match' :
+      {'claimed': false}
+    }, 
+    { '$group': {
+        '_id': "$address",
+        'amount': {'$sum': '$amount'},
+        'count': {'$sum': 1}, 
+        'ids' : {'$push' : {'id' :'$_id'}}
+      }
+    }],
+    (err, results) => {
       if(err) {
         console.log(err)
-        /*process.exit()*/
       }
-      if(results.length > 0) {
+      if(results && results.length > 0) {
         let pqa = {};
+        let idsToUpdate = [];
         results.map((result) => {
-          pqa[result.address] = result.amount  
-        })
-        client.getBalance((err,balance) => {
-          if(balance > 0) {
-            client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
-              if(err) {
-                console.log(`err unlock - ${err}`)
-              }
-          /*altcoin.exec('sendmany',  ["faucet", sp, 1, "Ilgas komentaras"], (err, cb) => {*/
-              client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
-                if(err) {
-                  console.log(`err sendmany - ${err}`)
-                }
-                console.log(`paid to   ${results.length}`)
-              })
-            })            
+          if (result.amount >= config.payout.treshold) {
+            pqa[result._id] = result.amount
+            result.ids.map((id) => {
+              idsToUpdate.push(id.id)
+            })
           }
         })
+        if(Object.keys(pqa).length > 0) {
+          PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
+            if(err) {console.log(`${err} when updating`)};
+            let addressCount = Object.keys(pqa).length
+            console.log(`addressCount ${addressCount}`)
+            console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
+            sendMany(pqa)
+          })
+          .setOptions({ multi: true })
+          .update({$set: {'claimed': true}}, (err, success) => {
+            if(err) {console.log(err)};
+            console.log(`update ${JSON.stringify(success)}`)
+          });
+        }
       }
-    }) 
-    .setOptions({ multi: true })
-    .update({$set: {'claimed': true}}, (err, success) => {
-      if(err) {console.log(`${err} when updating`)};
-      console.log(`update ${JSON.stringify(success)}`)
-    }); 
+    }
+  ) 
 }
-
 
 function getPf() {
   request('https://www.dan.me.uk/torlist/', function (error, response, body) {
@@ -126,4 +135,22 @@ function getPf() {
   gettingProxies.once('end', function() {
     
   });
+}
+
+function sendMany(pqa, addressCount) {
+  client.getBalance((err,balance) => {
+    if(balance > 0) {
+      client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
+        if(err) {
+          console.log(`err unlock - ${err}`)
+        }
+        client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
+          if(err) {
+            console.log(`err sendmany - ${err}`)
+          }
+          console.log(`paid to   ${addressCount}`)
+        })
+      })            
+    }
+  })
 }
