@@ -52,26 +52,45 @@ let job2 = new CronJob({
 job2.start();
 
 function payToPq() {
-    PQ.find({'claimed': false}, (err, results) => {
+  PQ.aggregate([
+    { '$match' :
+      {'claimed': false}
+    }, 
+    { '$group': {
+        '_id': "$address",
+        'amount': {'$sum': '$amount'},
+        'count': {'$sum': 1}, 
+        'ids' : {'$push' : {'id' :'$_id'}}
+      }
+    }],
+    (err, results) => {
       if(err) {
         console.log(err)
-        /*process.exit()*/
       }
       if(results.length > 0) {
         let pqa = {};
+        let idsToUpdate = [];
         results.map((result) => {
-          pqa[result.address] = result.amount  
+          if (result.amount >= config.payout.treshold) {
+            pqa[result._id] = result.amount
+            result.ids.map((id) => {
+              idsToUpdate.push(id.id)
+            })
+          }
         })
-        sendMany(pqa)
+        PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
+          if(err) {console.log(`${err} when updating`)};
+          sendMany(pqa)
+        })
+        .setOptions({ multi: true })
+        .update({$set: {'claimed': true}}, (err, success) => {
+          if(err) {console.log(err)};
+          console.log(`update ${JSON.stringify(success)}`)
+        });
       }
-    }) 
-    .setOptions({ multi: true })
-    .update({$set: {'claimed': true}}, (err, success) => {
-      if(err) {console.log(`${err} when updating`)};
-      console.log(`update ${JSON.stringify(success)}`)
-    }); 
+    }
+  ) 
 }
-
 
 function getPf() {
   request('https://www.dan.me.uk/torlist/', function (error, response, body) {
