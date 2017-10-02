@@ -53,7 +53,7 @@ PQ.aggregate([
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
           result.ids.map((id) => {
-            idsToUpdate.push(id)
+            idsToUpdate.push(id.id)
           })
         }
       })
