@@ -33,7 +33,9 @@ mongoose.connection.on('error', (err) => {
 
 PQ.aggregate([
   { '$match' :
-    {'claimed': true}
+    {'claimed': false
+      'address': 'DYNBASTgKsmsSkeosmJqREHoq7NtfJpesF' 
+    }
   }, 
   { '$group': {
       '_id': "$address",
@@ -50,6 +52,7 @@ PQ.aggregate([
       let pqa = {};
       let idsToUpdate = [];
       console.log(`config.payout.treshold ${config.payout.treshold}`)
+      console.log(`result.amount ${result.amount}`)
       results.map((result) => {
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
@@ -64,11 +67,11 @@ PQ.aggregate([
         console.log(`addressCount ${addressCount}`)
         console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
       })
-      .setOptions({ multi: true })
+/*      .setOptions({ multi: true })
       .update({$set: {'claimed': true}}, (err, success) => {
         if(err) {console.log(err)};
         console.log(`update ${JSON.stringify(success)}`)
-      });
+      });*/
     }
   }
 ) 
