@@ -33,7 +33,7 @@ mongoose.connection.on('error', (err) => {
 
 PQ.aggregate([
   { '$match' :
-    {'claimed': true}
+    {'claimed': false}
   }, 
   { '$group': {
       '_id': "$address",
