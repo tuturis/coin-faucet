@@ -33,7 +33,7 @@ mongoose.connection.on('error', (err) => {
 
 PQ.aggregate([
   { '$match' :
-    {'claimed': false}
+    {'claimed': true}
   }, 
   { '$group': {
       '_id': "$address",
@@ -61,7 +61,7 @@ PQ.aggregate([
         if(err) {console.log(`${err} when updating`)};
         let addressCount = results.length
         console.log(addressCount)
-        sendMany(pqa)
+        console.log(`sendMany( ${pqa}`)
       })
       .setOptions({ multi: true })
       .update({$set: {'claimed': true}}, (err, success) => {
