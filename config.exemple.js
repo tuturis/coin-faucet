@@ -18,6 +18,11 @@ var config = {
 	},
 	analytics: {
 		google: "UA-106566819-2"
-	}
+	},
+	exchanges: [{
+		name: '',
+		url: '',
+		banner: ''
+	}]
 }
 module.exports = config
