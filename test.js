@@ -62,7 +62,7 @@ PQ.aggregate([
     console.log(`payment q aggregate - ${JSON.stringify(pqa, null, '\t')}`)
     console.log(`ids to update - ${JSON.stringify(idsToUpdate, null, '\t')}`)
   }
-}) 
+) 
 /*.setOptions({ multi: true })
 .update({$set: {'claimed': true}}, (err, success) => {
   if(err) {console.log(err)};
