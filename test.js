@@ -49,6 +49,7 @@ PQ.aggregate([
     if(results.length > 0) {
       let pqa = {};
       let idsToUpdate = [];
+      console.log(`config.payout.treshold ${config.payout.treshold}`)
       results.map((result) => {
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
