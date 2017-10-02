@@ -34,10 +34,12 @@ block content
 					for info in messages.ainfo
 						p
 						| #{info}
-		h3 Where to buy and trade !{info.coinName}?
-		div.col.s12
-			div.card-panel.blue-grey.lighten-5
-				a(href="https://novaexchange.com/market/BTC_ONION/?re=pud127q1c1b3989waadm") novaexchange.com
+		if (exchanges && exchanges.length > 0)
+			h3 Where to buy and trade !{info.coinName}?
+			div.col.s12
+				div.card-panel.blue-grey.lighten-5
+					for exchage in exchanges
+						a(href=`${echange.url}`) !{exchange.name}
 		br
 		h3 About !{info.coinName}
 		div.col.s12
