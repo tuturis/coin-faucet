@@ -59,7 +59,8 @@ PQ.aggregate([
       })
       PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
         if(err) {console.log(`${err} when updating`)};
-        sendMany(pqa)
+        let addressCount = results.length
+        sendMany(pqa, addressCount)
       })
       .setOptions({ multi: true })
       .update({$set: {'claimed': true}}, (err, success) => {
@@ -71,7 +72,7 @@ PQ.aggregate([
 ) 
 
 
-function sendMany(pqa) {
+function sendMany(pqa, addressCount) {
   client.getBalance((err,balance) => {
     if(balance > 0) {
       client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
@@ -82,7 +83,7 @@ function sendMany(pqa) {
           if(err) {
             console.log(`err sendmany - ${err}`)
           }
-          console.log(`paid to   ${results.length}`)
+          console.log(`paid to   ${addressCount}`)
         })
       })            
     }
