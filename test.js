@@ -57,10 +57,10 @@ PQ.aggregate([
           })
         }
       })
+      console.log(`payment q aggregate - ${JSON.stringify(pqa, null, '\t')}`)
+      console.log(`ids to update - ${JSON.stringify(idsToUpdate, null, '\t')}`)
     }
     console.log(`aggregate results - ${JSON.stringify(results, null, '\t')}`)
-    console.log(`payment q aggregate - ${JSON.stringify(pqa, null, '\t')}`)
-    console.log(`ids to update - ${JSON.stringify(idsToUpdate, null, '\t')}`)
   }
 ) 
 /*.setOptions({ multi: true })
