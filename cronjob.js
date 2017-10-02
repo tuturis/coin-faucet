@@ -80,7 +80,10 @@ function payToPq() {
         })
         PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
           if(err) {console.log(`${err} when updating`)};
-          sendMany(pqa)
+            let addressCount = results.length
+            console.log(`results.length addressCount ${addressCount}`)
+            console.log(`pqa -  ${pqa}`)
+            sendMany(pqa)
         })
         .setOptions({ multi: true })
         .update({$set: {'claimed': true}}, (err, success) => {
