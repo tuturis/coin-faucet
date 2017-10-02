@@ -52,11 +52,10 @@ PQ.aggregate([
       results.map((result) => {
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
-          result.map((r) => {
-            r.ids.map((id) => {
+          result.ids.map((id) => {
               idsToUpdate.push(id)
             })
-          })
+          }
         }
       })
       console.log(`aggregate results - ${JSON.stringify(results, null, '\t')}`)
