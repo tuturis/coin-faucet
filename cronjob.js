@@ -137,7 +137,7 @@ function getPf() {
   });
 }
 
-function sendMany(pqa, addressCount) {
+function sendMany(pqa) {
   client.getBalance((err,balance) => {
     if(balance > 0) {
       client.walletPassphrase(process.env.WALLET_PASSPHRASE, 120, (err, cb) => {
@@ -148,7 +148,6 @@ function sendMany(pqa, addressCount) {
           if(err) {
             console.log(`err sendmany - ${err}`)
           }
-          console.log(`paid to   ${addressCount}`)
         })
       })            
     }
