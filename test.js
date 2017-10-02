@@ -59,7 +59,7 @@ PQ.aggregate([
       })
       PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
         if(err) {console.log(`${err} when updating`)};
-        console.log(`update ${JSON.stringify(success)}`)
+        console.log(`update ${JSON.stringify(ids)}`)
       })
       .setOptions({ multi: true })
       .update({$set: {'claimed': true}}, (err, success) => {
