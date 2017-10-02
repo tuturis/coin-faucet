@@ -61,8 +61,8 @@ PQ.aggregate([
       PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
         if(err) {console.log(`${err} when updating`)};
         let addressCount = results.length
-        console.log(addressCount)
-        console.log(`sendMany( ${pqa}`)
+        console.log(`addressCount ${addressCount}`)
+        console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
       })
       .setOptions({ multi: true })
       .update({$set: {'claimed': true}}, (err, success) => {
