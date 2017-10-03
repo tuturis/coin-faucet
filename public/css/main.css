@@ -52,5 +52,10 @@
 	}
 	table.responsive-table.wide th {
 	    text-align: left;
-	}	
+	}
+	table.responsive-table.wide td {
+    display: block;
+    min-height: 1.25em;
+    text-align: left;
+}	
 }
