@@ -10,6 +10,10 @@ const client = new Client({
 client.command([{ method: 'getnewaddress', parameters: ['faucet'] }]).then((res) => {
 	console.log(res)
 })
+client.command([{ method: 'encryptwallet', parameters: [process.env.WALLET_PASSPHRASE] }]).then((res) => {
+	console.log(res)
+})
+
 client.getBalance((err, balance)=> {
 	console.log(`err ${err}`)
 	console.log(`balance ${balance}`)

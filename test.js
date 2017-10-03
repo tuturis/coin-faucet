@@ -32,7 +32,7 @@ mongoose.connection.on('error', (err) => {
   process.exit();
 });
 
-Ref.aggregate([
+/*Ref.aggregate([
   {'$match': 
     {
       'ref': true,
@@ -50,14 +50,8 @@ Ref.aggregate([
       console.log(`ERR ${JSON.stringify(err)}`);
     }
     console.log(`refCommision aggregate ${JSON.stringify(results,null,'\t')}`)
-/*    if(results.length > 0) {
-        req.addressStats.referralCommision = (results[0].amount).toFixed(8);
-        console.log(`Referral commision - ${JSON.stringify(results)}`)
-    } else {
-        req.addressStats.referralCommision = 0;
-    }*/
   }
-)
+)*/
 /*let r = new Ref()
 r.address = "123"
 r.referredBy = "321"
