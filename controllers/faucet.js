@@ -251,9 +251,15 @@ exports.refCommision = (req, res, next) => {
                 if(err) {
                     console.log(`ERR ${JSON.stringify(err)}`);
                 }
-                req.addressStats.referralCommision = results[0].amount;
-                console.log(`Referral commision - ${JSON.stringify(results)}`)
-                next()
+                console.log(`refCommision aggregate ${JSON.stringify(results,null,'\t')}`)
+                if(results.length > 0) {
+                    req.addressStats.referralCommision = results[0].amount;
+                    console.log(`Referral commision - ${JSON.stringify(results)}`)
+                    next()
+                } else {
+                    req.addressStats.referralCommision = 0;
+                    next()
+                }
         })
     } else {
         req.addressStats.referralCommision = 0;
