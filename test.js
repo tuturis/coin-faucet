@@ -31,7 +31,8 @@ mongoose.connection.on('error', (err) => {
   console.error(err);
   process.exit();
 });
-let r = new ref()
+
+let r = new Ref()
 r.address = "123"
 r.referredBy = "321"
 r.save((err) => {
