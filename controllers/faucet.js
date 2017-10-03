@@ -13,6 +13,7 @@ altcoin.set({port:process.env.rpcport})
 exports.index = (req, res) => {
     altcoin.exec('getbalance', (err, balance) => {
         console.log(` res.locals ${JSON.stringify(res.locals, null, "\t")}`)
+        console.log(` req.addressStats ${JSON.stringify(req.addressStats, null, "\t")}`)
         res.render('home', {
             title: 'Home',
             captcha: req.recaptcha,
@@ -47,11 +48,11 @@ exports.post = (req, res) => {
                 req.flash('error', 'Internal error')
                 res.redirect('/');
             }
-            if(res.locals.referredBy != null) {
+            if(req.addressStats.referredBy != null) {
                 let refPq = new PaymentQ()
                 let refClaim = (claim * config.payout.referralCommision).toFixed(8)
                 console.log(`referral claim ${refCliam}`)
-                refPq.address = res.locals.referredBy
+                refPq.address = req.addressStats.referredBy
                 refPq.ref = true
                 refPq.amount = refClaim 
                 refPq.save((err) => {
@@ -122,7 +123,7 @@ exports.addressBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            res.locals.totalBalance = result[0].balance
+            req.addressStats.totalBalance = result[0].balance
             req.flash('ainfo', {address : req.body.address})
         }
         next()
@@ -143,9 +144,9 @@ exports.unpaidBalance = (req, res, next) => {
     (err, result) => {
         console.log(`unpaidBalance ${JSON.stringify(result)}`)
         if(result.length > 0) {
-            res.locals.unpaid = result[0].balance
+            req.addressStats.unpaid = result[0].balance
          } else {   
-            res.locals.unpaid = result[0].balance
+            req.addressStats.unpaid = result[0].balance
          }
         next()
     })   
@@ -189,7 +190,7 @@ exports.checkReferrals = (req, res, next) => {
                 newRef.save((err) => {
                     if(err) {console.log(`newRef.referredBy error ${err}`) }
                     console.log(`newRef.referredBy ${newRef.referredBy}`)
-                    res.locals.referredBy = newRef.referredBy;    
+                    req.addressStats.referredBy = newRef.referredBy;    
                     next();
                 })
             } else {
@@ -204,11 +205,11 @@ exports.checkReferrals = (req, res, next) => {
             }
             if(ref !== null) {
                 console.log(`ref.referredBy ${ref.referredBy}`)
-                res.locals.referredBy = ref.referredBy;
+                req.addressStats.referredBy = ref.referredBy;
                 next()
             } else {
                 console.log(`ref.referredBy null`)
-                res.locals.referredBy = null
+                req.addressStats.referredBy = null
                 next()
             }
         })
@@ -219,13 +220,13 @@ exports.refCount = (req, res, next) => {
         if(err) {
             console.log(`ERR ${JSON.stringify(err)}`);
         }
-        res.locals.referralCount = count
+        req.addressStats.referralCount = count
         next()
     })
 }
 exports.refCommision = (req, res, next) => {
-    console.log(`res.locals.referralCount ${res.locals.referralCount}`)
-    if(res.locals.referralCount > 0) {
+    console.log(`req.addressStats.referralCount ${req.addressStats.referralCount}`)
+    if(req.addressStats.referralCount > 0) {
         Ref.aggregate([
             {'$match': 
                 {
@@ -243,12 +244,12 @@ exports.refCommision = (req, res, next) => {
                 if(err) {
                     console.log(`ERR ${JSON.stringify(err)}`);
                 }
-                res.locals.referralCommision = results[0].amount;
+                req.addressStats.referralCommision = results[0].amount;
                 console.log(`Referral commision - ${JSON.stringify(results)}`)
                 next()
         })
     } else {
-        res.locals.referralCommision = 0;
+        req.addressStats.referralCommision = 0;
         next()
     }
 }
