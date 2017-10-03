@@ -12,7 +12,7 @@ altcoin.set({port:process.env.rpcport})
  */
 exports.index = (req, res) => {
     altcoin.exec('getbalance', (err, balance) => {
-        console.log(JSON.stringify(res.locals, null, "\t"))
+        console.log(` res.locals ${JSON.stringify(res.locals, null, "\t")}`)
         res.render('home', {
             title: 'Home',
             captcha: req.recaptcha,
