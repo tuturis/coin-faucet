@@ -11,6 +11,7 @@ altcoin.set({port:process.env.rpcport})
  * Home page.
  */
 exports.index = (req, res) => {
+    console.log(`query from index ${req.query.ref}`)
     altcoin.exec('getbalance', (err, balance) => {
         /*console.log(` res.locals ${JSON.stringify(res.locals, null, "\t")}`)
         console.log(` req.addressStats ${JSON.stringify(req, null, "\t")}`)
