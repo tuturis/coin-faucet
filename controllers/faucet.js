@@ -140,6 +140,7 @@ exports.unpaidBalance = (req, res, next) => {
         }
     }],
     (err, result) => {
+        console.log(`unpaidBalance ${JSON.stringify(result)}`)
         if(result.length > 0) {
             req.flash('ainfo', {unpaid: result.balance})
          } else {   
