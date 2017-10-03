@@ -2,7 +2,9 @@ var config = {
 	payout: {
 		min : 0.0001,
 		max : 0.001,
-		interval: 2  //in hours
+		interval: 2,
+		treshold: 0.002,
+		referralCommision: 0.05
 	},
 	coin: {
 		name: "DeepOnion",
