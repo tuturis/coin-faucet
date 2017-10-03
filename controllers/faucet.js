@@ -55,7 +55,7 @@ exports.post = (req, res) => {
             if(req.addressStats.referredBy != null) {
                 let refPq = new PaymentQ()
                 let refClaim = (claim * config.payout.referralCommision).toFixed(8)
-                console.log(`referral claim ${refCliam}`)
+                console.log(`referral claim ${refClaim}`)
                 refPq.address = req.addressStats.referredBy
                 refPq.ref = true
                 refPq.amount = refClaim 
