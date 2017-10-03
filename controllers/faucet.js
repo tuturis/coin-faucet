@@ -13,6 +13,7 @@ altcoin.set({port:process.env.rpcport})
 exports.index = (req, res) => {
     altcoin.exec('getbalance', (err, balance) => {
         console.log(` res.locals ${JSON.stringify(res.locals, null, "\t")}`)
+        console.log(` req.addressStats ${JSON.stringify(req, null, "\t")}`)
         console.log(` req.addressStats ${JSON.stringify(req.addressStats, null, "\t")}`)
         res.render('home', {
             title: 'Home',
