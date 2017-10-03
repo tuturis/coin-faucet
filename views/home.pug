@@ -9,17 +9,34 @@ block content
 			iframe(scrolling="no", style="margin:0 auto; border: 0; width: 728px; height: 90px;", src=`//coinurl.com/get.php?id=${info.coinurl}&SSL=1`)
 		div.col.s12
 			div.card-panel.blue-grey.lighten-5
-				p Faucet balance !{balance}.
-				p Payouts: minumum - !{info.minClaim}, maximum !{info.maxClaim}, every !{info.interval} hours per IP or !{info.coinName} address.
+				table.responsive-table
+					thead
+						tr
+							th Faucet Balance
+							th Min Claim
+							th Max Claim
+							th Claim Interval
+							th Threshold (min. payout)
+							th Tor IPs
+							th Proxy IPs
+							th Payment Interval
+					tbody
+						tr
+							th !{balance}
+							th !{info.minClaim}
+							th !{info.maxClaim}
+							th !{info.interval} h
+							th !{info.treshold}
+							th no
+							th no
+							th 30 min
 				p !{info.coinName} faucet donation address - !{info.address}.
 				p No Proxy or TOR IP addresses due to abuse.
-				p Your address should have at least !{info.treshold} balance of !{info.coinName}  before widthrawal will be made.
-				p Claims are processed every 30 minutes in bulk so the payment might be delayed.
 		if messages.ainfo
 			h3 Your !{info.coinName} address statistics
 			div.col.s12
 				div.card-panel.blue-grey.lighten-5
-					table.responsive
+					table.responsive-table
 						thead
 							tr
 								th !{info.coinName} Address
