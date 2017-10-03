@@ -29,7 +29,8 @@ exports.index = (req, res) => {
                 coinInfo : config.coin.info,
                 aads     : config.ads.aads,
                 coinurl  : config.ads.coinurl,
-                ganalytics : config.analytics.google 
+                ganalytics : config.analytics.google,
+                siteName : config.site.name 
             },
             exchanges: config.exchanges 
         })
