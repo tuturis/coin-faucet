@@ -189,7 +189,7 @@ exports.checkReferrals = (req, res, next) => {
                     } else {
                         let newRef = new Ref();
                         newRef.address = req.body.address;
-                        newRef.referredBymongo = referredBy
+                        newRef.referredBy = referredBy
                         console.log(`typeof  referredBy ${typeof referredBy}`)
                         console.log(`newRef ${JSON.stringify(newRef, null, '\t')}`)
                         newRef.save((err) => {
