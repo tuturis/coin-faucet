@@ -142,7 +142,7 @@ exports.unpaidBalance = (req, res, next) => {
     (err, result) => {
         console.log(`unpaidBalance ${JSON.stringify(result)}`)
         if(result.length > 0) {
-            req.flash('ainfo', {unpaid: result.balance})
+            req.flash('ainfo', {unpaid: result[0].balance})
          } else {   
             req.flash('ainfo', {unpaid: 0})
          }
@@ -185,6 +185,9 @@ exports.checkReferrals = (req, res, next) => {
                 newRef.address = req.body.address;
                 newRef.referredBy = referredBy
                 newRef.save((err) => {
+                    if(err) {console.log(`newRef.referredBy error ${err}`) }
+                    console.log(`newRef.referredBy ${newRef.referredBy}`)
+                    req.flash('ainfo', {referredBy: newRef.referredBy})
                     res.locals.referredBy = newRef.referredBy;    
                     next();
                 })
@@ -199,10 +202,12 @@ exports.checkReferrals = (req, res, next) => {
                 console.log(`ERR ${JSON.stringify(err)}`);
             }
             if(ref !== null) {
+                console.log(`ref.referredBy ${ref.referredBy}`)
                 req.flash('ainfo', {referredBy: ref.referredBy})
                 res.locals.referredBy = ref.referredBy;
                 next()
             } else {
+                console.log(`ref.referredBy null`)
                 res.locals.referredBy = null
                 next()
             }
