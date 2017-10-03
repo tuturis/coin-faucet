@@ -204,7 +204,7 @@ exports.checkReferrals = (req, res, next) => {
             }
         })
     } else {
-        Ref.findOne({'address' : req.body.address}, (err, ref) => {
+        Ref.find({'address' : req.body.address}, (err, ref) => {
             if(err) {
                 console.log(`ERR ${JSON.stringify(err)}`);
             }
