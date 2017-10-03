@@ -190,6 +190,7 @@ exports.checkReferrals = (req, res, next) => {
                         let newRef = new Ref();
                         newRef.address = req.body.address;
                         newRef.referredBy = referredBy
+                        console.log(`newRef ${JSON.stringify(newRef, null, '\t')}`)
                         newRef.save((err) => {
                             console.log(`newRef.referredBy ${newRef.referredBy}`)
                             req.addressStats.referredBy = newRef.referredBy;    
