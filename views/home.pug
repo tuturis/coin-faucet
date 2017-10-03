@@ -32,8 +32,6 @@ block content
 			h3 Your !{info.coinName} address statistics
 			div.col.s12
 				div.card-panel.blue-grey.lighten-5
-					p !{JSON.stringify(messages.ainfo)}
-					p !{JSON.stringify(locals)}
 					table.responsive
 						thead
 							tr
@@ -45,12 +43,12 @@ block content
 								th Total
 						tbody
 							tr
-								td !{messages.ainfo.address || ""}
-								td !{messages.ainfo.unpaid || "0"}
-								td !{messages.ainfo.referredBy || "-"}
-								td !{messages.ainfo.referralCount || "0"}
-								td !{messages.ainfo.referralCommision || "0"}
-								td !{messages.ainfo.balance || "0"}
+								td !{messages.ainfo[0].address || ""}
+								td !{messages.ainfo[0].unpaid || "0"}
+								td !{messages.ainfo[0].referredBy || "-"}
+								td !{messages.ainfo[0].referralCount || "0"}
+								td !{messages.ainfo[0].referralCommision || "0"}
+								td !{messages.ainfo[0].balance || "0"}
 									
 					//- for info in messages.ainfo
 					//- 	p
