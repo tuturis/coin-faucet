@@ -13,7 +13,7 @@ altcoin.set({port:process.env.rpcport})
 exports.index = (req, res) => {
     altcoin.exec('getbalance', (err, balance) => {
         console.log(` res.locals ${JSON.stringify(res.locals, null, "\t")}`)
-        console.log(` req.addressStats ${JSON.stringify(req, null, "\t")}`)
+        /*console.log(` req.addressStats ${JSON.stringify(req, null, "\t")}`)*/
         console.log(` req.addressStats ${JSON.stringify(req.addressStats, null, "\t")}`)
         res.render('home', {
             title: 'Home',
@@ -39,6 +39,7 @@ exports.index = (req, res) => {
 exports.post = (req, res) => {
     let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(8)
     let ip = req.headers['x-real-ip'];
+    console.log(` req.addressStats in 'post' ${JSON.stringify(req.addressStats, null, "\t")}`)
     if(ip) {
         let pq = new PaymentQ()
         pq.address = req.body.address;
