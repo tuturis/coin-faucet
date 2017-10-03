@@ -145,7 +145,7 @@ exports.unpaidBalance = (req, res, next) => {
         if(result.length > 0) {
             req.addressStats.unpaid = result[0].balance
          } else {   
-            req.addressStats.unpaid = result[0].balance
+            req.addressStats.unpaid = 0
          }
         next()
     })   
