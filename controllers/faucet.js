@@ -21,6 +21,7 @@ exports.index = (req, res) => {
             captcha: req.recaptcha,
             balance: balance,
             addressBalance : req.addressBalance,
+            referralAddress: req.query.ref,
             info : {
                 coinName : config.coin.name,
                 minClaim : config.payout.min,
@@ -180,9 +181,8 @@ exports.checkClaimed = (req, res, next) => {
     })
 }
 exports.checkReferrals = (req, res, next) => {
-    let referredBy = req.query.ref
-    console.log(`req.query ${JSON.stringify(req.query)}`)
-    console.log(`req.query.ref ${req.query.ref}`)
+    let referredBy = req.body.ref || undefined
+    console.log(`referredBy ${JSON.stringify(referredBy)}`)
     if(referredBy !== undefined) {
         altcoin.exec('validateaddress', referredBy, (err, info) => {
             if(err) {
