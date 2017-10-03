@@ -22,6 +22,7 @@ const ProxyLists = require('proxy-lists');
 const request = require('request');
 const Pf = require('./models/proxy_list');
 const PQ = require('./models/paymentQ');
+const Ref = require('./models/ref');
 const _ = require('underscore');
 
 mongoose.Promise = global.Promise;
@@ -30,7 +31,14 @@ mongoose.connection.on('error', (err) => {
   console.error(err);
   process.exit();
 });
-
+let r = new ref()
+r.address = "123"
+r.referredBy = "321"
+r.save((err) => {
+    if (err) (console.log(`ERROR ${err}`))
+    console.log(`saved`)
+})
+/*
 PQ.aggregate([
   { '$match' :
     {'claimed': false
@@ -67,16 +75,16 @@ PQ.aggregate([
         console.log(`addressCount ${addressCount}`)
         console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
       })
-/*      .setOptions({ multi: true })
+      .setOptions({ multi: true })
       .update({$set: {'claimed': true}}, (err, success) => {
         if(err) {console.log(err)};
         console.log(`update ${JSON.stringify(success)}`)
-      });*/
+      });
     }
   }
-) 
+) */
 
-
+/*
 function sendMany(pqa) {
   client.getBalance((err,balance) => {
     if(balance > 0) {
@@ -92,4 +100,4 @@ function sendMany(pqa) {
       })            
     }
   })
-}
+}*/

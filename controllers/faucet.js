@@ -188,11 +188,12 @@ exports.checkReferrals = (req, res, next) => {
                         next()
                     } else {
                         let newRef = new Ref();
-                        newRef.address = req.body.address;
+                        newRef.address = req.body.address
                         newRef.referredBy = referredBy
                         console.log(`typeof  referredBy ${typeof referredBy}`)
                         console.log(`newRef ${JSON.stringify(newRef, null, '\t')}`)
                         newRef.save((err) => {
+                            if (err) (console.log(`ERROR ${err}`))
                             console.log(`newRef.referredBy ${newRef.referredBy}`)
                             req.addressStats.referredBy = newRef.referredBy;    
                             next();
