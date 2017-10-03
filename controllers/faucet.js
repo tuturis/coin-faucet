@@ -236,7 +236,7 @@ exports.refCount = (req, res, next) => {
 }
 exports.refCommision = (req, res, next) => {
     if(req.addressStats.referralCount > 0) {
-        Ref.aggregate([
+        PaymentQ.aggregate([
             {'$match': 
                 {
                     'ref':true,
