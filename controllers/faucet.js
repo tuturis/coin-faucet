@@ -121,8 +121,8 @@ exports.addressBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            req.flash('ainfo', {address : req.body.address,
-                                totalBalance: result[0].balance})
+            res.locals.totalBalance = result[0].balance
+            req.flash('ainfo', {address : req.body.address})
         }
         next()
     })
@@ -142,9 +142,9 @@ exports.unpaidBalance = (req, res, next) => {
     (err, result) => {
         console.log(`unpaidBalance ${JSON.stringify(result)}`)
         if(result.length > 0) {
-            req.flash('ainfo', {unpaid: result[0].balance})
+            res.locals.unpaid = result[0].balance
          } else {   
-            req.flash('ainfo', {unpaid: 0})
+            res.locals.unpaid = result[0].balance
          }
         next()
     })   
@@ -175,6 +175,7 @@ exports.checkClaimed = (req, res, next) => {
 }
 exports.checkReferrals = (req, res, next) => {
     let referredBy = req.query.ref
+    console.log(`req.query.ref ${req.query.ref}`)
     if(referredBy !== undefined) {
         altcoin.exec('validateaddress', referredBy, (err, info) => {
             if(err) {
@@ -187,7 +188,6 @@ exports.checkReferrals = (req, res, next) => {
                 newRef.save((err) => {
                     if(err) {console.log(`newRef.referredBy error ${err}`) }
                     console.log(`newRef.referredBy ${newRef.referredBy}`)
-                    req.flash('ainfo', {referredBy: newRef.referredBy})
                     res.locals.referredBy = newRef.referredBy;    
                     next();
                 })
@@ -203,7 +203,6 @@ exports.checkReferrals = (req, res, next) => {
             }
             if(ref !== null) {
                 console.log(`ref.referredBy ${ref.referredBy}`)
-                req.flash('ainfo', {referredBy: ref.referredBy})
                 res.locals.referredBy = ref.referredBy;
                 next()
             } else {
@@ -224,6 +223,7 @@ exports.refCount = (req, res, next) => {
     })
 }
 exports.refCommision = (req, res, next) => {
+    console.log(`res.locals.referralCount ${res.locals.referralCount}`)
     if(res.locals.referralCount > 0) {
         Ref.aggregate([
             {'$match': 
