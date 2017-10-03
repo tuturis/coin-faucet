@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const config = require('../config')
 
 const pqSchema = new mongoose.Schema({
 		address : String,
@@ -8,5 +9,5 @@ const pqSchema = new mongoose.Schema({
 		ref: {type: Boolean, default : false},
 	}, { timestamps: true });
 
-const paymentQ = mongoose.model('paymentQ', pqSchema);
+const paymentQ = mongoose.model('paymentQ', pqSchema, `${config.coin.name.toLowerCase()}.paymentq`);
 module.exports = paymentQ;
