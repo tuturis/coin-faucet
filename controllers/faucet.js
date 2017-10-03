@@ -22,7 +22,7 @@ exports.index = (req, res) => {
                 coinName : config.coin.name,
                 minClaim : config.payout.min,
                 maxClaim : config.payout.max,
-                maxClaim : config.payout.referralCommision,
+                referralCommision : config.payout.referralCommision * 100,
                 treshold : config.payout.treshold,
                 interval : config.payout.interval,
                 address  : config.coin.address,
@@ -124,7 +124,7 @@ exports.addressBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            req.addressStats.totalBalance = result[0].balance
+            req.addressStats.totalBalance = (result[0].balance.toFixed(8))
             req.addressStats.address = req.body.address
         }
         next()
@@ -144,7 +144,7 @@ exports.unpaidBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            req.addressStats.unpaid = result[0].balance
+            req.addressStats.unpaid = (result[0].balance).toFixed(8)
          } else {   
             req.addressStats.unpaid = 0
          }
@@ -254,7 +254,7 @@ exports.refCommision = (req, res, next) => {
                 }
                 console.log(`refCommision aggregate ${JSON.stringify(results,null,'\t')}`)
                 if(results.length > 0) {
-                    req.addressStats.referralCommision = results[0].amount;
+                    req.addressStats.referralCommision = (results[0].amount).toFixed(8);
                     console.log(`Referral commision - ${JSON.stringify(results)}`)
                     next()
                 } else {
