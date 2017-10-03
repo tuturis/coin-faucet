@@ -52,7 +52,7 @@ mongoose.connection.on('error', (err) => {
   process.exit();
 });
 app.use((req, res, next) => {
-  let req.addressStats = {}
+  req.addressStats = {}
   next();
 });
 app.get('/', recaptcha.middleware.render, faucetController.index);
