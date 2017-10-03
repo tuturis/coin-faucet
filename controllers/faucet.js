@@ -160,8 +160,8 @@ exports.checkClaimed = (req, res, next) => {
     PaymentQ.find(
         {$and: [
             { $or:[{ip : ip}, {address : req.body.address}]},
-            { createdAt: {$gt : interval}}
-            ]}, 
+            { createdAt: {$gt : interval}},
+            { ref: false}]}, 
         (err, pqs) => {
             if(err) {
                 console.log(`ERROR ${err}`)
