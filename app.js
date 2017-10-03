@@ -62,6 +62,8 @@ app.post('/',
 	faucetController.unpaidBalance,
 	faucetController.checkClaimed,
 	faucetController.checkReferrals,
+	faucetController.refCount,
+	faucetController.refCommision,
 	faucetController.post);
 
 

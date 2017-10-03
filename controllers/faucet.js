@@ -174,7 +174,7 @@ exports.checkClaimed = (req, res, next) => {
 }
 exports.checkReferrals = (req, res, next) => {
     let referredBy = req.query.ref
-    if(ref !== undefined) {
+    if(referredBy !== undefined) {
         altcoin.exec('validateaddress', referredBy, (err, info) => {
             if(err) {
                 console.log(`ERR ${JSON.stringify(err)}`);
