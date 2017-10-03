@@ -127,6 +127,9 @@ exports.addressBalance = (req, res, next) => {
         if(result.length > 0) {
             req.addressStats.totalBalance = (result[0].balance.toFixed(8))
             req.addressStats.address = req.body.address
+        } else {
+            req.addressStats.totalBalance = 0
+            req.addressStats.address = req.body.address
         }
         next()
     })
@@ -185,6 +188,9 @@ exports.checkReferrals = (req, res, next) => {
             }
             if(info.isvalid == true) {
                 Ref.find({'address' : req.body.address}, (err, results) => {
+                    if(err) {
+                        console.log(`ERR ${JSON.stringify(err)}`);
+                    }
                     console.log(`checkReferrals ${JSON.stringify(results,null,'\t')}`)
                     if(results.length > 0) {
                         console.log(`address already has been referred`)
