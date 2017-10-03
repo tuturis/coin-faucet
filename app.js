@@ -51,7 +51,10 @@ mongoose.connection.on('error', (err) => {
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
 });
-
+app.use((req, res, next) => {
+  let req.addressStats = {}
+  next();
+});
 app.get('/', recaptcha.middleware.render, faucetController.index);
 app.post('/', 
 	recaptcha.middleware.verify,
