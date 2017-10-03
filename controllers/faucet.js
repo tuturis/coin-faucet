@@ -184,11 +184,6 @@ exports.checkReferrals = (req, res, next) => {
                 console.log(`ERR ${JSON.stringify(err)}`);
             }
             if(info.isvalid == true) {
-                Ref.count({'referredBy' : referredBy}, (err, count) => {
-                    if(count > 0) {
-                        console.log(`address already has been referred`)
-                        next()
-                    } else {
                         let newRef = new Ref();
                         newRef.address = req.body.address
                         newRef.referredBy = referredBy
@@ -199,7 +194,6 @@ exports.checkReferrals = (req, res, next) => {
                             next();
                         })
                     }
-                })
             } else {
                 req.addressStats.referredBy = undefined
                 req.flash('error', `Invalid ${config.coin.name} address of referral`)
