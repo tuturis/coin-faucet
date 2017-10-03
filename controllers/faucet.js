@@ -126,7 +126,7 @@ exports.addressBalance = (req, res, next) => {
     (err, result) => {
         if(result.length > 0) {
             req.addressStats.totalBalance = result[0].balance
-            req.flash('ainfo', {address : req.body.address})
+            req.addressStats.address = req.body.address
         }
         next()
     })
@@ -158,6 +158,7 @@ exports.checkClaimed = (req, res, next) => {
     let interval = now.setHours(now.getHours() - config.payout.interval) 
     let ip = req.headers['x-real-ip'];
     console.log(` req.addressStats in 'checkClaimed' ${JSON.stringify(req.addressStats, null, "\t")}`)
+    req.flash('ainfo', req.addressStats)
     PaymentQ.find(
         {$and: [
             { $or:[{ip : ip}, {address : req.body.address}]},
@@ -179,6 +180,7 @@ exports.checkClaimed = (req, res, next) => {
 }
 exports.checkReferrals = (req, res, next) => {
     let referredBy = req.query.ref
+    console.log(`req.query ${req.query}`)
     console.log(`req.query.ref ${req.query.ref}`)
     if(referredBy !== undefined) {
         altcoin.exec('validateaddress', referredBy, (err, info) => {
