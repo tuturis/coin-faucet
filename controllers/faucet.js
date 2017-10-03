@@ -39,7 +39,7 @@ exports.index = (req, res) => {
 exports.post = (req, res) => {
     let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(8)
     let ip = req.headers['x-real-ip'];
-    console.log(` req.addressStats in 'post' ${JSON.stringify(req.addressStats, null, "\t")}`)
+    
     if(ip) {
         let pq = new PaymentQ()
         pq.address = req.body.address;
@@ -157,7 +157,7 @@ exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
     let ip = req.headers['x-real-ip'];
-
+    console.log(` req.addressStats in 'checkClaimed' ${JSON.stringify(req.addressStats, null, "\t")}`)
     PaymentQ.find(
         {$and: [
             { $or:[{ip : ip}, {address : req.body.address}]},
