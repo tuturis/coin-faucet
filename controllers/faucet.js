@@ -1,6 +1,7 @@
 const altcoin = require('node-altcoin')();
 const PaymentQ = require('../models/paymentQ');
 const proxy_list = require('../models/proxy_list');
+const Ref = require('../models/Ref');
 const config = require('../config')
 altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
 altcoin.set('host', process.env.rpchost)
@@ -33,11 +34,10 @@ exports.index = (req, res) => {
     })
 };
 exports.post = (req, res) => {
-    let pq = new PaymentQ()
     let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(8)
     let ip = req.headers['x-real-ip'];
-
     if(ip) {
+        let pq = new PaymentQ()
         pq.address = req.body.address;
         pq.ip = ip;
         pq.amount = claim;
@@ -46,8 +46,21 @@ exports.post = (req, res) => {
                 req.flash('error', 'Internal error')
                 res.redirect('/');
             }
+            if(res.locals.referredBy != null) {
+                let refPq = new PaymentQ()
+                let refClaim = (claim * config.payout.referralCommision).toFixed(8)
+                console.log(`referral claim ${refCliam}`)
+                refPq.address = res.locals.referredBy
+                refPq.ref = true
+                refPq.amount = refClaim 
+                refPq.save((err) => {
+                    req.flash('success',`Your claim of ${claim} ${config.coin.name} is under way!`)
+                    res.redirect('/');                          
+                })
+            } else {
                 req.flash('success',`Your claim of ${claim} ${config.coin.name} is under way!`)
                 res.redirect('/');      
+            }
         });
     } else {
         req.flash('error', {message : 'Something went wrong...'})
@@ -108,7 +121,8 @@ exports.addressBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            req.flash('ainfo', `Your address (${req.body.address}) claimed total of ${result[0].balance}, ${result[0].count} times`)
+            req.flash('ainfo', {address : req.body.address,
+                                totalBalance: result[0].balance})
         }
         next()
     })
@@ -127,9 +141,9 @@ exports.unpaidBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            req.flash('ainfo', `Unpaid amount is ${result[0].balance}`)
-         } else {
-            req.flash('ainfo', `All claims to your address were paid!`)
+            req.flash('ainfo', {unpaid: result.balance})
+         } else {   
+            req.flash('ainfo', {unpaid: 0})
          }
         next()
     })   
@@ -157,6 +171,79 @@ exports.checkClaimed = (req, res, next) => {
                 next()
             }
     })
+}
+exports.checkReferrals = (req, res, next) => {
+    let referredBy = req.query.ref
+    if(ref !== undefined) {
+        altcoin.exec('validateaddress', referredBy, (err, info) => {
+            if(err) {
+                console.log(`ERR ${JSON.stringify(err)}`);
+            }
+            if(info.isvalid == true) {
+                let newRef = new Ref();
+                newRef.address = req.body.address;
+                newRef.referredBy = referredBy
+                newRef.save((err) => {
+                    res.locals.referredBy = newRef.referredBy;    
+                    next();
+                })
+            } else {
+                req.flash('error', `Invalid ${config.coin.name} address of referral`)
+                next();                   
+            }
+        })
+    } else {
+        Ref.findOne({'address' : req.body.address}, (err, ref) => {
+            if(err) {
+                console.log(`ERR ${JSON.stringify(err)}`);
+            }
+            if(ref !== null) {
+                req.flash('ainfo', {referredBy: ref.referredBy})
+                res.locals.referredBy = ref.referredBy;
+                next()
+            } else {
+                res.locals.referredBy = null
+                next()
+            }
+        })
+    }
+}
+exports.refCount = (req, res, next) => {
+    Ref.count({'referredBy' : req.body.address}, (err, count) => {
+        if(err) {
+            console.log(`ERR ${JSON.stringify(err)}`);
+        }
+        res.locals.referralCount = count
+        next()
+    })
+}
+exports.refCommision = (req, res, next) => {
+    if(res.locals.referralCount > 0) {
+        Ref.aggregate([
+            {'$match': 
+                {
+                    'ref':true,
+                    'address': req.body.address
+                }
+            },
+            { '$group' : 
+                {
+                    '_id': "$address",
+                    'amount': {'$sum': '$amount'},
+                }
+            }],
+            (err, results) => {
+                if(err) {
+                    console.log(`ERR ${JSON.stringify(err)}`);
+                }
+                //res.locals.referralCommision = results[0].amount;
+                console.log(`Referral commision - ${JSON.stringify(results)}`)
+                next()
+        })
+    } else {
+        res.locals.referralCommision = 0;
+        next()
+    }
 }
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
