@@ -11,11 +11,7 @@ altcoin.set({port:process.env.rpcport})
  * Home page.
  */
 exports.index = (req, res) => {
-    console.log(`query from index ${req.query.ref}`)
     altcoin.exec('getbalance', (err, balance) => {
-        /*console.log(` res.locals ${JSON.stringify(res.locals, null, "\t")}`)
-        console.log(` req.addressStats ${JSON.stringify(req, null, "\t")}`)
-        console.log(` req.addressStats ${JSON.stringify(req.addressStats, null, "\t")}`)*/
         res.render('home', {
             title: 'Home',
             captcha: req.recaptcha,
@@ -52,7 +48,7 @@ exports.post = (req, res) => {
                 req.flash('error', 'Internal error')
                 res.redirect('/');
             }
-            if(req.addressStats.referredBy != null) {
+            if(req.addressStats.referredBy != undefined) {
                 let refPq = new PaymentQ()
                 let refClaim = (claim * config.payout.referralCommision).toFixed(8)
                 console.log(`referral claim ${refClaim}`)
@@ -146,7 +142,6 @@ exports.unpaidBalance = (req, res, next) => {
         }
     }],
     (err, result) => {
-        console.log(`unpaidBalance ${JSON.stringify(result)}`)
         if(result.length > 0) {
             req.addressStats.unpaid = result[0].balance
          } else {   
@@ -159,7 +154,6 @@ exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
     let ip = req.headers['x-real-ip'];
-    console.log(` req.addressStats in 'checkClaimed' ${JSON.stringify(req.addressStats, null, "\t")}`)
     req.flash('ainfo', req.addressStats)
     PaymentQ.find(
         {$and: [
@@ -182,23 +176,29 @@ exports.checkClaimed = (req, res, next) => {
 }
 exports.checkReferrals = (req, res, next) => {
     let referredBy = req.body.ref || undefined
-    console.log(`referredBy ${JSON.stringify(referredBy)}`)
     if(referredBy !== undefined) {
         altcoin.exec('validateaddress', referredBy, (err, info) => {
             if(err) {
                 console.log(`ERR ${JSON.stringify(err)}`);
             }
             if(info.isvalid == true) {
-                let newRef = new Ref();
-                newRef.address = req.body.address;
-                newRef.referredBy = referredBy
-                newRef.save((err) => {
-                    if(err) {console.log(`newRef.referredBy error ${err}`) }
-                    console.log(`newRef.referredBy ${newRef.referredBy}`)
-                    req.addressStats.referredBy = newRef.referredBy;    
-                    next();
+                Ref.count({'referredBy' : referredBy}, (err, count) => {
+                    if(count > 0) {
+                        console.log(`address already has been referred`)
+                        next()
+                    } else {
+                        let newRef = new Ref();
+                        newRef.address = req.body.address;
+                        newRef.referredBy = referredBy
+                        newRef.save((err) => {
+                            console.log(`newRef.referredBy ${newRef.referredBy}`)
+                            req.addressStats.referredBy = newRef.referredBy;    
+                            next();
+                        })
+                    }
                 })
             } else {
+                req.addressStats.referredBy = undefined
                 req.flash('error', `Invalid ${config.coin.name} address of referral`)
                 next();                   
             }
@@ -208,13 +208,13 @@ exports.checkReferrals = (req, res, next) => {
             if(err) {
                 console.log(`ERR ${JSON.stringify(err)}`);
             }
+            console.log(`results of ref check ${JSON.stringify(ref)}`)
             if(ref !== null) {
-                console.log(`ref.referredBy ${ref.referredBy}`)
                 req.addressStats.referredBy = ref.referredBy;
                 next()
             } else {
                 console.log(`ref.referredBy null`)
-                req.addressStats.referredBy = null
+                req.addressStats.referredBy = undefined
                 next()
             }
         })
@@ -230,7 +230,6 @@ exports.refCount = (req, res, next) => {
     })
 }
 exports.refCommision = (req, res, next) => {
-    console.log(`req.addressStats.referralCount ${req.addressStats.referralCount}`)
     if(req.addressStats.referralCount > 0) {
         Ref.aggregate([
             {'$match': 
