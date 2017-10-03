@@ -1,7 +1,7 @@
 const altcoin = require('node-altcoin')();
 const PaymentQ = require('../models/paymentQ');
 const proxy_list = require('../models/proxy_list');
-const Ref = require('../models/Ref');
+const Ref = require('../models/ref');
 const config = require('../config')
 altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
 altcoin.set('host', process.env.rpchost)
