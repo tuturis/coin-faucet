@@ -242,7 +242,7 @@ exports.refCommision = (req, res, next) => {
                 if(err) {
                     console.log(`ERR ${JSON.stringify(err)}`);
                 }
-                //res.locals.referralCommision = results[0].amount;
+                res.locals.referralCommision = results[0].amount;
                 console.log(`Referral commision - ${JSON.stringify(results)}`)
                 next()
         })
