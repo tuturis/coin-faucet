@@ -1,0 +1,56 @@
+@media only screen and (max-width: 1400px) {
+	table.responsive-table.wide {
+	    width: 100%;
+	    border-collapse: collapse;
+	    border-spacing: 0;
+	    display: block;
+	    position: relative;
+	}
+	table.responsive-table.wide thead {
+	    border: 0;
+	    border-right: 1px solid #d0d0d0;
+	}
+	table.responsive-table.wide thead {
+	    display: block;
+	    float: left;
+	}
+	table.responsive-table.wide tbody {
+	    display: block;
+	    width: auto;
+	    position: relative;
+	    overflow-x: auto;
+	    white-space: nowrap;
+	}
+	table.responsive-table.wide thead tr {
+	    display: block;
+	    padding: 0 10px 0 0;
+	}
+	table.responsive-table.wide tr {
+	    padding: 0 10px;
+	}
+	table.responsive-table.wide th, table.responsive-table.wide td {
+	    margin: 0;
+	    vertical-align: top;
+	}
+	table.responsive-table.wide th {
+	    text-align: left;
+	}
+	table.responsive-table.wide th {
+	    display: block;
+	    text-align: right;
+	}
+	table.responsive-table.wide thead tr th::before {
+	    content: "\00a0";
+	}
+	table.responsive-table.wide tbody tr {
+	    display: inline-block;
+	    vertical-align: top;
+	}
+	table.responsive-table.wide th {
+	    display: block;
+	    text-align: right;
+	}
+	table.responsive-table.wide th {
+	    text-align: left;
+	}	
+}
