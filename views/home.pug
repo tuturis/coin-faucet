@@ -29,11 +29,30 @@ block content
 					p.message #{message}
 					p.error #{error}
 		if messages.ainfo
+			h3 Your !{info.coinName} address statistics
 			div.col.s12
 				div.card-panel.blue-grey.lighten-5
-					for info in messages.ainfo
-						p
-						| #{info}
+					table.responsive
+						thead
+							tr
+								th !{info.coinName} Address
+								th Unpaid Balance
+								th Referred By
+								th Your Referral Count
+								th Your Referral Commision
+								th Total
+						tbody
+							tr
+								td !{messages.ainfo.address || ""}
+								td !{messages.ainfo.unpaid || "0"}
+								td !{messages.ainfo.referredBy || "-"}
+								td !{messages.ainfo.referralCount || "0"}
+								td !{messages.ainfo.referralCommision || "0"}
+								td !{messages.ainfo.balance || "0"}
+									
+					//- for info in messages.ainfo
+					//- 	p
+					//- 	| #{info}
 		if (exchanges && exchanges.length > 0)
 			h3 Where to buy and trade !{info.coinName}?
 			div.col.s12

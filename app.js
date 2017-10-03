@@ -60,7 +60,8 @@ app.post('/',
 	faucetController.proxyFilter,
 	faucetController.addressBalance,
 	faucetController.unpaidBalance,
-	faucetController.checkClaimed, 
+	faucetController.checkClaimed,
+	faucetController.checkReferrals,
 	faucetController.post);
 
 
