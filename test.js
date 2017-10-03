@@ -32,13 +32,39 @@ mongoose.connection.on('error', (err) => {
   process.exit();
 });
 
-let r = new Ref()
+Ref.aggregate([
+  {'$match': 
+    {
+      'ref': true,
+      'address': "LgQxUzvGLu6Rj4VmH8kXTmhz3BVEoNKi8g"
+    }
+  },
+  { '$group' : 
+    {
+      '_id': "$address",
+      'amount': {'$sum': '$amount'},
+    }
+  }],
+  (err, results) => {
+    if(err) {
+      console.log(`ERR ${JSON.stringify(err)}`);
+    }
+    console.log(`refCommision aggregate ${JSON.stringify(results,null,'\t')}`)
+/*    if(results.length > 0) {
+        req.addressStats.referralCommision = (results[0].amount).toFixed(8);
+        console.log(`Referral commision - ${JSON.stringify(results)}`)
+    } else {
+        req.addressStats.referralCommision = 0;
+    }*/
+  }
+)
+/*let r = new Ref()
 r.address = "123"
 r.referredBy = "321"
 r.save((err) => {
     if (err) (console.log(`ERROR ${err}`))
     console.log(`saved`)
-})
+})*/
 /*
 PQ.aggregate([
   { '$match' :
