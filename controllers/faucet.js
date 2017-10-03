@@ -192,8 +192,6 @@ exports.checkReferrals = (req, res, next) => {
                         let newRef = new Ref();
                         newRef.address = req.body.address
                         newRef.referredBy = referredBy
-                        console.log(`typeof  referredBy ${typeof referredBy}`)
-                        console.log(`newRef ${JSON.stringify(newRef, null, '\t')}`)
                         newRef.save((err) => {
                             if (err) (console.log(`ERROR ${err}`))
                             console.log(`newRef.referredBy ${newRef.referredBy}`)
@@ -213,12 +211,10 @@ exports.checkReferrals = (req, res, next) => {
             if(err) {
                 console.log(`ERR ${JSON.stringify(err)}`);
             }
-            console.log(`results of ref check ${JSON.stringify(ref)}`)
             if(ref !== null) {
                 req.addressStats.referredBy = ref.referredBy;
                 next()
             } else {
-                console.log(`ref.referredBy null`)
                 req.addressStats.referredBy = undefined
                 next()
             }
@@ -253,10 +249,8 @@ exports.refCommision = (req, res, next) => {
                 if(err) {
                     console.log(`ERR ${JSON.stringify(err)}`);
                 }
-                console.log(`refCommision aggregate ${JSON.stringify(results,null,'\t')}`)
                 if(results.length > 0) {
                     req.addressStats.referralCommision = (results[0].amount).toFixed(8);
-                    console.log(`Referral commision - ${JSON.stringify(results)}`)
                     next()
                 } else {
                     req.addressStats.referralCommision = 0;
