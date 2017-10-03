@@ -22,6 +22,7 @@ exports.index = (req, res) => {
                 coinName : config.coin.name,
                 minClaim : config.payout.min,
                 maxClaim : config.payout.max,
+                maxClaim : config.payout.referralCommision,
                 treshold : config.payout.treshold,
                 interval : config.payout.interval,
                 address  : config.coin.address,
