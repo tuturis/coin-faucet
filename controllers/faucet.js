@@ -1,4 +1,6 @@
 const altcoin = require('node-altcoin')();
+const toHTML = require('himalaya/translate').toHTML
+
 const PaymentQ = require('../models/paymentQ');
 const proxy_list = require('../models/proxy_list');
 const Ref = require('../models/ref');
@@ -32,6 +34,12 @@ exports.index = (req, res) => {
                 ganalytics : config.analytics.google,
                 siteName : config.site.name 
             },
+            ads: {
+                top: if(cofig.ads.top) : toHTML(cofig.ads.top) ? undefined ,
+                top2: if(cofig.ads.top2) : toHTML(config.ads.top2) ? undefined,
+                right: if(cofig.ads.right) : toHTML(config.ads.right) ? undefined,
+                left: if(cofig.ads.top) : toHTML(config.ads.left) ? undefined
+            }
             exchanges: config.exchanges 
         })
     })
