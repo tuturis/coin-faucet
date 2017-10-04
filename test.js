@@ -79,9 +79,8 @@ PQ.aggregate([
     if(results.length > 0) {
       let pqa = {};
       let idsToUpdate = [];
-      console.log(`config.payout.treshold ${results}`)
-      console.log(`config.payout.treshold ${config.payout.treshold}`)
-      console.log(`result.amount ${result.amount}`)
+      console.log(`typepf results ${results}`)
+      console.log(`results ${JSON.stringify(results, null, '\t')}`)
       results.map((result) => {
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
@@ -90,12 +89,14 @@ PQ.aggregate([
           })
         }
       })
+      console.log(`pqa ${config.payout.treshold}`)
+      /*
       PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
         if(err) {console.log(`${err} when updating`)};
         let addressCount = results.length
         console.log(`addressCount ${addressCount}`)
         console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
-      })
+      })*/
     }
   }
 ) 
