@@ -14,7 +14,7 @@ altcoin.set({port:process.env.rpcport})
  */
 exports.index = (req, res) => {
     altcoin.exec('getbalance', (err, balance) => {
-        let top   = config.ads.top !== ""  ? toHTML(cofig.ads.top)    : undefined 
+        let top   = config.ads.top !== ""  ? toHTML(config.ads.top)    : undefined 
         let top2  = config.ads.top2 !== "" ? toHTML(config.ads.top2)  : undefined
         let right = config.ads.right !== ""? toHTML(config.ads.right) : undefined
         let left  = config.ads.top !== ""  ? toHTML(config.ads.left)  : undefined
