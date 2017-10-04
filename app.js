@@ -79,7 +79,8 @@ app.use((err, req, res, next) => {
     console.log(err.stack || err);
     console.log(`mismatch from ip ${ip}`)
     // you could res.render here if you want a custom template but I'll just `send`:
-    res.send('CSRF mismatch. Nope');
+    req.flash('error', {message: "Try again, after refreshing the page"})
+    res.redirect('/')
   } else {
     next(err);
   }
