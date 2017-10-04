@@ -16,7 +16,11 @@ var config = {
 	}
 	ads: {
 		aads: "",
-		coinurl: ""
+		coinurl: "",
+		top: "",
+		top2: "",
+		left: "",
+		right: "",
 	},
 	analytics: {
 		google: "UA-106566819-2"

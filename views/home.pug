@@ -5,14 +5,16 @@ block content
 		.center-align
 			h2 !{info.coinName} faucet
 		div(style="display:inline-flex").col.s12
-			iframe(data-aa=`${info.aads}`, src=`//ad.a-ads.com/${info.aads}?size=728x90`, scrolling="no", style="margin:0 auto;width:728px; height:90px; border:0px; padding:0;overflow:hidden", allowtransparency="true")
+			if ads.top2
+				!{ads.top2}
+			//- iframe(data-aa=`${info.aads}`, src=`//ad.a-ads.com/${info.aads}?size=728x90`, scrolling="no", style="margin:0 auto;width:728px; height:90px; border:0px; padding:0;overflow:hidden", allowtransparency="true")
 		div.col.s3
 			div.dummy120x600
 			p 123
 		div.col.s6
 			h4 Faucet information
 			div.card-panel.blue-grey.lighten-5
-				table.responsive-table
+				table.responsive-table.wide
 					thead
 						tr
 							th Faucet Balance
@@ -83,7 +85,5 @@ block content
 			div.card-panel.blue-grey.lighten-5
 				p.flow-text !{info.coinInfo}
 		div.col.s3
-			div.dummy120x600
-				p 123
 
-
+			//- iframe(data-aa="680336", src="//ad.a-ads.com/680336?size=120x600", scrolling="no", style="width:120px; height:600px; border:0px; padding:0;overflow:hidden", allowtransparency="true")
