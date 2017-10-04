@@ -59,11 +59,10 @@ r.save((err) => {
     if (err) (console.log(`ERROR ${err}`))
     console.log(`saved`)
 })*/
-/*
+
 PQ.aggregate([
   { '$match' :
     {'claimed': false
-      'address': 'DYNBASTgKsmsSkeosmJqREHoq7NtfJpesF' 
     }
   }, 
   { '$group': {
@@ -80,8 +79,8 @@ PQ.aggregate([
     if(results.length > 0) {
       let pqa = {};
       let idsToUpdate = [];
-      console.log(`config.payout.treshold ${config.payout.treshold}`)
-      console.log(`result.amount ${result.amount}`)
+      console.log(`results ${JSON.stringify(results, null, '\t')}`)
+      console.log(`typepf results ${typeof results}`)
       results.map((result) => {
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
@@ -90,20 +89,17 @@ PQ.aggregate([
           })
         }
       })
+      console.log(`pqa ${JSON.stringify(pqa, null, '\t')}`)
+      /*
       PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
         if(err) {console.log(`${err} when updating`)};
         let addressCount = results.length
         console.log(`addressCount ${addressCount}`)
         console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
-      })
-      .setOptions({ multi: true })
-      .update({$set: {'claimed': true}}, (err, success) => {
-        if(err) {console.log(err)};
-        console.log(`update ${JSON.stringify(success)}`)
-      });
+      })*/
     }
   }
-) */
+) 
 
 /*
 function sendMany(pqa) {
