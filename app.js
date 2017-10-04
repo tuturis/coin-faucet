@@ -81,7 +81,7 @@ app.post('/',
 app.use((err, req, res, next) => {
   if (err.message === 'CSRF token mismatch' || err.message === 'CSRF token missing') {
     let ip = req.headers['x-real-ip'];
-    console.log(err.stack || err);
+    console.log(err.message);
     console.log(`mismatch from ip ${ip}`)
     // you could res.render here if you want a custom template but I'll just `send`:
     req.flash('error', "Try again, after refreshing the page")
