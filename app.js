@@ -38,6 +38,11 @@ app.use(session({
 app.use(lusca.csrf());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
+app.use(lusca.hsts({
+    maxAge:            31536000,
+    includeSubDomains: true,
+    preload:           true,
+  }));
 
 /**
  * Controllers (route handlers).
