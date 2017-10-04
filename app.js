@@ -36,9 +36,6 @@ app.use(session({
 	cookie: { maxAge: 60000 }
 }));
 
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
-
 /**
  * Controllers (route handlers).
  */
