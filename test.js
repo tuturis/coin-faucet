@@ -59,11 +59,10 @@ r.save((err) => {
     if (err) (console.log(`ERROR ${err}`))
     console.log(`saved`)
 })*/
-/*
+
 PQ.aggregate([
   { '$match' :
     {'claimed': false
-      'address': 'DYNBASTgKsmsSkeosmJqREHoq7NtfJpesF' 
     }
   }, 
   { '$group': {
@@ -96,14 +95,9 @@ PQ.aggregate([
         console.log(`addressCount ${addressCount}`)
         console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
       })
-      .setOptions({ multi: true })
-      .update({$set: {'claimed': true}}, (err, success) => {
-        if(err) {console.log(err)};
-        console.log(`update ${JSON.stringify(success)}`)
-      });
     }
   }
-) */
+) 
 
 /*
 function sendMany(pqa) {
