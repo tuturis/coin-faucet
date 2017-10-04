@@ -82,7 +82,7 @@ PQ.aggregate([
       console.log(`config.payout.treshold ${results}`)
       console.log(`config.payout.treshold ${config.payout.treshold}`)
       console.log(`result.amount ${result.amount}`)
-/*      results.map((result) => {
+      results.map((result) => {
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
           result.ids.map((id) => {
@@ -95,7 +95,7 @@ PQ.aggregate([
         let addressCount = results.length
         console.log(`addressCount ${addressCount}`)
         console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
-      })*/
+      })
     }
   }
 ) 
