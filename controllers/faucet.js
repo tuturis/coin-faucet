@@ -14,10 +14,10 @@ altcoin.set({port:process.env.rpcport})
  */
 exports.index = (req, res) => {
     altcoin.exec('getbalance', (err, balance) => {
-        let top = if (cofig.ads.top) : toHTML(cofig.ads.top) ? undefined 
-        let top2 = if (cofig.ads.top2) : toHTML(config.ads.top2) ? undefined
-        let right = if (cofig.ads.right) : toHTML(config.ads.right) ? undefined
-        let left = if (cofig.ads.top) : toHTML(config.ads.left) ? undefined
+        if (cofig.ads.top) : let top = toHTML(cofig.ads.top) ? let top =  undefined 
+        if (cofig.ads.top2) : let top2 = toHTML(config.ads.top2) ? let top2 = undefined
+        if (cofig.ads.right) : let right = toHTML(config.ads.right) ? let right = undefined
+        if (cofig.ads.top) : let left = toHTML(config.ads.left) ? let left = undefined
 
         res.render('home', {
             title: `${config.coin.name} Faucet`,
