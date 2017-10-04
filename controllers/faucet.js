@@ -39,7 +39,7 @@ exports.index = (req, res) => {
                 top2:  toHTML(config.ads.top2),
                 right: toHTML(config.ads.right),
                 left:  toHTML(config.ads.left)
-            }
+            },
             exchanges: config.exchanges 
         })
     })
