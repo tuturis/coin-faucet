@@ -64,6 +64,7 @@ block content
 					.card-content
 						if (referralAddress !== undefined)
 							input(type="hidden", name="ref" value=`${referralAddress}`)
+						input(type='hidden', name='_csrf', value=_csrf)
 						label(for='address') Enter your !{info.coinName} address
 						br
 						input(type='text', name='address', class='address', placeholder=`Enter your ${info.coinName} address`)
