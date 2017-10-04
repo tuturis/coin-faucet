@@ -35,7 +35,7 @@ app.use(session({
   	secret: process.env.SESSION_SECRET,
 	cookie: { maxAge: 60000 }
 }));
-
+lusca.csrf()(req, res, next);
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 

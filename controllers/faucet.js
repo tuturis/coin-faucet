@@ -13,7 +13,7 @@ altcoin.set({port:process.env.rpcport})
 exports.index = (req, res) => {
     altcoin.exec('getbalance', (err, balance) => {
         res.render('home', {
-            title: 'Home',
+            title: `${config.coin.name} Faucet`,
             captcha: req.recaptcha,
             balance: balance,
             addressBalance : req.addressBalance,
