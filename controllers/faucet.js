@@ -17,7 +17,7 @@ exports.index = (req, res) => {
         let top   = config.ads.top !== ""  ? toHTML(config.ads.top)    : undefined 
         let top2  = config.ads.top2 !== "" ? toHTML(config.ads.top2)  : undefined
         let right = config.ads.right !== ""? toHTML(config.ads.right) : undefined
-        let left  = config.ads.top !== ""  ? toHTML(config.ads.left)  : undefined
+        let left  = config.ads.left !== ""  ? toHTML(config.ads.left)  : undefined
 
         res.render('home', {
             title: `${config.coin.name} Faucet`,
