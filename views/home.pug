@@ -42,8 +42,15 @@ block content
 			if (exchanges && exchanges.length > 0)
 				h4 Where to buy and trade !{info.coinName}?
 				div.card-panel.blue-grey.lighten-5
-					for exchage in exchanges
-						a(href=`${exchage.url}`) !{exchage.name}
+					ul.collection
+						for exchange in exchanges
+							li.collection-item.avatar
+								if exchange.avatar
+									img(src=`${exchange.avatar}`, alt="" class="circle")
+								span.title
+									a(href=`${exchange.url}`) #{exchange.name}
+								if exchange.descrition
+									p #{exchange.description}
 			if messages.ainfo
 				h4 Your !{info.coinName} address statistics
 				div.card-panel.blue-grey.lighten-5
