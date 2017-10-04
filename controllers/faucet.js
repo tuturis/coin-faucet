@@ -40,10 +40,10 @@ exports.index = (req, res) => {
                 siteName : config.site.name 
             },
             ads: {
-                top: top  
-                top2: top2
-                right: right
-                left: left
+                top: top,  
+                top2: top2,
+                right: right,
+                left: left,
             }
             exchanges: config.exchanges 
         })
