@@ -22,7 +22,7 @@ recaptcha.init(process.env.RECAPTCHA_SITE_KEY, process.env.RECAPTCHA_SECRET_KEY)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'))
-app.enable('trust proxy')
+app.enable('trust proxy', 1)
 app.set('trust proxy', 'loopback, linklocal, uniquelocal')
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -35,10 +35,10 @@ app.use(session({
   	secret: process.env.SESSION_SECRET,
 	cookie: { maxAge: 60000 }
 }));
-/*app.use(lusca.csrf());
+app.use(lusca.csrf());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
-*/
+
 /**
  * Controllers (route handlers).
  */
