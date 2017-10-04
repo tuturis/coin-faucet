@@ -74,7 +74,7 @@ app.post('/',
 
 /*Error handling*/
 app.use((err, req, res, next) => {
-  if (err.message === 'CSRF token mismatch') {
+  if (err.message === 'CSRF token mismatch' || err.message === 'CSRF token mismatch') {
     let ip = req.headers['x-real-ip'];
     console.log(err.stack || err);
     console.log(`mismatch from ip ${ip}`)
