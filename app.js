@@ -60,8 +60,12 @@ mongoose.connection.on('error', (err) => {
   process.exit();
 });
 app.use((req, res, next) => {
-  req.addressStats = {}
-  next();
+	if(req.query.ref){
+		req.session.referredBy = req.query.ref
+		console.log(`req.session.referredBy ${req.session.referredBy}`)
+	}
+ 	req.addressStats = {}
+ 	next();
 });
 app.get('/', recaptcha.middleware.render, faucetController.index);
 app.post('/', 
