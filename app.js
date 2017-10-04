@@ -72,7 +72,18 @@ app.post('/',
 	faucetController.checkClaimed,
 	faucetController.post);
 
-
+/*Error handling*/
+app.use((err, req, res, next) => {
+  if (err.message === 'CSRF token mismatch') {
+    let ip = req.headers['x-real-ip'];
+    console.log(err.stack || err);
+    console.log(`mismatch from ip ${ip}`)
+    // you could res.render here if you want a custom template but I'll just `send`:
+    res.send('CSRF mismatch. Nope');
+  } else {
+    next(err);
+  }
+})
 
 app.listen(app.get('port'), () => {
   console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env'));
