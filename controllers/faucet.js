@@ -35,10 +35,10 @@ exports.index = (req, res) => {
                 siteName : config.site.name 
             },
             ads: {
-                top: if(cofig.ads.top) : toHTML(cofig.ads.top) ? undefined ,
-                top2: if(cofig.ads.top2) : toHTML(config.ads.top2) ? undefined,
-                right: if(cofig.ads.right) : toHTML(config.ads.right) ? undefined,
-                left: if(cofig.ads.top) : toHTML(config.ads.left) ? undefined
+                top: toHTML(cofig.ads.top),
+                top2:  toHTML(config.ads.top2),
+                right: toHTML(config.ads.right),
+                left:  toHTML(config.ads.left)
             }
             exchanges: config.exchanges 
         })
