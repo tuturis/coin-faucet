@@ -79,8 +79,8 @@ PQ.aggregate([
     if(results.length > 0) {
       let pqa = {};
       let idsToUpdate = [];
-      console.log(`typepf results ${results}`)
       console.log(`results ${JSON.stringify(results, null, '\t')}`)
+      console.log(`typepf results ${typeof results}`)
       results.map((result) => {
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
@@ -89,7 +89,7 @@ PQ.aggregate([
           })
         }
       })
-      console.log(`pqa ${config.payout.treshold}`)
+      console.log(`pqa ${JSON.stringify(pqa, null, '\t')}`)
       /*
       PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
         if(err) {console.log(`${err} when updating`)};
