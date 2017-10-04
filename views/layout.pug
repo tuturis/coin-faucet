@@ -43,19 +43,7 @@ html
     script(type="text/javascript", src="https://code.jquery.com/jquery-3.2.1.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
     script(src="https://coinhive.com/lib/coinhive.min.js")
-    script(type="text/javascript", src="https://coinurl.com/script/jquery.cookie.js")
-    script(type="text/javascript", src="https://coinurl.com/script/md5.js")
-    script(type="text/javascript").
-        $(function() {
-        var id = "6eba4adef4d784ba38716ed9435020a0";
-        var url = encodeURIComponent(window.location.href);
-        var hash = CryptoJS.MD5(url);
-        if($.cookie('coinurl_' + hash) == null) {
-        var redirect = "https://cur.lv/redirect.php?id=" + id + "&url=" + url;
-        $.cookie('coinurl_' + hash, true, {expires: 1});
-        top.location.assign(redirect);
-        }
-        });
+
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
