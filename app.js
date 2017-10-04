@@ -38,6 +38,11 @@ app.use(session({
 app.use(lusca.csrf());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
+app.use(lusca.hsts({
+    maxAge:            31536000,
+    includeSubDomains: true,
+    preload:           true,
+  }));
 
 /**
  * Controllers (route handlers).
@@ -76,10 +81,10 @@ app.post('/',
 app.use((err, req, res, next) => {
   if (err.message === 'CSRF token mismatch' || err.message === 'CSRF token missing') {
     let ip = req.headers['x-real-ip'];
-    console.log(err.stack || err);
+    console.log(err.message);
     console.log(`mismatch from ip ${ip}`)
     // you could res.render here if you want a custom template but I'll just `send`:
-    req.flash('error', {message: "Try again, after refreshing the page"})
+    req.flash('error', "Try again, after refreshing the page")
     res.redirect('/')
   } else {
     next(err);
