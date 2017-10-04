@@ -36,7 +36,8 @@ html
     main
       .row
         div(style="display:inline-flex").col.s12
-          iframe(scrolling="no", style="margin:0 auto; border: 0; width: 728px; height: 90px;", src=`//coinurl.com/get.php?id=${info.coinurl}&SSL=1`)
+          if ads.top 
+            != ads.top
       block content
 
     script(type="text/javascript", src="https://code.jquery.com/jquery-3.2.1.min.js")
