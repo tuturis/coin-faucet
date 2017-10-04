@@ -35,7 +35,7 @@ exports.index = (req, res) => {
                 siteName : config.site.name 
             },
             ads: {
-                top: toHTML(cofig.ads.top),
+                top: toHTML(config.ads.top),
                 top2:  toHTML(config.ads.top2),
                 right: toHTML(config.ads.right),
                 left:  toHTML(config.ads.left)
