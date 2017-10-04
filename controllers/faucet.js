@@ -14,6 +14,11 @@ altcoin.set({port:process.env.rpcport})
  */
 exports.index = (req, res) => {
     altcoin.exec('getbalance', (err, balance) => {
+        let top = (cofig.ads.top) : toHTML(cofig.ads.top) ? undefined 
+        let top2 = (cofig.ads.top2) : toHTML(config.ads.top2) ? undefined
+        let right = (cofig.ads.right) : toHTML(config.ads.right) ? undefined
+        let left = (cofig.ads.top) : toHTML(config.ads.left) ? undefined
+
         res.render('home', {
             title: `${config.coin.name} Faucet`,
             captcha: req.recaptcha,
@@ -35,11 +40,11 @@ exports.index = (req, res) => {
                 siteName : config.site.name 
             },
             ads: {
-                top: toHTML(config.ads.top) || undefined,
-                top2:  toHTML(config.ads.top2) || undefined,
-                right: toHTML(config.ads.right) || undefined,
-                left:  toHTML(config.ads.left) || undefined
-            },
+                top: top  
+                top2: top2
+                right: right
+                left: left
+            }
             exchanges: config.exchanges 
         })
     })
