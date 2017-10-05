@@ -51,14 +51,14 @@ app.use(session({
 	    clear_interval: 3600
   	})	*/
 }));
-app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
-app.use(lusca.hsts({
-    maxAge:            31536000,
-    includeSubDomains: true,
-    preload:           true,
-  }));
+// app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
+// app.use(lusca.xframe('SAMEORIGIN'));
+// app.use(lusca.xssProtection(true));
+// app.use(lusca.hsts({
+//     maxAge:            31536000,
+//     includeSubDomains: true,
+//     preload:           true,
+//   }));
 
 /**
  * Controllers (route handlers).
