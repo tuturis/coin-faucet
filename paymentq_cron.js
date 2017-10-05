@@ -94,7 +94,7 @@ function sendMany(pqa) {
           }
           _.each(pqa, function(value, key, obj) {
               let tx = new tx_log();
-              tx.address = obj[key]
+              tx.address = key
               tx.amount = value
               tx.tx = cb
               tx.save((err) => {
