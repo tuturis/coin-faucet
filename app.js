@@ -44,21 +44,21 @@ app.use(session({
 	resave: true,
   	saveUninitialized: true,
   	secret: process.env.SESSION_SECRET,
-	cookie: { maxAge: 60000, secure: true},
+	cookie: { maxAge: 60000},
 /*	  store: new MongoStore({
 	    url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
 	    autoReconnect: true,
 	    clear_interval: 3600
   	})	*/
 }));
-app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
-app.use(lusca.hsts({
-    maxAge:            31536000,
-    includeSubDomains: true,
-    preload:           true,
-  }));
+// app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
+// app.use(lusca.xframe('SAMEORIGIN'));
+// app.use(lusca.xssProtection(true));
+// app.use(lusca.hsts({
+//     maxAge:            31536000,
+//     includeSubDomains: true,
+//     preload:           true,
+//   }));
 
 /**
  * Controllers (route handlers).
@@ -97,6 +97,7 @@ app.use((err, req, res, next) => {
     req.flash('error', "Try again, after refreshing the page")
     res.redirect('/')
   } else {
+  	console.log(err)
     next(err);
   }
 })
