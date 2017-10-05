@@ -29,9 +29,9 @@ exports.index = (req, res) => {
             recentTxs : req.addressStats.recentTx,
             info : {
                 coinName : config.coin.name,
-                minClaim : config.payout.min,
+                minClaim : (config.payout.min).toFixed(8),
                 maxClaim : config.payout.max,
-                referralCommision : config.payout.referralCommision * 100,
+                referralCommision : (config.payout.referralCommision * 100).toFixed(8),
                 treshold : config.payout.treshold,
                 interval : config.payout.interval,
                 address  : config.coin.address,
