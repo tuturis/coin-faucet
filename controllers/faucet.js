@@ -108,6 +108,7 @@ exports.proxyFilter = (req, res, next) => {
             res.redirect('/');
         }
         if(count > 0) {
+            console.log('proxy filter hit')
             req.flash('error','Requests from TOR or Proxy services is not allowed due to abuse')
             res.redirect('/');
         } else {
