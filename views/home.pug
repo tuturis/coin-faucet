@@ -86,6 +86,22 @@ block content
 						input(class="btn waves-effect waves-light  blue-grey" type='submit', value=`Submit Recaptcha and claim ${info.coinName} coins now!`)
 					p.message #{message}
 					p.error #{error}
+			h4 Faucet Statistics
+				if recentTxs.length > 0
+					div.card-panel.blue-grey.lighten-5
+						.center-align
+							p recent withdrawls
+						thead
+							tr
+								th Address
+								th Amount
+								th Transaction ID
+						tbody
+							for tx in recentTxs 
+								tr
+									td !{tx.address || ""}
+									td !{tx.amount || ""}
+									td !{tx.id || ""}
 			h4 About !{info.coinName}
 			div.card-panel.blue-grey.lighten-5
 				p.flow-text !{info.coinInfo}
