@@ -26,7 +26,7 @@ exports.index = (req, res) => {
             captcha: req.recaptcha,
             balance: balance,
             addressBalance : req.addressBalance,
-            recentTxs : req.faucetStats.recentTx,
+            recentTxs : req.addressStats.recentTx,
             info : {
                 coinName : config.coin.name,
                 minClaim : config.payout.min,
@@ -98,10 +98,10 @@ exports.getTxLogs = (req, res, next) => {
             res.redirect('/');
         }
         if(txs.length = 0) {
-            req.faucetStats.recentTx = []
+            req.addressStats.recentTx = []
             next();
         } else {
-            req.faucetStats.recentTx = txs
+            req.addressStats.recentTx = txs
             next();
         }
     });
