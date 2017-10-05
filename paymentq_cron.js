@@ -2,6 +2,7 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const CronJob = require('cron').CronJob;
 const Client = require('bitcoin-core');
+const _ = require('underscore');
 
 const client = new Client({
   username: process.env.rpcuser,
@@ -12,7 +13,8 @@ const client = new Client({
 
 const config = require('./config')
 const PQ = require('./models/paymentQ');
-const _ = require('underscore');
+const tx_log = require('./models/tx_log');
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI);
@@ -88,8 +90,21 @@ function sendMany(pqa) {
         client.sendMany('faucet', pqa, 1, `Reward from ${config.site.name}`, (err, cb) => {
           if(err) {
             console.log(`err sendmany - ${err}`)
+            return false;
           }
-          console.log(`send many callback ${JSON.stringify(cb)}`)
+          _.each(pqa, function(value, key, obj) {
+              let tx = new tx_log();
+              tx.address = key
+              tx.amount = value
+              tx.tx = cb
+              tx.save((err) => {
+                if(err) {
+                  console.log(`err saving tx - ${err}`)
+                  return false;
+                }
+                console.log(`saved to tx_log ${JSON.stringify(tx)}`)
+              })
+          });
         })
       })            
     }

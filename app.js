@@ -85,6 +85,7 @@ app.post('/',
 	faucetController.refCount,
 	faucetController.refCommision,
 	faucetController.checkClaimed,
+	faucetController.getTxLogs,
 	faucetController.post);
 
 /*Error handling*/
