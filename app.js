@@ -2,6 +2,7 @@
 require('dotenv').config()
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const recaptcha = require('express-recaptcha');
 const flash = require('express-flash');
 const compression = require('compression');
@@ -18,6 +19,16 @@ const chalk = require('chalk');
 const app = express();
 
 recaptcha.init(process.env.RECAPTCHA_SITE_KEY, process.env.RECAPTCHA_SECRET_KEY);
+/**
+ * Connect to MongoDB.
+ */
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.connection.on('error', (err) => {
+  console.error(err);
+  console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
+  process.exit();
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -33,7 +44,12 @@ app.use(session({
 	resave: true,
   	saveUninitialized: true,
   	secret: process.env.SESSION_SECRET,
-	cookie: { maxAge: 60000 }
+	cookie: { maxAge: 60000 },
+	  store: new MongoStore({
+	    url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
+	    autoReconnect: true,
+	    clear_interval: 3600
+  	})	
 }));
 app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
 app.use(lusca.xframe('SAMEORIGIN'));
@@ -49,16 +65,6 @@ app.use(lusca.hsts({
  */
 const faucetController = require('./controllers/faucet');
 
-/**
- * Connect to MongoDB.
- */
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
-mongoose.connection.on('error', (err) => {
-  console.error(err);
-  console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
-  process.exit();
-});
 app.use((req, res, next) => {
 	if(req.query.ref){
 		req.session.referredBy = req.query.ref
