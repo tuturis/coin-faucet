@@ -89,6 +89,7 @@ function sendMany(pqa) {
           if(err) {
             console.log(`err sendmany - ${err}`)
           }
+          console.log(`send many callback ${JSON.stringify(cb)}`)
         })
       })            
     }
