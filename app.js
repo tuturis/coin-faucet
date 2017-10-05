@@ -44,7 +44,7 @@ app.use(session({
 	resave: true,
   	saveUninitialized: true,
   	secret: process.env.SESSION_SECRET,
-	cookie: { maxAge: 60000, secure: true},
+	cookie: { maxAge: 60000},
 /*	  store: new MongoStore({
 	    url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
 	    autoReconnect: true,
@@ -97,6 +97,7 @@ app.use((err, req, res, next) => {
     req.flash('error', "Try again, after refreshing the page")
     res.redirect('/')
   } else {
+  	console.log(err)
     next(err);
   }
 })
