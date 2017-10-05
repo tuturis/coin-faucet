@@ -1,9 +1,10 @@
 var config = {
 	payout: {
 		min : 0.0001,
-		max : 0.001,
-		interval: 2  //in hours
-		treshold: 0.01
+		max : 0.0015,
+		interval: 2, 
+		treshold: 0.003,
+		referralCommision: 0.05,
 	},
 	coin: {
 		name: "DeepOnion",
@@ -12,10 +13,24 @@ var config = {
 	},
 	site: {
 		name: "OnionFaucet.win"
-	}
-	ads: {
-		aads: "",
-		coinurl: ""
 	},
+	ads: {
+		coinurl: "66663",
+		aads: "675642",
+		top: [{"type":"Element","tagName":"iframe","attributes":{"scrolling":"no","style":{"margin":"0 auto","border":0,"width":"728px","height":"90px"},"src":"//coinurl.com/get.php?id=66663&SSL=1"},"children":[]}],
+		top2: [{"type":"Element","tagName":"iframe","attributes":{"dataset":{"aa":675642},"src":"//ad.a-ads.com/675642?size=728x90","scrolling":"no","style":{"margin":"0 auto","width":"728px","height":"90px","border":"0px","padding":0,"overflow":"hidden"},"allowtransparency":"true"},"children":[]}],
+		left: [{"type":"Element","tagName":"a","attributes":{"href":"https://cex.io/r/0/up105394792/0/","target":"_blank"},"children":[{"type":"Element","tagName":"img","attributes":{"src":"https://cex.io/rb/CEX-3-160x600.png","alt":"CEX.IO Bitcoin Exchange","width":160,"height":600,"border":0},"children":[]}]}],
+		right: [{"type":"Element","tagName":"iframe","attributes":{"dataset":{"aa":680336},"src":"//ad.a-ads.com/680336?size=120x600","scrolling":"no","style":{"width":"120px","height":"600px","border":"0px","padding":0,"overflow":"hidden"},"allowtransparency":"true"},"children":[]}],
+	}, 
+	analytics:{
+		google: "UA-106566819-1",
+	},
+	exchanges: [{
+		name: 'novaexchange.com',
+		url: 'https://novaexchange.com/market/BTC_ONION/?re=pud127q1c1b3989waadm',
+		avatar: 'https://pbs.twimg.com/profile_images/756955381658685440/qAk_ejcm_200x200.jpg',
+	        description : 'Easy to use, anonymous friendly, wide varaiety of altcoins to trade'
+	}]
+ 	
 }
 module.exports = config

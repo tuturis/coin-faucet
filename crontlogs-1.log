@@ -1,0 +1,193 @@
+update {"n":2,"nModified":2,"ok":1}
+addressCount 1
+sendMany( {
+	"DihsmRU4bYcCh5vo3cMxcMhNzzMPSfr7QH": 0.00312896
+}
+update {"n":4,"nModified":4,"ok":1}
+addressCount 2
+sendMany( {
+	"Djq4bftEiqdyhi9okTr6fbt4BaequYkWXf": 0.00385544,
+	"DdnhzXTYoD4cZSkt4ibwrXdfoWnK9f1xdX": 0.0034668299999999997
+}
+addressCount 1
+sendMany( {
+	"DdaHJzcmm6sgm9EV2TCT9qQ97yyNafVSut": 0.0036604100000000002
+}
+update {"n":4,"nModified":4,"ok":1}
+update {"n":2,"nModified":2,"ok":1}
+addressCount 1
+sendMany( {
+	"DhpS27ekKJ8RLWR2G2V2mH71kKQYGqyCjT": 0.0031759
+}
+update {"n":3,"nModified":3,"ok":1}
+addressCount 1
+sendMany( {
+	"DrteTNsvC6nDKqQzTze6Z2MGfhdMqfGAVq": 0.0038344900000000003
+}
+addressCount 1
+sendMany( {
+	"DYNBASTgKsmsSkeosmJqREHoq7NtfJpesF": 0.00333801
+}
+update {"n":4,"nModified":4,"ok":1}
+addressCount 2
+sendMany( {
+	"DpfpZPnng584ps8FRZwnWoJ5555TJjBXgt": 0.00316594,
+	"DgqzN1iUq79bGUnGHydSMKCyv7E7f94Yz2": 0.00370687
+}
+update {"n":9,"nModified":9,"ok":1}
+addressCount 1
+sendMany( {
+	"DsCn4gvHaQsDcoe1EkLyNVJYQbeWsGJC9w": 0.00302227
+}
+update {"n":4,"nModified":4,"ok":1}
+addressCount 1
+sendMany( {
+	"DWyvetYJ9RM9hLjqDtZVQb1FDanfYmRBMj": 0.0037817700000000003
+}
+update {"n":4,"nModified":4,"ok":1}
+update {"n":8,"nModified":8,"ok":1}
+addressCount 2
+sendMany( {
+	"DWpCPpSXgbFxMvjzBcZk5rCGaiiEaWWcFN": 0.00378463,
+	"DdnhzXTYoD4cZSkt4ibwrXdfoWnK9f1xdX": 0.0032944899999999997
+}
+addressCount 2
+sendMany( {
+	"DohApEyTDNXUbniiVAQ2TpZttyJAkMYNvo": 0.00341631,
+	"DfawjygLBDzgSC9iUPnpZSHbpEW5toX7yN": 0.00311477
+}
+update {"n":8,"nModified":8,"ok":1}
+update {"n":5,"nModified":5,"ok":1}
+addressCount 1
+sendMany( {
+	"DVardMjmoRpABR2KewQ2ZvYBtRoU8jnwoP": 0.00388417
+}
+update {"n":7,"nModified":7,"ok":1}
+addressCount 2
+sendMany( {
+	"Dmenp9aRPpN5ZkueYzd2UrCpx8VXoATY8o": 0.00327924,
+	"DrqhnSfTPqDL5eskup5N7Ds6XCnAre6qDj": 0.0032404
+}
+update {"n":2,"nModified":2,"ok":1}
+addressCount 1
+sendMany( {
+	"DediVsSeVSAFSG7P8aZryxmHs3Ctt7PohF": 0.00307746
+}
+addressCount 1
+sendMany( {
+	"DsCn4gvHaQsDcoe1EkLyNVJYQbeWsGJC9w": 0.00392518
+}
+update {"n":3,"nModified":3,"ok":1}
+addressCount 1
+sendMany( {
+	"DdaHJzcmm6sgm9EV2TCT9qQ97yyNafVSut": 0.00352606
+}
+update {"n":4,"nModified":4,"ok":1}
+update {"n":3,"nModified":3,"ok":1}
+addressCount 1
+sendMany( {
+	"DpBZphCD1MQ2sGcbvsQNYHqDqTcxWis8kD": 0.00412122
+}
+addressCount 1
+sendMany( {
+	"DfbVmexCDLhbsSEGEjSXPAQXGhE7ECKghb": 0.00317743
+}
+update {"n":3,"nModified":3,"ok":1}
+addressCount 1
+sendMany( {
+	"DonjALJHdkNdq2Vc3AX9u7Jq2MbNDmTiWu": 0.00356129
+}
+update {"n":4,"nModified":4,"ok":1}
+addressCount 2
+sendMany( {
+	"Dre5d9PTs5haJFzaV8AGTUpHFYNwuFFgiH": 0.00308551,
+	"DdnhzXTYoD4cZSkt4ibwrXdfoWnK9f1xdX": 0.00345187
+}
+update {"n":10,"nModified":10,"ok":1}
+addressCount 2
+sendMany( {
+	"Dhs9CZDmjEtsaT4EK8NvK8okzzUaEotTZs": 0.00377497,
+	"Dnn9h6spxhfBGq7DYVk8u8Xvf9JHUcr7wH": 0.0038354899999999996
+}
+update {"n":10,"nModified":10,"ok":1}
+update {"n":9,"nModified":9,"ok":1}
+addressCount 2
+sendMany( {
+	"DpnoGoenWy7mhfgSgCmRnBmeo6HHGEYdXv": 0.00372989,
+	"DfawjygLBDzgSC9iUPnpZSHbpEW5toX7yN": 0.00333877
+}
+addressCount 3
+sendMany( {
+	"Dre5d9PTs5haJFzaV8AGTUpHFYNwuFFgiH": 0.00320578,
+	"Dmenp9aRPpN5ZkueYzd2UrCpx8VXoATY8o": 0.0033086599999999997,
+	"DpfpZPnng584ps8FRZwnWoJ5555TJjBXgt": 0.00395481
+}
+update {"n":11,"nModified":11,"ok":1}
+addressCount 1
+sendMany( {
+	"DVardMjmoRpABR2KewQ2ZvYBtRoU8jnwoP": 0.00307382
+}
+update {"n":3,"nModified":3,"ok":1}
+addressCount 1
+sendMany( {
+	"DWyvetYJ9RM9hLjqDtZVQb1FDanfYmRBMj": 0.0034430199999999998
+}
+update {"n":4,"nModified":4,"ok":1}
+addressCount 3
+sendMany( {
+	"DsBCRbZeTQ3DMt3MxJg5GGskoNJLdeZF5L": 0.00362641,
+	"DZguagh4QUxn3MK2CP2YCsjRqFYeyWW5Vr": 0.0036908,
+	"DWpCPpSXgbFxMvjzBcZk5rCGaiiEaWWcFN": 0.00348743
+}
+update {"n":13,"nModified":13,"ok":1}
+addressCount 1
+sendMany( {
+	"DsCn4gvHaQsDcoe1EkLyNVJYQbeWsGJC9w": 0.00364376
+}
+update {"n":5,"nModified":5,"ok":1}
+addressCount 1
+sendMany( {
+	"Dbw7hr4q2qftk24NSSWZTMR8GwuKNP41cm": 0.00314006
+}
+update {"n":4,"nModified":4,"ok":1}
+addressCount 1
+sendMany( {
+	"DauAaUMAGfv13Uv4g27BkWy5bPzBtu2kAL": 0.0040596799999999995
+}
+update {"n":8,"nModified":8,"ok":1}
+addressCount 1
+sendMany( {
+	"DohApEyTDNXUbniiVAQ2TpZttyJAkMYNvo": 0.00374395
+}
+update {"n":5,"nModified":5,"ok":1}
+addressCount 1
+sendMany( {
+	"DgbUuJTA9XapoK7qw6jM4gsGwUjd6Uhpdt": 0.00358822
+}
+update {"n":3,"nModified":3,"ok":1}
+update {"n":4,"nModified":4,"ok":1}
+addressCount 1
+sendMany( {
+	"Dnn9h6spxhfBGq7DYVk8u8Xvf9JHUcr7wH": 0.00329074
+}
+addressCount 1
+sendMany( {
+	"DmkLHSA2nPrznFRhoyQ2hZEVwstK4kxtNz": 0.00309172
+}
+update {"n":3,"nModified":3,"ok":1}
+update {"n":4,"nModified":4,"ok":1}
+addressCount 1
+sendMany( {
+	"DdnhzXTYoD4cZSkt4ibwrXdfoWnK9f1xdX": 0.00330435
+}
+addressCount 2
+sendMany( {
+	"DsCn4gvHaQsDcoe1EkLyNVJYQbeWsGJC9w": 0.00354915,
+	"DhYt1jTzWTWQCV9uUVtLXfmW5EgpvVrKVv": 0.0031593100000000002
+}
+update {"n":12,"nModified":12,"ok":1}
+addressCount 1
+sendMany( {
+	"DpnoGoenWy7mhfgSgCmRnBmeo6HHGEYdXv": 0.00334371
+}
+update {"n":4,"nModified":4,"ok":1}
