@@ -4,7 +4,7 @@ const toHTML = require('himalaya/translate').toHTML
 const PaymentQ = require('../models/paymentQ');
 const proxy_list = require('../models/proxy_list');
 const Ref = require('../models/ref');
-const Tx_logs = require('./models/tx_log');
+const Tx_logs = require('../models/tx_log');
 
 const config = require('../config')
 altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
@@ -26,7 +26,7 @@ exports.index = (req, res) => {
             captcha: req.recaptcha,
             balance: balance,
             addressBalance : req.addressBalance,
-            recentTx : req.faucetStats.recentTx,
+            recentTxs : req.faucetStats.recentTx,
             info : {
                 coinName : config.coin.name,
                 minClaim : config.payout.min,
