@@ -40,11 +40,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(compression());
 app.use(flash());
-app.use(session({ 
+app.use(session({
+	key: 'sid', 
 	resave: true,
   	saveUninitialized: true,
   	secret: process.env.SESSION_SECRET,
-	cookie: { maxAge: 60000 },
+	cookie: { maxAge: 60000, secure: true},
 	  store: new MongoStore({
 	    url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
 	    autoReconnect: true,
