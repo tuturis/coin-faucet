@@ -4,6 +4,8 @@ const toHTML = require('himalaya/translate').toHTML
 const PaymentQ = require('../models/paymentQ');
 const proxy_list = require('../models/proxy_list');
 const Ref = require('../models/ref');
+const Tx_logs = require('../models/tx_log');
+
 const config = require('../config')
 altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
 altcoin.set('host', process.env.rpchost)
@@ -24,6 +26,7 @@ exports.index = (req, res) => {
             captcha: req.recaptcha,
             balance: balance,
             addressBalance : req.addressBalance,
+            recentTxs : req.addressStats.recentTx,
             info : {
                 coinName : config.coin.name,
                 minClaim : config.payout.min,
@@ -83,7 +86,26 @@ exports.post = (req, res) => {
         res.redirect('/');
     }
 } 
-
+exports.getTxLogs = (req, res, next) => {
+    Tx_logs.find({})
+    .select('address amount tx')
+    .sort({'createdAt': -1})
+    .limit(10)
+    .exec(function(err, txs) {
+        if(err) {
+            console.log(`error ${err}`)
+            req.flash('error', `ERROR ${err}`)
+            res.redirect('/');
+        }
+        if(txs.length = 0) {
+            req.addressStats.recentTx = []
+            next();
+        } else {
+            req.addressStats.recentTx = txs
+            next();
+        }
+    });
+}
 exports.validateAdress = (req, res, next) => {
     altcoin.exec('validateaddress', req.body.address, (err, info) => {
         if(err) {

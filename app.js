@@ -73,7 +73,7 @@ app.use((req, res, next) => {
  	req.addressStats = {}
  	next();
 });
-app.get('/', recaptcha.middleware.render, faucetController.index);
+app.get('/', recaptcha.middleware.render, faucetController.getTxLogs, faucetController.index);
 app.post('/', 
 	recaptcha.middleware.verify,
 	faucetController.captchaCheck,
@@ -85,6 +85,7 @@ app.post('/',
 	faucetController.refCount,
 	faucetController.refCommision,
 	faucetController.checkClaimed,
+	faucetController.getTxLogs,
 	faucetController.post);
 
 /*Error handling*/
