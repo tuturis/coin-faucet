@@ -101,7 +101,7 @@ exports.getTxLogs = (req, res, next) => {
             req.faucetStats.recentTx = []
             next();
         } else {
-            req.faucetStats.recentTx = results
+            req.faucetStats.recentTx = txs
             next();
         }
     });
