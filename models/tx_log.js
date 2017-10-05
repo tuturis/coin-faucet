@@ -7,5 +7,5 @@ const txLogSchema = new mongoose.Schema({
 		amount: Number,
 	}, { timestamps: true });
 
-const txLog = mongoose.model('paymentQ', txLogSchema, `${config.coin.name.toLowerCase()}.txlogs`);
+const txLog = mongoose.model('txLog', txLogSchema, `${config.coin.name.toLowerCase()}.txlogs`);
 module.exports = txLog;
