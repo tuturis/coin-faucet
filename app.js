@@ -97,6 +97,7 @@ app.use((err, req, res, next) => {
     req.flash('error', "Try again, after refreshing the page")
     res.redirect('/')
   } else {
+  	console.log(err)
     next(err);
   }
 })
