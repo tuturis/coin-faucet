@@ -69,7 +69,10 @@ block content
 								td !{messages.ainfo[0].referralCount || "0"}
 								td !{messages.ainfo[0].referralCommision || "0"}
 								td !{messages.ainfo[0].totalBalance || "0"}
-					p Your affiliate link - https://!{info.siteName}/?ref=!{messages.ainfo[0].address}, make sure to share for additional coins!
+					p Your affiliate link - https://!{info.siteName}/?ref=!{messages.ainfo[0].address}, make sure to share it! Rewards will be huge!
+					p 		
+						a.twitter-share-button(href="https://twitter.com/share?ref_src=twsrc%5Etfw", data-text=`Make sure to claim your ${info.coin.name} at`, data-size="large", data-url=`https://www.${info.siteName}/?ref=${messages.ainfo[0].address}`, data-hashtags=`${info.coin.name} Crypto Faucet`, data-show-count="false") Tweet your ref link !
+						script(async="", src="//platform.twitter.com/widgets.js", charset="utf-8")
 			h4 Claim your !{info.coinName} !
 			.card.blue-grey.lighten-5
 				form(method='POST', action='/')
