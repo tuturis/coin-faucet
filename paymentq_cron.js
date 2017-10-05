@@ -102,9 +102,9 @@ function sendMany(pqa) {
                   console.log(`err saving tx - ${err}`)
                   return false;
                 }
+                console.log(`saved to tx_log ${JSON.stringify(tx)}`)
               })
           });
-          console.log(`send many callback ${JSON.stringify(cb)}`)
         })
       })            
     }
