@@ -86,8 +86,8 @@ block content
 						input(class="btn waves-effect waves-light  blue-grey" type='submit', value=`Submit Recaptcha and claim ${info.coinName} coins now!`)
 					p.message #{message}
 					p.error #{error}
-			h4 Faucet Statistics
-				if recentTxs.length > 0
+			if recentTxs.length > 0
+				h4 Faucet Statistics
 					div.card-panel.blue-grey.lighten-5
 						.center-align
 							p recent withdrawls
