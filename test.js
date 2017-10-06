@@ -72,9 +72,7 @@ Tx_logs.find({})
             res.redirect('/');
         }
         if(txs.length = 0) {
-            req.addressStats.recentTx = []
         } else {
-            req.addressStats.recentTx = txs
             console.log(`txs ${txs}`)
         }
     });
