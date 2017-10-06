@@ -62,7 +62,6 @@ r.save((err) => {
     console.log(`saved`)
 })*/
 Tx_logs.find({})
-    .select('address amount tx')
     .sort({'createdAt': -1})
     .limit(10)
     .exec(function(err, txs) {
