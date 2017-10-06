@@ -65,8 +65,11 @@ Tx_logs.find({}, (err, txs) => {
         if(err) {
             console.log(`error ${err}`)
         }
+        if(txs.length > 0) {
+        } else {
             console.log(`typoof txs ${typeof txs}`)
             console.log(`txs ${JSON.stringify(txs)}`)
+        }
     });
 
 /*PQ.aggregate([
