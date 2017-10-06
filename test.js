@@ -68,7 +68,7 @@ Tx_logs.find({}, (err, txs) => {
         if(txs.length = 0) {
         } else {
             console.log(`typoof txs ${typeof txs}`)
-            console.log(`txs ${txs}`)
+            console.log(`txs ${JSON.stringify(txs)}`)
         }
     });
 
