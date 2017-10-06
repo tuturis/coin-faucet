@@ -61,15 +61,13 @@ r.save((err) => {
     if (err) (console.log(`ERROR ${err}`))
     console.log(`saved`)
 })*/
-Tx_logs.find({})
-    .exec((err, txs) => {
+Tx_logs.find({}, (err, txs) => {
         if(err) {
             console.log(`error ${err}`)
-            req.flash('error', `ERROR ${err}`)
-            res.redirect('/');
         }
         if(txs.length = 0) {
         } else {
+            console.log(`typoof txs ${typeof txs}`)
             console.log(`txs ${txs}`)
         }
     });
