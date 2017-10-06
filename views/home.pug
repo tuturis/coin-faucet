@@ -102,7 +102,8 @@ block content
 								tr
 									td !{tx.address || ""}
 									td !{(tx.amount * 1000000).toFixed(2)  || ""} μ!{info.coinTicker}
-									td.tstr !{tx.tx || ""}
+									td 
+										a(href=`${info.blockexpl}/${tx.tx}`).tstr !{tx.tx || ""}
 			h4 About !{info.coinName}
 			div.card-panel.blue-grey.lighten-5
 				p.flow-text !{info.coinInfo}

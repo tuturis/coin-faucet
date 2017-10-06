@@ -28,6 +28,7 @@ exports.index = (req, res) => {
             addressBalance : req.addressBalance,
             recentTxs : req.addressStats.recentTx,
             info : {
+                blockexpl : config.site.explorer,
                 coinTicker: config.coin.ticker,
                 coinName : config.coin.name,
                 minClaim : (config.payout.min).toFixed(8),
@@ -53,40 +54,47 @@ exports.index = (req, res) => {
     })
 };
 exports.post = (req, res) => {
+        req.flash('ainfo', req.addressStats)
+        res.redirect('/');
+} 
+exports.claim = (req, res, next) => {
     let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(8)
     let ip = req.headers['x-real-ip'];
-    
     if(ip) {
-        let pq = new PaymentQ()
-        pq.address = req.body.address;
-        pq.ip = ip;
-        pq.amount = claim;
-        pq.save((err) => {
-            if(err) {
-                req.flash('error', 'Internal error')
-                res.redirect('/');
-            }
-            if(req.addressStats.referredBy != undefined) {
-                let refPq = new PaymentQ()
-                let refClaim = (claim * config.payout.referralCommision).toFixed(8)
-                console.log(`referral claim ${refClaim}`)
-                refPq.address = req.addressStats.referredBy
-                refPq.ref = true
-                refPq.amount = refClaim 
-                refPq.save((err) => {
+        if(!req.claimed){
+            let pq = new PaymentQ()
+            pq.address = req.body.address;
+            pq.ip = ip;
+            pq.amount = claim;
+            pq.save((err) => {
+                if(err) {
+                    req.flash('error', 'Internal error')
+                    res.redirect('/');
+                }
+                if(req.addressStats.referredBy != undefined) {
+                    let refPq = new PaymentQ()
+                    let refClaim = (claim * config.payout.referralCommision).toFixed(8)
+                    refPq.address = req.addressStats.referredBy
+                    refPq.ref = true
+                    refPq.amount = refClaim 
+                    refPq.save((err) => {
+                        req.flash('success',`Your claim of ${claim} ${config.coin.name} is under way!`)
+                        next()
+                    })
+                } else {
                     req.flash('success',`Your claim of ${claim} ${config.coin.name} is under way!`)
-                    res.redirect('/');                          
-                })
-            } else {
-                req.flash('success',`Your claim of ${claim} ${config.coin.name} is under way!`)
-                res.redirect('/');      
-            }
-        });
+                    next()
+                }
+            });
+        } else {
+            req.flash('error', `You can claim coins only every ${config.payout.interval} hours per same IP or ${config.coin.name} address`)
+            next()
+        }
     } else {
         req.flash('error', {message : 'Something went wrong...'})
         res.redirect('/');
-    }
-} 
+    }  
+}
 exports.getTxLogs = (req, res, next) => {
     Tx_logs.find({})
     .select('address amount tx')
@@ -195,7 +203,6 @@ exports.checkClaimed = (req, res, next) => {
     let now = new Date();
     let interval = now.setHours(now.getHours() - config.payout.interval) 
     let ip = req.headers['x-real-ip'];
-    req.flash('ainfo', req.addressStats)
     PaymentQ.find(
         {$and: [
             { $or:[{ip : ip}, {address : req.body.address}]},
@@ -208,9 +215,10 @@ exports.checkClaimed = (req, res, next) => {
                 res.redirect('/')       
             }
             if(pqs.length > 0) {
-                req.flash('error', `You can claim coins only every ${config.payout.interval} hours per same IP or ${config.coin.name} address`)
-                res.redirect('/');
+                req.claimed = true
+                next()
             } else {
+                req.claimed = false
                 next()
             }
     })
@@ -227,9 +235,7 @@ exports.checkReferrals = (req, res, next) => {
                     if(err) {
                         console.log(`ERR ${JSON.stringify(err)}`);
                     }
-                    console.log(`checkReferrals ${JSON.stringify(results,null,'\t')}`)
                     if(results.length > 0) {
-                        console.log(`address already has been referred`)
                         req.addressStats.referredBy = results[0].referredBy;    
                         next()
                     } else {
