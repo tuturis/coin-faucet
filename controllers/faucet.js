@@ -21,7 +21,6 @@ exports.index = (req, res) => {
         let right = config.ads.right !== ""? toHTML(config.ads.right) : undefined
         let left  = config.ads.left !== ""  ? toHTML(config.ads.left)  : undefined
 
-        console.log(`req.addressStats.recentTx ${req.addressStats.recentTx}`)
         res.render('home', {
             title: `${config.coin.name} Faucet`,
             captcha: req.recaptcha,
