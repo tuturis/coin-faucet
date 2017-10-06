@@ -21,6 +21,7 @@ var config = {
 		top2: "",
 		left: "",
 		right: "",
+		/*paste ad html https://jew.ski/himalaya/ -> https://www.cleancss.com/json-minify/ */
 	},
 	analytics: {
 		google: "UA-106566819-2"
