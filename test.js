@@ -23,6 +23,8 @@ const request = require('request');
 const Pf = require('./models/proxy_list');
 const PQ = require('./models/paymentQ');
 const Ref = require('./models/ref');
+const Tx_logs = require('./models/tx_log');
+
 const _ = require('underscore');
 
 mongoose.Promise = global.Promise;
@@ -59,8 +61,25 @@ r.save((err) => {
     if (err) (console.log(`ERROR ${err}`))
     console.log(`saved`)
 })*/
+Tx_logs.find({})
+    .select('address amount tx')
+    .sort({'createdAt': -1})
+    .limit(10)
+    .exec(function(err, txs) {
+        if(err) {
+            console.log(`error ${err}`)
+            req.flash('error', `ERROR ${err}`)
+            res.redirect('/');
+        }
+        if(txs.length = 0) {
+            req.addressStats.recentTx = []
+        } else {
+            req.addressStats.recentTx = txs
+            console.log(`txs ${txs}`)
+        }
+    });
 
-PQ.aggregate([
+/*PQ.aggregate([
   { '$match' :
     {'claimed': false
     }
@@ -85,21 +104,21 @@ PQ.aggregate([
         if (result.amount >= config.payout.treshold) {
           pqa[result._id] = result.amount
           result.ids.map((id) => {
-            idsToUpdate.push(id.id)
+            idsToUpdate.push(id.id)ex
           })
         }
       })
       console.log(`pqa ${JSON.stringify(pqa, null, '\t')}`)
-      /*
+      
       PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
         if(err) {console.log(`${err} when updating`)};
         let addressCount = results.length
         console.log(`addressCount ${addressCount}`)
         console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
-      })*/
+      })
     }
   }
-) 
+) */
 
 /*
 function sendMany(pqa) {
