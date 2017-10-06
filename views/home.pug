@@ -101,7 +101,7 @@ block content
 							for tx in recentTxs 
 								tr
 									td !{tx.address || ""}
-									td !{tx.amount.toFixed(8) || ""} !{info.coinTicker}
+									td.tstr !{tx.amount.toFixed(8) || ""} !{info.coinTicker}
 									td !{tx.tx || ""}
 			h4 About !{info.coinName}
 			div.card-panel.blue-grey.lighten-5
