@@ -66,6 +66,7 @@ Tx_logs.find({}, (err, txs) => {
             console.log(`error ${err}`)
         }
         if(txs.length > 0) {
+            console.log(`typoof txs ${typeof txs}`)
         } else {
             console.log(`typoof txs ${typeof txs}`)
             console.log(`txs ${JSON.stringify(txs)}`)
