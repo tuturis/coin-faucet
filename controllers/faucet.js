@@ -28,6 +28,7 @@ exports.index = (req, res) => {
             addressBalance : req.addressBalance,
             recentTxs : req.addressStats.recentTx,
             info : {
+                blockexpl : config.site.explorer,
                 coinTicker: config.coin.ticker,
                 coinName : config.coin.name,
                 minClaim : (config.payout.min).toFixed(8),
