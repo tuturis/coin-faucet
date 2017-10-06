@@ -61,7 +61,7 @@ r.save((err) => {
     if (err) (console.log(`ERROR ${err}`))
     console.log(`saved`)
 })*/
-Tx_logs.find({}, (err, txs) => {
+/*Tx_logs.find({}, (err, txs) => {
         if(err) {
             console.log(`error ${err}`)
         }
@@ -71,9 +71,9 @@ Tx_logs.find({}, (err, txs) => {
             console.log(`typoof txs ${typeof txs}`)
             console.log(`txs ${JSON.stringify(txs)}`)
         }
-    });
+    });*/
 
-/*PQ.aggregate([
+PQ.aggregate([
   { '$match' :
     {'claimed': false
     }
@@ -112,7 +112,7 @@ Tx_logs.find({}, (err, txs) => {
       })
     }
   }
-) */
+) 
 
 /*
 function sendMany(pqa) {
