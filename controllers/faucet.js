@@ -98,11 +98,11 @@ exports.getTxLogs = (req, res, next) => {
             req.flash('error', `ERROR ${err}`)
             res.redirect('/');
         }
-        if(txs.length = 0) {
-            req.addressStats.recentTx = []
+        if(txs.length > 0) {
+            req.addressStats.recentTx = txs
             next();
         } else {
-            req.addressStats.recentTx = txs
+            req.addressStats.recentTx = []
             next();
         }
     });
