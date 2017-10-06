@@ -68,7 +68,8 @@ const faucetController = require('./controllers/faucet');
 app.use((req, res, next) => {
 	if(req.query.ref){
 		req.session.referredBy = req.query.ref
-		console.log(`req.session.referredBy ${req.session.referredBy}`)
+		res.redirect('/')
+	console.log(`req.session.referredBy ${req.session.referredBy}`)
 	}
  	req.addressStats = {}
  	next();
@@ -79,12 +80,13 @@ app.post('/',
 	faucetController.captchaCheck,
 	faucetController.validateAdress,
 	faucetController.proxyFilter,
+	faucetController.checkClaimed,
+	faucetController.claim,
 	faucetController.addressBalance,
 	faucetController.unpaidBalance,
 	faucetController.checkReferrals,
 	faucetController.refCount,
 	faucetController.refCommision,
-	faucetController.checkClaimed,
 	faucetController.getTxLogs,
 	faucetController.post);
 
