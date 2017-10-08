@@ -8,7 +8,7 @@ const flash = require('express-flash');
 const compression = require('compression');
 const lusca = require('lusca');
 const bodyParser = require('body-parser');
-
+const helmet =  require('helmet');
 const mongoose = require('mongoose');
 const altcoin = require('node-altcoin')()
 
@@ -29,7 +29,7 @@ mongoose.connection.on('error', (err) => {
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
   process.exit();
 });
-
+app.use(helmet())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'))
@@ -51,6 +51,7 @@ app.use(session({
 	    clear_interval: 3600
   	})	*/
 }));
+
 // app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
 // app.use(lusca.xframe('SAMEORIGIN'));
 // app.use(lusca.xssProtection(true));
@@ -94,13 +95,13 @@ app.post('/',
 app.use((err, req, res, next) => {
   if (err.message === 'CSRF token mismatch' || err.message === 'CSRF token missing') {
     let ip = req.headers['x-real-ip'];
-    console.log(err.message);
-    console.log(`mismatch from ip ${ip}`)
+    console.error(err.message);
+    console.error(`mismatch from ip ${ip}`)
     // you could res.render here if you want a custom template but I'll just `send`:
     req.flash('error', "Try again, after refreshing the page")
     res.redirect('/')
   } else {
-  	console.log(err)
+  	console.error(err)
     next(err);
   }
 })
