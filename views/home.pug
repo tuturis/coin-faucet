@@ -40,18 +40,6 @@ block content
 				p !{info.coinName} faucet donation address - !{info.address}.
 				p No Proxy or TOR IP addresses due to abuse.
 				p Affiliate link - https://!{info.siteName}/?ref=#{'<'}your !{info.coinName} address#{'>'}
-			if (exchanges && exchanges.length > 0)
-				h4 Where to buy and trade !{info.coinName}?
-				div.card-panel.blue-grey.lighten-5
-					ul.collection
-						for exchange in exchanges
-							li.collection-item.avatar
-								if exchange.avatar
-									img(src=`${exchange.avatar}`, alt="" class="circle")
-								span.title
-									a(href=`${exchange.url}`, class="btn waves-effect waves-light  blue-grey")  #{exchange.name}
-								if exchange.description
-									p #{exchange.description}
 			if messages.ainfo
 				h4 Your !{info.coinName} address statistics
 				div.card-panel.blue-grey.lighten-5
@@ -74,6 +62,18 @@ block content
 					p 		
 						a.twitter-share-button(href="https://twitter.com/share?ref_src=twsrc%5Etfw", data-text=`Make sure to claim your ${info.coinName} at`, data-size="large", data-url=`https://www.${info.siteName}/?ref=${messages.ainfo[0].address}`, data-hashtags=`${info.coinName} Crypto Faucet`, data-show-count="false") Tweet your ref link !
 						script(async="", src="//platform.twitter.com/widgets.js", charset="utf-8")
+			if (exchanges && exchanges.length > 0)
+				h4 Where to buy and trade !{info.coinName}?
+				div.card-panel.blue-grey.lighten-5
+					ul.collection
+						for exchange in exchanges
+							li.collection-item.avatar
+								if exchange.avatar
+									img(src=`${exchange.avatar}`, alt="" class="circle")
+								span.title
+									a(href=`${exchange.url}`, class="btn waves-effect waves-light  blue-grey")  #{exchange.name}
+								if exchange.description
+									p #{exchange.description}
 			h4 Claim your !{info.coinName} !
 			.card.blue-grey.lighten-5
 				form(method='POST', action='/')
