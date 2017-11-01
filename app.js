@@ -19,7 +19,7 @@ const chalk = require('chalk');
 
 const app = express();
 
-captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY),{whitelabel:false, hashes: 65536};
+captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,{whitelabel:false, hashes: 65536});
 /**
  * Connect to MongoDB.
  */
