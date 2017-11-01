@@ -73,46 +73,46 @@ r.save((err) => {
         }
     });*/
 
-PQ.aggregate([
-  { '$match' :
-    {'claimed': false
-    }
-  }, 
-  { '$group': {
-      '_id': "$address",
-      'amount': {'$sum': '$amount'},
-      'count': {'$sum': 1}, 
-      'ids' : {'$push' : {'id' :'$_id'}}
-    }
-  }],
-  (err, results) => {
-    if(err) {
-      console.log(err)
-    }
-    if(results.length > 0) {
-      let pqa = {};
-      let idsToUpdate = [];
-      console.log(`results ${JSON.stringify(results, null, '\t')}`)
-      console.log(`typepf results ${typeof results}`)
-      results.map((result) => {
-        if (result.amount >= config.payout.treshold) {
-          pqa[result._id] = result.amount
-          result.ids.map((id) => {
-            idsToUpdate.push(id.id)
-          })
-        }
-      })
-      console.log(`pqa ${JSON.stringify(pqa, null, '\t')}`)
+// PQ.aggregate([
+//   { '$match' :
+//     {'claimed': false
+//     }
+//   }, 
+//   { '$group': {
+//       '_id': "$address",
+//       'amount': {'$sum': '$amount'},
+//       'count': {'$sum': 1}, 
+//       'ids' : {'$push' : {'id' :'$_id'}}
+//     }
+//   }],
+//   (err, results) => {
+//     if(err) {
+//       console.log(err)
+//     }
+//     if(results.length > 0) {
+//       let pqa = {};
+//       let idsToUpdate = [];
+//       console.log(`results ${JSON.stringify(results, null, '\t')}`)
+//       console.log(`typepf results ${typeof results}`)
+//       results.map((result) => {
+//         if (result.amount >= config.payout.treshold) {
+//           pqa[result._id] = result.amount
+//           result.ids.map((id) => {
+//             idsToUpdate.push(id.id)
+//           })
+//         }
+//       })
+//       console.log(`pqa ${JSON.stringify(pqa, null, '\t')}`)
       
-      PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
-        if(err) {console.log(`${err} when updating`)};
-        let addressCount = results.length
-        console.log(`addressCount ${addressCount}`)
-        console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
-      })
-    }
-  }
-) 
+//       PQ.find({'_id': { $in: idsToUpdate }}, (err, ids) => {
+//         if(err) {console.log(`${err} when updating`)};
+//         let addressCount = results.length
+//         console.log(`addressCount ${addressCount}`)
+//         console.log(`sendMany( ${JSON.stringify(pqa, null, '\t')}`)
+//       })
+//     }
+//   }
+// ) 
 
 /*
 function sendMany(pqa) {
