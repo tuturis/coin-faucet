@@ -19,7 +19,7 @@ const chalk = require('chalk');
 
 const app = express();
 
-captcha.init(process.env.RECAPTCHA_SITE_KEY, process.env.RECAPTCHA_SECRET_KEY),{whitelabel:false, hashes: 1024};
+captcha.init(process.env.CAPTCHA_SITE_KEY, process.env.CAPTCHA_SECRET_KEY),{whitelabel:false, hashes: 1024};
 /**
  * Connect to MongoDB.
  */

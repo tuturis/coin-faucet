@@ -5,3 +5,4 @@ config.js
 public/favicon-*.png
 public/favicon.ico
 public/browserconfig.xml
+.vscode
