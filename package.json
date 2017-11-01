@@ -20,6 +20,7 @@
     "express": "^4.15.4",
     "express-flash": "0.0.2",
     "express-recaptcha": "^2.3.0",
+    "express-coinhive-captcha" : "*",
     "express-session": "^1.15.5",
     "helmet": "^3.8.2",
     "himalaya": "^0.2.13",

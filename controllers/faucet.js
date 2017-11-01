@@ -23,7 +23,7 @@ exports.index = (req, res) => {
 
         res.render('home', {
             title: `${config.coin.name} Faucet`,
-            captcha: req.recaptcha,
+            captcha: req.captcha,
             balance: balance,
             addressBalance : req.addressBalance,
             recentTxs : req.addressStats.recentTx,
@@ -148,10 +148,10 @@ exports.proxyFilter = (req, res, next) => {
     })
 };
 exports.captchaCheck = (req, res, next) => {
-    if (!req.recaptcha.error) {
+    if (!req.captcha.error) {
         next()
     } else {
-        req.flash('error', 'invalid reCaptcha, try again')
+        req.flash('error', 'invalid captcha, try again')
         res.redirect('/')
     }
 }
