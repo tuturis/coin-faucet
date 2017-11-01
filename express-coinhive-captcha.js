@@ -26,7 +26,7 @@ function Captcha(){
   Captcha.prototype.init = function(site_key, secret_key, options){
     this.site_key = site_key;
     this.secret_key = secret_key;
-    this.options = options || { hashes:'256' };
+    this.options = options || {};
     if (!this.site_key) throw new Error('site_key is required');
     if (!this.secret_key) throw new Error('secret_key is required');
   };
