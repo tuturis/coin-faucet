@@ -15,50 +15,58 @@ altcoin.set({port:process.env.rpcport})
  * Home page.
  */
 exports.index = (req, res) => {
-    altcoin.exec('getbalance', (err, balance) => {
-        let top   = config.ads.top !== ""  ? toHTML(config.ads.top)    : undefined 
-        let top2  = config.ads.top2 !== "" ? toHTML(config.ads.top2)  : undefined
-        let right = config.ads.right !== ""? toHTML(config.ads.right) : undefined
-        let left  = config.ads.left !== ""  ? toHTML(config.ads.left)  : undefined
+    let top   = config.ads.top !== ""  ? toHTML(config.ads.top)    : undefined 
+    let top2  = config.ads.top2 !== "" ? toHTML(config.ads.top2)  : undefined
+    let right = config.ads.right !== ""? toHTML(config.ads.right) : undefined
+    let left  = config.ads.left !== ""  ? toHTML(config.ads.left)  : undefined
 
-        res.render('home', {
-            title: `${config.coin.name} Faucet`,
-            captcha: req.captcha,
-            balance: balance,
-            addressBalance : req.addressBalance,
-            recentTxs : req.addressStats.recentTx,
-            info : {
-                blockexpl : config.site.explorer,
-                coinTicker: config.coin.ticker,
-                coinName : config.coin.name,
-                minClaim : (config.payout.min).toFixed(8),
-                maxClaim : config.payout.max,
-                referralCommision : (config.payout.referralCommision * 100).toFixed(2),
-                treshold : config.payout.treshold,
-                interval : config.payout.interval,
-                address  : config.coin.address,
-                coinInfo : config.coin.info,
-                aads     : config.ads.aads,
-                coinurl  : config.ads.coinurl,
-                ganalytics : config.analytics.google,
-                siteName : config.site.name 
-            },
-            ads: {
-                top: top,  
-                top2: top2,
-                right: right,
-                left: left,
-            },
-            exchanges: config.exchanges 
-        })
+    res.render('home', {
+        title: `${config.coin.name} Faucet`,
+        captcha: req.captcha,
+        balance: req.faucetBalance,
+        addressBalance : req.addressBalance,
+        recentTxs : req.addressStats.recentTx,
+        info : {
+            blockexpl : config.site.explorer,
+            coinTicker: config.coin.ticker,
+            coinName : config.coin.name,
+            minClaim : (config.payout.min).toFixed(config.coin.decimals),
+            maxClaim : (config.payout.max).toFixed(config.coin.decimals),
+            referralCommision : (config.payout.referralCommision * 100).toFixed(2),
+            treshold : config.payout.treshold,
+            interval : config.payout.interval,
+            address  : config.coin.address,
+            coinInfo : config.coin.info,
+            aads     : config.ads.aads,
+            coinurl  : config.ads.coinurl,
+            ganalytics : config.analytics.google,
+            siteName : config.site.name 
+        },
+        ads: {
+            top: top,  
+            top2: top2,
+            right: right,
+            left: left,
+        },
+        exchanges: config.exchanges 
+    })
+};
+exports.getFaucetBalance = (req, res, next) => { 
+    altcoin.exec('getbalance', (err, balance) => { 
+        if(err) {
+            console.error(`${err}`)
+            res.redirect('/');
+        }
+        req.faucetBalance = balance;
+        next();
     })
 };
 exports.post = (req, res) => {
-        req.flash('ainfo', req.addressStats)
-        res.redirect('/');
+    req.flash('ainfo', req.addressStats)
+    res.redirect('/');
 } 
 exports.claim = (req, res, next) => {
-    let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(8)
+    let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(config.coin.decimals)
     let ip = req.headers['x-real-ip'];
     if(ip) {
         if(!req.claimed){
@@ -73,7 +81,7 @@ exports.claim = (req, res, next) => {
                 }
                 if(req.addressStats.referredBy != undefined) {
                     let refPq = new PaymentQ()
-                    let refClaim = (claim * config.payout.referralCommision).toFixed(8)
+                    let refClaim = (claim * config.payout.referralCommision).toFixed(config.coin.decimals)
                     refPq.address = req.addressStats.referredBy
                     refPq.ref = true
                     refPq.amount = refClaim 
@@ -169,7 +177,7 @@ exports.addressBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            req.addressStats.totalBalance = (result[0].balance.toFixed(8))
+            req.addressStats.totalBalance = (result[0].balance.toFixed(config.coin.decimals))
             req.addressStats.address = req.body.address
         } else {
             req.addressStats.totalBalance = 0

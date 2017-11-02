@@ -3,7 +3,6 @@ require('dotenv').config()
 const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const recaptcha = require('express-recaptcha');
 const captcha = require('./express-coinhive-captcha')
 const flash = require('express-flash');
 const compression = require('compression');
@@ -19,7 +18,12 @@ const chalk = require('chalk');
 
 const app = express();
 
-captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,{whitelabel:false, hashes: 10240});
+captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
+	{
+		whitelabel:false,
+		 hashes: 10240
+	}
+);
 /**
  * Connect to MongoDB.
  */
@@ -76,7 +80,12 @@ app.use((req, res, next) => {
  	req.addressStats = {}
  	next();
 });
-app.get('/', captcha.middleware.render, faucetController.getTxLogs, faucetController.index);
+app.get('/', 
+	captcha.middleware.render,
+	faucetController.getTxLogs,
+	faucetController.getFaucetBalance,
+	faucetController.index
+);
 app.post('/', 
 	captcha.middleware.verify,
 	faucetController.captchaCheck,
@@ -90,7 +99,8 @@ app.post('/',
 	faucetController.refCount,
 	faucetController.refCommision,
 	faucetController.getTxLogs,
-	faucetController.post);
+	faucetController.post
+);
 
 /*Error handling*/
 app.use((err, req, res, next) => {

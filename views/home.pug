@@ -27,11 +27,11 @@ block content
 							th Refferal Commision
 					tbody
 						tr
-							td !{balance* 1000000} μ!{info.coinTicker}
-							td !{info.minClaim * 1000000} μ!{info.coinTicker}
-							td !{info.maxClaim * 1000000} μ!{info.coinTicker}
+							td !{balance} μ!{info.coinTicker}
+							td !{info.minClaim} μ!{info.coinTicker}
+							td !{info.maxClaim} μ!{info.coinTicker}
 							td !{info.interval}h
-							td !{info.treshold * 1000000} μ!{info.coinTicker}
+							td !{info.treshold} μ!{info.coinTicker}
 							td no
 							td no
 							td 30 min
@@ -54,10 +54,10 @@ block content
 						tbody
 							tr
 								td !{messages.ainfo[0].address || ""}
-								td !{messages.ainfo[0].unpaid * 1000000 || "0"} μ!{info.coinTicker}
+								td !{messages.ainfo[0].unpaid  || "0"} μ!{info.coinTicker}
 								td !{messages.ainfo[0].referralCount || "0"}
-								td !{messages.ainfo[0].referralCommision * 1000000 || "0"} μ!{info.coinTicker}
-								td !{messages.ainfo[0].totalBalance * 1000000 || "0"} μ!{info.coinTicker}
+								td !{messages.ainfo[0].referralCommision || "0"} μ!{info.coinTicker}
+								td !{messages.ainfo[0].totalBalance || "0"} μ!{info.coinTicker}
 					p Your affiliate link - https://!{info.siteName}/?ref=!{messages.ainfo[0].address}, make sure to share it! Rewards will be huge!
 					p 		
 						a.twitter-share-button(href="https://twitter.com/share?ref_src=twsrc%5Etfw", data-text=`Make sure to claim your ${info.coinName} at`, data-size="large", data-url=`https://www.${info.siteName}/?ref=${messages.ainfo[0].address}`, data-hashtags=`${info.coinName} Crypto Faucet`, data-show-count="false") Tweet your ref link !
@@ -71,7 +71,7 @@ block content
 								if exchange.avatar
 									img(src=`${exchange.avatar}`, alt="" class="circle")
 								span.title
-									a(href=`${exchange.url}`, class="btn waves-effect waves-light  blue-grey")  #{exchange.name}
+									a(href=`${shroten(exchange.url)}`, class="btn waves-effect waves-light  blue-grey")  #{exchange.name}
 								if exchange.description
 									p #{exchange.description}
 			h4 Claim your !{info.coinName} !
@@ -104,7 +104,7 @@ block content
 									td !{tx.address || ""}
 									td !{(tx.amount * 1000000).toFixed(2)  || ""} μ!{info.coinTicker}
 									td 
-										a(href=`${info.blockexpl}/${tx.tx}`).tstr !{tx.tx || ""}
+										a(href=`sh${shorten(info.blockexpl + tx.tx)}`).tstr !{tx.tx || ""}
 			h4 About !{info.coinName}
 			div.card-panel.blue-grey.lighten-5
 				p.flow-text !{info.coinInfo}
