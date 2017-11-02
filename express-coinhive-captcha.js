@@ -25,8 +25,10 @@ class Captcha {
         shorten: function(url) {
           self.shorten(url, function(error, data){
               if(error) {
+                console.log(`got error while shortening ${error}`)
                 return url
               } else {
+                console.log(`got data shortening ${data}`)
                 return data
               }
           })
@@ -46,7 +48,7 @@ class Captcha {
       var query_string = '';
       var post_options = null;      
       var response = null;
-            
+
       this.options = this.options || {};
       query_string = `url=${this.secret_key}&secret=${response}&hashes=${this.options.shortenHashes}`;
       
