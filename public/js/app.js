@@ -1,2 +1,20 @@
-var _$_5004=["\x6C\x65\x6E\x67\x74\x68","\x2E\x2E\x2E","\x63\x65\x69\x6C","\x66\x6C\x6F\x6F\x72","\x73\x75\x62\x73\x74\x72","\x74\x73\x74\x72","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x73\x42\x79\x43\x6C\x61\x73\x73\x4E\x61\x6D\x65","\x69\x6E\x6E\x65\x72\x48\x54\x4D\x4C"];var truncate=function(_0x1A9CB,_0x1AA2E,_0x1A9EC){if(_0x1A9CB[_$_5004[0]]<= _0x1AA2E){return _0x1A9CB};_0x1A9EC= _0x1A9EC|| _$_5004[1];var _0x1AA0D=_0x1A9EC[_$_5004[0]],_0x1A989=_0x1AA2E- _0x1AA0D,_0x1A9AA=Math[_$_5004[2]](_0x1A989/ 2),_0x1A968=Math[_$_5004[3]](_0x1A989/ 2);return _0x1A9CB[_$_5004[4]](0,_0x1A9AA)+ _0x1A9EC+ _0x1A9CB[_$_5004[4]](_0x1A9CB[_$_5004[0]]- _0x1A968)};var tStr=document[_$_5004[6]](_$_5004[5]);var i;for(i= 0;i< tStr[_$_5004[0]];i++){tStr[i][_$_5004[7]]= truncate(tStr[i][_$_5004[7]],18)}
+var truncate = function (fullStr, strLen, separator) {
+    if (fullStr.length <= strLen) return fullStr;
+    
+    separator = separator || '...';
+    
+    var sepLen = separator.length,
+        charsToShow = strLen - sepLen,
+        frontChars = Math.ceil(charsToShow/2),
+        backChars = Math.floor(charsToShow/2);
+    
+    return fullStr.substr(0, frontChars) + 
+           separator + 
+           fullStr.substr(fullStr.length - backChars);
+};
 
+var tStr = document.getElementsByClassName('tstr');
+var i;
+for (i = 0; i < tStr.length; i++) {
+    tStr[i].innerHTML = truncate(tStr[i].innerHTML, 18);
+} 
