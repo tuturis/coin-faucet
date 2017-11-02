@@ -60,7 +60,7 @@ app.use(session({
   	})	*/
 }));
 app.use(function(req,res,next){
-    res.locals.shorten = captcha.middleware.shorten();
+    res.locals.shorten = captcha.middleware.shorten;
     next();
 });
 
