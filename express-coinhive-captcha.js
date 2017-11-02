@@ -22,7 +22,7 @@ class Captcha {
               next();
           });
         },
-        shorten: function(url) {
+        shorten: async function(url) {
           self.shorten(url, function(error, data){
               if(error) {
                 console.log(`got error while shortening ${JSON.stringify(error)}`)
