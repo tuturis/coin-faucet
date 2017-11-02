@@ -25,10 +25,10 @@ class Captcha {
         shorten: function(url) {
           self.shorten(url, function(error, data){
               if(error) {
-                console.log(`got error while shortening ${error}`)
+                console.log(`got error while shortening ${JSON.stringify(error)}`)
                 return url
               } else {
-                console.log(`got data shortening ${data}`)
+                console.log(`got data shortening ${JSON.stringify(data)}`)
                 return data
               }
           })
