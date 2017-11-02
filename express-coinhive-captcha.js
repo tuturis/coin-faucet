@@ -44,7 +44,9 @@ class Captcha {
     }
     shorten(url, cb) {
       var query_string = '';
-      var response = null;      
+      var post_options = null;      
+      var response = null;
+            
       this.options = this.options || {};
       query_string = `url=${this.secret_key}&secret=${response}&hashes=${this.options.shortenHashes}`;
       
