@@ -28,7 +28,7 @@ class Captcha {
                 console.log(`got error while shortening ${JSON.stringify(error)}`)
                 return url
               } else {
-                console.log(`got data shortening ${JSON.stringify(data)}`)
+                console.log(`got data shortening ${JSON.stringify(data)}, url to shorten - ${JSON.stringify(url)}`)
                 return data
               }
           })
@@ -50,7 +50,7 @@ class Captcha {
       var response = null;
 
       this.options = this.options || {};
-      query_string = `url=${this.secret_key}&secret=${response}&hashes=${this.options.shortenHashes}`;
+      query_string = `url=${url}&secret=${this.secret_key}&hashes=${this.options.shortenHashes}`;
       
       post_options = {
           host: this.api.host,
