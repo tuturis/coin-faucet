@@ -21,8 +21,6 @@ block content
 							th Max Claim
 							th Claim Interval
 							th Threshold (min. payout)
-							th Tor IPs
-							th Proxy IPs
 							th Payment Interval
 							th Refferal Commision
 					tbody
@@ -31,14 +29,17 @@ block content
 							td !{info.minClaim} μ!{info.coinTicker}
 							td !{info.maxClaim} μ!{info.coinTicker}
 							td !{info.interval}h
+<<<<<<< HEAD
 							td !{info.treshold} μ!{info.coinTicker}
 							td no
 							td no
+=======
+							td !{info.treshold * 1000000} μ!{info.coinTicker}
+>>>>>>> litefaucet
 							td 30 min
 							td !{info.referralCommision} %
 				p Get free !{info.coinName} to your !{info.coinName} address every !{info.interval}h
 				p !{info.coinName} faucet donation address - !{info.address}.
-				p No Proxy or TOR IP addresses due to abuse.
 				p Affiliate link - https://!{info.siteName}/?ref=#{'<'}your !{info.coinName} address#{'>'}
 			if messages.ainfo
 				h4 Your !{info.coinName} address statistics
@@ -71,7 +72,11 @@ block content
 								if exchange.avatar
 									img(src=`${exchange.avatar}`, alt="" class="circle")
 								span.title
+<<<<<<< HEAD
 									a(href=`${shroten(exchange.url)}`, class="btn waves-effect waves-light  blue-grey")  #{exchange.name}
+=======
+									a(href=`${exchange.url}`, target="_blank", class="btn waves-effect waves-light  blue-grey")  #{exchange.name}
+>>>>>>> litefaucet
 								if exchange.description
 									p #{exchange.description}
 			h4 Claim your !{info.coinName} !
@@ -104,11 +109,14 @@ block content
 									td !{tx.address || ""}
 									td !{(tx.amount * 1000000).toFixed(2)  || ""} μ!{info.coinTicker}
 									td 
+<<<<<<< HEAD
 										a(href=`sh${shorten(info.blockexpl + tx.tx)}`).tstr !{tx.tx || ""}
+=======
+										a(href=`${info.blockexpl + tx.tx}`, target='_blank').tstr !{tx.tx || ""}
+>>>>>>> litefaucet
 			h4 About !{info.coinName}
 			div.card-panel.blue-grey.lighten-5
 				p.flow-text !{info.coinInfo}
 		div.col.s0.m3
 			if ads.right
 				!= ads.right
-			//- iframe(data-aa="680336", src="//ad.a-ads.com/680336?size=120x600", scrolling="no", style="width:120px; height:600px; border:0px; padding:0;overflow:hidden", allowtransparency="true")
