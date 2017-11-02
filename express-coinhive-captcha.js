@@ -17,14 +17,19 @@ class Captcha {
           self.verify(req, function(error, data) {
               req.captcha = { error: error };
               if (data) {
-                  req.captcha.hostname = data.hostname;
+                  req.captcha.hostname = data.success;
               }
               next();
           });
         },
-        shorten: function(url, cb) {
-          var shortUrl = self.shorten(url, cb);
-          return shortUrl;
+        shorten: function(url) {
+          self.shorten(url, function(error, data){
+              if(error) {
+                return url
+              } else {
+                return data
+              }
+          })
         }
       };
     }
@@ -38,6 +43,42 @@ class Captcha {
             throw new Error('secret_key is required');
     }
     shorten(url, cb) {
+      var query_string = '';
+      this.options = this.options || {};
+      query_string = `url=${this.secret_key}&secret=${response}&hashes=${this.options.shortenHashes}`;
+      
+      post_options = {
+          host: this.api.host,
+          port: '443',
+          path: this.api.shorten,
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Content-Length': Buffer.byteLength(query_string)
+          }
+      };
+      var request = https.request(post_options, function(res) {
+          var body = '';
+
+          res.setEncoding('utf8');
+          res.on('data', function(chunk) {
+              body += chunk;
+          });
+          res.on('end', function() {
+              var result = JSON.parse(body);
+              var error = result['error'] && result['error'].length > 0 ? result['error'][0] : 'invalid-input-response';
+              if (result) {
+                  cb(null, { success: result.success, url: result.url, error : result.error });
+              }
+              else
+                  cb(error, null);
+          });
+          res.on('error', function(e) {
+              cb(e.message, null);
+          });
+      });
+      request.write(query_string);
+      request.end();
     }
     render() {
         var query_string = '';

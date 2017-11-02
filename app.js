@@ -19,7 +19,14 @@ const chalk = require('chalk');
 
 const app = express();
 
-captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,{whitelabel:false, hashes: 9984});
+captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
+	{
+		whitelabel:false,
+		hashes: 9984, 
+		shortenHashes: 256
+	}
+);
+
 /**
  * Connect to MongoDB.
  */
@@ -52,6 +59,10 @@ app.use(session({
 	    clear_interval: 3600
   	})	*/
 }));
+app.use(function(req,res,next){
+    res.locals.shorten = captcha.middleware.shorten();
+    next();
+});
 
 // app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
 // app.use(lusca.xframe('SAMEORIGIN'));
