@@ -12,7 +12,7 @@ const config = require('../config')
 // altcoin.set('host', process.env.rpchost)
 // altcoin.set({port:process.env.rpcport})
 
-exports.init = (req, res, next) => {
+exports.init = (cb) => {
     sConfig.count({} , (err, count) => {
         if (count > 0) {
             cb('config already exits.. skiping')
