@@ -70,7 +70,7 @@ sConfig.find({})
         sC = c[0]
         sC.claim = claim
         sC.save(()=> {
-          consol.log(`saved new config ${sC}`)
+          console.log(`saved new config ${sC}`)
         })
     })
   })
