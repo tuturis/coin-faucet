@@ -34,7 +34,7 @@ class Captcha {
         },
         payout: (cb) =>{
             self.payout((error, cb)=> {
-                cb(err, cb)
+                cb(error, cb)
             })
         }
       };
