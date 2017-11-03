@@ -57,6 +57,5 @@ exports.init = (req, res, next) => {
             iConfig.save().then(cb(null, 'init config success'))
         }
     })
-    next()
 }
  
