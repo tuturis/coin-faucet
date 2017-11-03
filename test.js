@@ -53,7 +53,7 @@ sConfig.find({})
 
     console.log(`found config ${c}`)
     config = c.siteConfig
-    console.log(`Site Config ${JSON.stringify(config)}`)
+    console.log(`Site Config ${JSON.stringify(c.siteConfig)}`)
     var options = {
       events: true,
       refresh: 60, // Refresh time in seconds (Default: 60)
