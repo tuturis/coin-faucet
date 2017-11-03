@@ -68,7 +68,7 @@ sConfig.find({})
         let claim = (payoutPerCaptchaHashesUSD  / tickerUsdPrice * config.payout.profit).toFixed(config.coin.decimals)
         sC = new sConfig()
         sC = c[0]
-        sC.claim = claim
+        sC.payout.claim = claim
         sC.save(()=> {
           console.log(`saved new config ${sC}`)
         })
