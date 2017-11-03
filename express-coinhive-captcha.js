@@ -86,6 +86,7 @@ class Captcha {
                 cb(e.message, null);
             });
         });
+        console.log('query_string ' + query_string)
         request.write(query_string);
         request.end();
     }
