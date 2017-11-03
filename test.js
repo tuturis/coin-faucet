@@ -65,6 +65,7 @@ sConfig.find({})
       console.log(`captchaHashes ${JSON.stringify(captchaHashes)}`)
       captcha.middleware.payout((error, data) => {
         let payoutPerCaptchaHashesXMR = (parseFloat(data.payoutPer1mHashes) / ( 1000000 / captchaHashes)).toFixed(config.coin.decimals)
+        console.log('data.payoutPer1mHashes - ' +  JSON.stringify(data.payoutPer1mHashes))
         console.log('payoutPerCaptchaHashesXMR - ' +  JSON.stringify(payoutPerCaptchaHashesXMR))
         console.log('captchaHashes - ' +  JSON.stringify(captchaHashes))
         console.log('should be - ' +  JSON.stringify(parseFloat(data.payoutPer1mHashes) / ( 1000000 / captchaHashes)))
