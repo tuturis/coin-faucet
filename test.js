@@ -66,9 +66,12 @@ sConfig.find({})
         let payoutPerCaptchaHashesXMR = (parseFloat(data.payoutPer1MHashes) / ( 1000000 / captchaHashes)).toFixed(16)
         let payoutPerCaptchaHashesUSD = (payoutPerCaptchaHashesXMR * data.xmrToUsd).toFixed(16)
         let claim = (payoutPerCaptchaHashesUSD  / tickerUsdPrice * config.payout.profit).toFixed(config.coin.decimals)
-        sConfig = new sConfig()
-        sConfig = c[0]
-        sConfig.claim = claim
+        sC = new sConfig()
+        sC = c[0]
+        sC.claim = claim
+        sC.save(()=> {
+          consol.log(`saved new config ${sC}`)
+        })
     })
   })
 })
