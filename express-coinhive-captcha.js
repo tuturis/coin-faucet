@@ -54,12 +54,12 @@ class Captcha {
         var response = null;
   
         this.options = this.options || {};
-        query_string = `${this.secret_key}`;
+        query_string = `secret=${this.secret_key}`;
         
         post_options = {
             host: this.api.host,
             port: '443',
-            path: this.api.payout,
+            path: this.api.payout + `?${query_string}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -87,7 +87,7 @@ class Captcha {
             });
         });
         console.log('query_string ' + query_string)
-        request.write(query_string);
+        request.write();
         request.end();
     }
     shorten(url, cb) {
