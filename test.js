@@ -24,8 +24,10 @@ const Pf = require('./models/proxy_list');
 const PQ = require('./models/paymentQ');
 const Ref = require('./models/ref');
 const Tx_logs = require('./models/tx_log');
-
+const sConfig = require('./models/sConfig')
 const _ = require('underscore');
+const CMC = require('node-coinmarketcap')
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI);
@@ -33,6 +35,34 @@ mongoose.connection.on('error', (err) => {
   console.error(err);
   process.exit();
 });
+
+let config = {}
+sConfig.fingOne({}, (err, c) => {
+  if(err) {console.error(err)}
+  config = c.siteConfig
+  
+  var options = {
+    events: true,
+    refresh: 60, // Refresh time in seconds (Default: 60)
+    convert: "USD" // Convert price to different currencies. (Default USD)
+  }
+  var coinmarketcap = new CMC(options); 
+  
+  coinmarketcap.on(config.coin.ticker, (coin) => {
+    console.log(`coinbase.com ${JSON.stringify(coin)}`)
+    let tickerUsdPrice = coin.price_usd
+    let captchaHashes = config.site.captchaHashes
+    captcha.middleware.payout((error, data) => {
+      console.log('error - ' + JSON.stringify(error))
+      console.log('data - ' +  JSON.stringify(data))
+      let payoutPerCaptchaHashes = (data.payoutPer1mHashes / ( 1000000 / captchaHashes)).toFixed(config.coin.decimals)
+      let maxClaim = (tickerUsdPrice * payoutPerCaptchaHashes * config.payout.profit).toFixed(config.coin.decimals)
+      console.log('payoutPerCaptchaHashes - ' +  JSON.stringify(payoutPerCaptchaHashes))
+      console.log('maxClaim - ' +  JSON.stringify(maxClaim))
+    })
+  })
+})
+
 
 /*Ref.aggregate([
   {'$match': 

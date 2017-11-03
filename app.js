@@ -11,21 +11,11 @@ const bodyParser = require('body-parser');
 const helmet =  require('helmet');
 const mongoose = require('mongoose');
 const altcoin = require('node-altcoin')()
-
 const _ = require('underscore');
 const path = require('path');
 const chalk = require('chalk');
 
 const app = express();
-
-captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
-	{
-		whitelabel:false,
-		hashes: 5120, 
-		shortenHashes: 256,
-		disableElements: 'button[type=submit]'
-	}
-);
 
 /**
  * Connect to MongoDB.
@@ -73,20 +63,24 @@ app.use(session({
 //     preload:           true,
 //   }));
 
+
+captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
+	{
+		whitelabel:false,
+		hashes: 5120, 
+		shortenHashes: 256,
+		disableElements: 'button[type=submit]'
+	}
+);
+
 /**
  * Controllers (route handlers).
  */
 const faucetController = require('./controllers/faucet');
 const siteController = require('./controllers/site');
-
 siteController.init((err, data) => { console.log(`err ${err}, data - ${data}`)});
 
 app.use((req, res, next) => {
-	captcha.middleware.payout( (error, data) => {
-		console.log('error - ' + JSON.stringify(error))
-		console.log('data - ' +  JSON.stringify(data))
-	})
-
 	if(req.query.ref){
 		req.session.referredBy = req.query.ref
 		res.redirect('/')
