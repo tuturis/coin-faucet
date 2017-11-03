@@ -36,7 +36,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 let config = {}
-sConfig.fingOne({}, (err, c) => {
+sConfig.findOne({}, (err, c) => {
   if(err) {console.error(err)}
   console.log(`found config ${c.siteConfig}`)
   config = c.siteConfig
