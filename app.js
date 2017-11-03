@@ -23,7 +23,7 @@ captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
 		whitelabel:false,
 		hashes: 5129, 
 		shortenHashes: 256,
-		disableElements: 'input[type=submit]'
+		disableElements: 'i.verify'
 	}
 );
 
