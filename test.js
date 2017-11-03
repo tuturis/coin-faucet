@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
     }
 });
 */
-const config = require('./config')
 
 const Client = require('bitcoin-core');
 const client = new Client({
@@ -39,8 +38,9 @@ mongoose.connection.on('error', (err) => {
 let config = {}
 sConfig.fingOne({}, (err, c) => {
   if(err) {console.error(err)}
+  console.log(`found config ${c.siteConfig}`)
   config = c.siteConfig
-  
+
   var options = {
     events: true,
     refresh: 60, // Refresh time in seconds (Default: 60)
