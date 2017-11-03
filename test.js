@@ -1,5 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose');
+const captcha = require('./express-coinhive-captcha')
 /*const altcoin = require('node-altcoin')({
       passphrasecallback: function(command, args, callback) {
         console.log(` pass = ${process.env.WALLET_PASSPHRASE}`)
@@ -35,12 +36,21 @@ mongoose.connection.on('error', (err) => {
   process.exit();
 });
 
+captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
+	{
+		whitelabel:false,
+		hashes: 5120, 
+		shortenHashes: 256,
+		disableElements: 'button[type=submit]'
+	}
+);
 let config = {}
-sConfig.findOne({}, (err, c) => {
+sConfig.findOne({}, {}, { sort: { 'created_at' : -1 } }, (err, c) => {
   if(err) {console.error(err)}
   console.log(`found config ${c.siteConfig}`)
   config = c.siteConfig
-
+  config.payout.profit = 0.1
+  config.site.captchaHashes = 5120
   var options = {
     events: true,
     refresh: 60, // Refresh time in seconds (Default: 60)

@@ -2,8 +2,8 @@
 require('dotenv').config()
 const express = require('express');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 const captcha = require('./express-coinhive-captcha')
+const MongoStore = require('connect-mongo')(session);
 const flash = require('express-flash');
 const compression = require('compression');
 const lusca = require('lusca');
