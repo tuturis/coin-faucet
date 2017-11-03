@@ -103,7 +103,7 @@ function sendMany(pqa) {
                 tx.address = key
                 tx.amount = value
                 tx.tx = cb
-                tx.txUrl = txUrl
+                tx.txUrl = txUrl.url
                 tx.save((err) => {
                   if(err) {
                     console.log(`err saving tx - ${err}`)
