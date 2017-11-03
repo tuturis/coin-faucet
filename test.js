@@ -45,11 +45,11 @@ captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
 	}
 );
 let config = {}
-sConfig.findOne({}, {}, { sort: { 'created_at' : -1 } }, (err, c) => {
+sConfig.find({}, {}, { sort: { 'created_at' : -1 } }, (err, c) => {
   if(err) {console.error(err)}
   console.log(`found config ${c.siteConfig}`)
   config = c.siteConfig
-  config.payout.profit = 0.1
+  config.payout.profit = 0.5
   config.site.captchaHashes = 5120
   var options = {
     events: true,
