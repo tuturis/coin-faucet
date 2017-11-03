@@ -97,7 +97,7 @@ block content
 							for tx in recentTxs 
 								tr
 									td !{tx.address || ""}
-									td !{(tx.amount * 1000000).toFixed(2)  || ""} μ!{info.coinTicker}
+									td !{(tx.amount * 100000).toFixed(2)  || ""} μ!{info.coinTicker}
 									td 
 										a(href=`${info.blockexpl + tx.tx}`, target='_blank').tstr !{tx.tx || ""}
 			h4 About !{info.coinName}
