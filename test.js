@@ -58,7 +58,7 @@ sConfig.find({})
     }
     var coinmarketcap = new CMC(options); 
     
-    coinmarketcap.on(config.coin.ticker, (coin) => {
+    coinmarketcap.get(config.coin.name.toLowerCase(), (coin) => {
       let tickerUsdPrice = coin.price_usd
       let captchaHashes = config.site.captchaHashes
       captcha.middleware.payout((error, d) => {
