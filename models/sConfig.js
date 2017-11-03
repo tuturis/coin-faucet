@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('../config')
 
 const sConfigSchema = new mongoose.Schema({
-    siteConfig={}
+    siteConfig:{}
 }, { timestamps: true });
 
 sConfigSchema.statics.init = init = (cb) => {
