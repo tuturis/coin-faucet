@@ -1,29 +1,13 @@
-// const altcoin = require('node-altcoin')();
-const toHTML = require('himalaya/translate').toHTML
-
-// const PaymentQ = require('../models/paymentQ');
-// const proxy_list = require('../models/proxy_list');
-// const Ref = require('../models/ref');
-// const Tx_logs = require('../models/tx_log');
 const sConfig = require('../models/sConfig')
 
-const config = require('../config')
-// altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
-// altcoin.set('host', process.env.rpchost)
-// altcoin.set({port:process.env.rpcport})
-exports.getConfig = (req, res, next) => {
+exports.getConfig = (cb) => {
     let config = {}
     sConfig.find({})
       .sort({ 'createdAt' : -1 })
       .limit(1)
       .exec((err, c) => {
-        if(err) {
-            console.error(err)
-            next(Error(err))
-        }
-        req.config = c[0].siteConfig
-        next()
-    })
+            cb(err, c[0].siteConfig)
+      })
 }
 
 exports.init = (cb) => {
