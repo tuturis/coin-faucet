@@ -6,7 +6,6 @@ const proxy_list = require('../models/proxy_list');
 const Ref = require('../models/ref');
 const Tx_logs = require('../models/tx_log');
 
-const config = require('../config')
 altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
 altcoin.set('host', process.env.rpchost)
 altcoin.set({port:process.env.rpcport})
@@ -15,32 +14,31 @@ altcoin.set({port:process.env.rpcport})
  * Home page.
  */
 exports.index = (req, res) => {
-    let top   = config.ads.top !== ""  ? toHTML(config.ads.top)    : undefined 
-    let top2  = config.ads.top2 !== "" ? toHTML(config.ads.top2)  : undefined
-    let right = config.ads.right !== ""? toHTML(config.ads.right) : undefined
-    let left  = config.ads.left !== ""  ? toHTML(config.ads.left)  : undefined
+    let top   = req.config.ads.top !== ""  ? toHTML(req.config.ads.top)    : undefined 
+    let top2  = req.config.ads.top2 !== "" ? toHTML(req.config.ads.top2)  : undefined
+    let right = req.config.ads.right !== ""? toHTML(req.config.ads.right) : undefined
+    let left  = req.config.ads.left !== ""  ? toHTML(req.config.ads.left)  : undefined
 
     res.render('home', {
-        title: `${config.coin.name} Faucet`,
+        title: `${req.config.coin.name} Faucet`,
         captcha: req.captcha,
         balance: req.faucetBalance,
         addressBalance : req.addressBalance,
         recentTxs : req.addressStats.recentTx,
         info : {
-            blockexpl : config.site.explorer,
-            coinTicker: config.coin.ticker,
-            coinName : config.coin.name,
-            minClaim : (config.payout.min).toFixed(config.coin.decimals),
-            maxClaim : (config.payout.max).toFixed(config.coin.decimals),
-            referralCommision : (config.payout.referralCommision * 100).toFixed(2),
-            treshold : config.payout.treshold,
-            interval : config.payout.interval,
-            address  : config.coin.address,
-            coinInfo : config.coin.info,
-            aads     : config.ads.aads,
-            coinurl  : config.ads.coinurl,
-            ganalytics : config.analytics.google,
-            siteName : config.site.name 
+            blockexpl : req.config.site.explorer,
+            coinTicker: req.config.coin.ticker,
+            coinName : req.config.coin.name,
+            claim : (req.config.payout.claim).toFixed(req.config.coin.decimals),
+            referralCommision : (req.config.payout.referralCommision * 100).toFixed(2),
+            treshold : req.config.payout.treshold,
+            interval : req.config.payout.interval,
+            address  : req.config.coin.address,
+            coinInfo : req.config.coin.info,
+            aads     : req.config.ads.aads,
+            coinurl  : req.config.ads.coinurl,
+            ganalytics : req.config.analytics.google,
+            siteName : req.config.site.name 
         },
         ads: {
             top: top,  
@@ -48,7 +46,7 @@ exports.index = (req, res) => {
             right: right,
             left: left,
         },
-        exchanges: config.exchanges 
+        exchanges: req.config.exchanges 
     })
 };
 exports.getFaucetBalance = (req, res, next) => { 
@@ -66,7 +64,7 @@ exports.post = (req, res) => {
     res.redirect('/');
 } 
 exports.claim = (req, res, next) => {
-    let claim = getRandomArbitrary(config.payout.min, config.payout.max).toFixed(config.coin.decimals)
+    let claim = getRandomArbitrary(req.config.payout.min, req.config.payout.max).toFixed(req.config.coin.decimals)
     let ip = req.headers['x-real-ip'];
     if(ip) {
         if(!req.claimed){
@@ -81,21 +79,21 @@ exports.claim = (req, res, next) => {
                 }
                 if(req.addressStats.referredBy != undefined) {
                     let refPq = new PaymentQ()
-                    let refClaim = (claim * config.payout.referralCommision).toFixed(config.coin.decimals)
+                    let refClaim = (claim * req.config.payout.referralCommision).toFixed(req.config.coin.decimals)
                     refPq.address = req.addressStats.referredBy
                     refPq.ref = true
                     refPq.amount = refClaim 
                     refPq.save((err) => {
-                        req.flash('success',`Your claim of ${claim} ${config.coin.name} is under way!`)
+                        req.flash('success',`Your claim of ${claim} ${req.config.coin.name} is under way!`)
                         next()
                     })
                 } else {
-                    req.flash('success',`Your claim of ${claim} ${config.coin.name} is under way!`)
+                    req.flash('success',`Your claim of ${claim} ${req.config.coin.name} is under way!`)
                     next()
                 }
             });
         } else {
-            req.flash('error', `You can claim coins only every ${config.payout.interval} hours per same IP or ${config.coin.name} address`)
+            req.flash('error', `You can claim coins only every ${req.config.payout.interval} hours per same IP or ${req.config.coin.name} address`)
             next()
         }
     } else {
@@ -133,7 +131,7 @@ exports.validateAdress = (req, res, next) => {
         if(info.isvalid == true) {
             next();
         } else {
-            req.flash('error', `Invalid ${config.coin.name} address`)
+            req.flash('error', `Invalid ${req.config.coin.name} address`)
             res.redirect('/')                   
         }
     })
@@ -177,7 +175,7 @@ exports.addressBalance = (req, res, next) => {
     }],
     (err, result) => {
         if(result.length > 0) {
-            req.addressStats.totalBalance = (result[0].balance.toFixed(config.coin.decimals))
+            req.addressStats.totalBalance = (result[0].balance.toFixed(req.config.coin.decimals))
             req.addressStats.address = req.body.address
         } else {
             req.addressStats.totalBalance = 0
@@ -209,7 +207,7 @@ exports.unpaidBalance = (req, res, next) => {
 }
 exports.checkClaimed = (req, res, next) => {
     let now = new Date();
-    let interval = now.setHours(now.getHours() - config.payout.interval) 
+    let interval = now.setHours(now.getHours() - req.config.payout.interval) 
     let ip = req.headers['x-real-ip'];
     PaymentQ.find(
         {$and: [
@@ -260,7 +258,7 @@ exports.checkReferrals = (req, res, next) => {
                 })
             } else {
                 req.addressStats.referredBy = undefined
-                req.flash('error', `Invalid ${config.coin.name} address of referral`)
+                req.flash('error', `Invalid ${req.config.coin.name} address of referral`)
                 next();                   
             }
         })

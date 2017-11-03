@@ -11,6 +11,20 @@ const config = require('../config')
 // altcoin.auth(process.env.rpcuser, process.env.rpcpassword)
 // altcoin.set('host', process.env.rpchost)
 // altcoin.set({port:process.env.rpcport})
+exports.getConfig = (req, res, next) => {
+    let config = {}
+    sConfig.find({})
+      .sort({ 'createdAt' : -1 })
+      .limit(1)
+      .exec((err, c) => {
+        if(err) {
+            console.error(err)
+            next(Error(err))
+        }
+        req.config = c[0].siteConfig
+        next()
+    })
+}
 
 exports.init = (cb) => {
     sConfig.count({}, (err, count) => {

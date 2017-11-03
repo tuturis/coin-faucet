@@ -53,7 +53,7 @@ sConfig.find({})
     let config = c[0].siteConfig
     var options = {
       events: true,
-      refresh: 60, // Refresh time in seconds (Default: 60)
+      refresh: 360, // Refresh time in seconds (Default: 60)
       convert: "USD" // Convert price to different currencies. (Default USD)
     }
     var coinmarketcap = new CMC(options); 
@@ -61,20 +61,17 @@ sConfig.find({})
     coinmarketcap.on(config.coin.ticker, (coin) => {
       let tickerUsdPrice = coin.price_usd
       let captchaHashes = config.site.captchaHashes
-      console.log(`tickerUsdPrice ${JSON.stringify(tickerUsdPrice)}`)
-      console.log(`captchaHashes ${JSON.stringify(captchaHashes)}`)
       captcha.middleware.payout((error, d) => {
         let data = d.result
-        console.log(JSON.stringify(data))
         let payoutPerCaptchaHashesXMR = (parseFloat(data.payoutPer1MHashes) / ( 1000000 / captchaHashes)).toFixed(16)
-        console.log('payoutPerCaptchaHashesXMR - ' +  JSON.stringify(payoutPerCaptchaHashesXMR))
         let payoutPerCaptchaHashesUSD = (payoutPerCaptchaHashesXMR * data.xmrToUsd).toFixed(16)
-        let maxClaim = (payoutPerCaptchaHashesUSD  / tickerUsdPrice * config.payout.profit).toFixed(config.coin.decimals)
-        console.log('payoutPerCaptchaHashesUSD - ' +  JSON.stringify(payoutPerCaptchaHashesUSD))
-        console.log('maxClaim - ' +  JSON.stringify(maxClaim))
-      })
+        let claim = (payoutPerCaptchaHashesUSD  / tickerUsdPrice * config.payout.profit).toFixed(config.coin.decimals)
+        sConfig = new sConfig()
+        sConfig = c[0]
+        sConfig.claim = claim
     })
   })
+})
 
 
 /*Ref.aggregate([

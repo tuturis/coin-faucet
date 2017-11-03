@@ -17,18 +17,14 @@ block content
 					thead
 						tr
 							th Faucet Balance
-							th Min Claim
-							th Max Claim
-							th Claim Interval
+							th Claim
 							th Threshold (min. payout)
 							th Payment Interval
 							th Refferal Commision
 					tbody
 						tr
 							td !{balance * 1000000} μ!{info.coinTicker}
-							td !{info.minClaim * 1000000} μ!{info.coinTicker}
-							td !{info.maxClaim * 1000000} μ!{info.coinTicker}
-							td !{info.interval}h
+							td !{info.claim * 1000000} μ!{info.coinTicker}
 							td !{info.treshold * 1000000} μ!{info.coinTicker}
 							td 30 min
 							td !{info.referralCommision} %
