@@ -29,13 +29,7 @@ block content
 							td !{info.minClaim} μ!{info.coinTicker}
 							td !{info.maxClaim} μ!{info.coinTicker}
 							td !{info.interval}h
-<<<<<<< HEAD
-							td !{info.treshold} μ!{info.coinTicker}
-							td no
-							td no
-=======
 							td !{info.treshold * 1000000} μ!{info.coinTicker}
->>>>>>> litefaucet
 							td 30 min
 							td !{info.referralCommision} %
 				p Get free !{info.coinName} to your !{info.coinName} address every !{info.interval}h
@@ -72,11 +66,7 @@ block content
 								if exchange.avatar
 									img(src=`${exchange.avatar}`, alt="" class="circle")
 								span.title
-<<<<<<< HEAD
-									a(href=`${shroten(exchange.url)}`, class="btn waves-effect waves-light  blue-grey")  #{exchange.name}
-=======
 									a(href=`${exchange.url}`, target="_blank", class="btn waves-effect waves-light  blue-grey")  #{exchange.name}
->>>>>>> litefaucet
 								if exchange.description
 									p #{exchange.description}
 			h4 Claim your !{info.coinName} !
@@ -109,11 +99,7 @@ block content
 									td !{tx.address || ""}
 									td !{(tx.amount * 1000000).toFixed(2)  || ""} μ!{info.coinTicker}
 									td 
-<<<<<<< HEAD
-										a(href=`sh${shorten(info.blockexpl + tx.tx)}`).tstr !{tx.tx || ""}
-=======
 										a(href=`${info.blockexpl + tx.tx}`, target='_blank').tstr !{tx.tx || ""}
->>>>>>> litefaucet
 			h4 About !{info.coinName}
 			div.card-panel.blue-grey.lighten-5
 				p.flow-text !{info.coinInfo}
