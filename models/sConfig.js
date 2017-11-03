@@ -6,4 +6,4 @@ const sConfigSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const sConfig = mongoose.model('sConfig', sConfigSchema, `${config.coin.name.toLowerCase()}.config`);
-module.exports = config;
+module.exports = sConfig;
