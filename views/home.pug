@@ -33,6 +33,7 @@ block content
 							td 30 min
 							td !{info.referralCommision} %
 				p Get free !{info.coinName} to your !{info.coinName} address every !{info.interval}h
+				p Direct payments! No need to register anywhere!
 				p !{info.coinName} faucet donation address - !{info.address}.
 				p Affiliate link - https://!{info.siteName}/?ref=#{'<'}your !{info.coinName} address#{'>'}
 			if messages.ainfo
@@ -100,7 +101,7 @@ block content
 									td !{tx.address || ""}
 									td !{(tx.amount * 1000000).toFixed(2)  || ""} μ!{info.coinTicker}
 									td 
-										a(href=`${info.blockexpl + tx.tx}`, target='_blank').tstr !{tx.tx || ""}
+										a(href=`${tx.txUrl || info.blockexpl + tx.tx}`, target='_blank').tstr !{tx.tx || ""}
 			h4 About !{info.coinName}
 			div.card-panel.blue-grey.lighten-5
 				p.flow-text !{info.coinInfo}
