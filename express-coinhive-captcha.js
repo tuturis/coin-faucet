@@ -54,7 +54,7 @@ class Captcha {
         var response = null;
   
         this.options = this.options || {};
-        query_string = `secret=${this.secret_key}`;
+        query_string = `${this.secret_key}`;
         
         post_options = {
             host: this.api.host,
