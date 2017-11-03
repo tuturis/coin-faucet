@@ -56,17 +56,13 @@ class Captcha {
         this.options = this.options || {};
         query_string = `secret=${this.secret_key}`;
         
-        post_options = {
+        get_options = {
             host: this.api.host,
             port: '443',
-            path: this.api.payout + `?${query_string}`,
+            path: this.api.payout + `${query_string}`,
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Length': Buffer.byteLength(query_string)
-            }
         };  
-        var request = https.request(post_options, function(res) {
+        var request = https.request(get_options, function(res) {
             var body = '';
   
             res.setEncoding('utf8');
@@ -86,8 +82,6 @@ class Captcha {
                 cb(e.message, null);
             });
         });
-        console.log('query_string ' + query_string)
-        request.write();
         request.end();
     }
     shorten(url, cb) {
