@@ -79,6 +79,8 @@ app.use(session({
 const faucetController = require('./controllers/faucet');
 
 app.use((req, res, next) => {
+	console.log(JSON.stringify(captcha.middleware.payout))
+	
 	if(req.query.ref){
 		req.session.referredBy = req.query.ref
 		res.redirect('/')
