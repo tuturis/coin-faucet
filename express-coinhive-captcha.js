@@ -32,9 +32,9 @@ class Captcha {
               }
           })
         },
-        payout: (cb) =>{
+        payout: (callback) => {
             self.payout((error, cb)=> {
-                cb(error, cb)
+                callback(error, cb)
             })
         }
       };

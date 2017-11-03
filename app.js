@@ -79,7 +79,10 @@ app.use(session({
 const faucetController = require('./controllers/faucet');
 
 app.use((req, res, next) => {
-	console.log(JSON.stringify(captcha.middleware.payout()))
+	captcha.middleware.payout( (error, data) => {
+		console.log('error - ' + JSON.stringify(error))
+		console.log('data - ' +  JSON.stringify(data))
+	})
 
 	if(req.query.ref){
 		req.session.referredBy = req.query.ref
