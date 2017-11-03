@@ -3,7 +3,13 @@ const mongoose = require('mongoose');
 const CronJob = require('cron').CronJob;
 const Client = require('bitcoin-core');
 const _ = require('underscore');
+const captcha = require('./express-coinhive-captcha')
 
+captcha.init(captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
+    {
+      shortenHashes: 256,
+    })
+)
 const client = new Client({
   username: process.env.rpcuser,
   password: process.env.rpcpassword,
@@ -79,7 +85,6 @@ function payToPq() {
   ) 
 }
 
-
 function sendMany(pqa) {
   client.getBalance((err,balance) => {
     if(balance > 0) {
@@ -93,16 +98,19 @@ function sendMany(pqa) {
             return false;
           }
           _.each(pqa, function(value, key, obj) {
-              let tx = new tx_log();
-              tx.address = key
-              tx.amount = value
-              tx.tx = cb
-              tx.save((err) => {
-                if(err) {
-                  console.log(`err saving tx - ${err}`)
-                  return false;
-                }
-                console.log(`saved to tx_log ${JSON.stringify(tx)}`)
+              captcha.middleware.shorten(config.site.explorer+cb, (err, txUrl) => {
+                let tx = new tx_log();
+                tx.address = key
+                tx.amount = value
+                tx.tx = cb
+                tx.txUrl = txUrl.url
+                tx.save((err) => {
+                  if(err) {
+                    console.log(`err saving tx - ${err}`)
+                    return false;
+                  }
+                  console.log(`saved to tx_log ${JSON.stringify(tx)}`)
+                })
               })
           });
         })

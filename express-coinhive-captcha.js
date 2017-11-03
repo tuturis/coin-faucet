@@ -25,10 +25,8 @@ class Captcha {
         shorten: async function(url) {
           self.shorten(url, function(error, data){
               if(error) {
-                console.log(`got error while shortening ${JSON.stringify(error)}`)
                 return url
               } else {
-                console.log(`got data shortening ${JSON.stringify(data)}, url to shorten - ${JSON.stringify(url)}`)
                 return data
               }
           })
@@ -94,7 +92,6 @@ class Captcha {
           captcha_attr += ' data-callback=' + this.options.callback;
         if (this.options.disableElements)
           captcha_attr += ' data-disable-elements=' + this.options.disableElements;
-        console.log(`captcha attr ${captcha_attr}`)  
         var template = `<script src="${this.api.captchascript}" async defer></script>
         <div class="coinhive-captcha" 
             data-key="${this.site_key}"

@@ -4,6 +4,7 @@ const config = require('../config')
 const txLogSchema = new mongoose.Schema({
 		address : String,
 		tx:  String,
+		txUrl: String,
 		amount: Number,
 	}, { timestamps: true });
 
