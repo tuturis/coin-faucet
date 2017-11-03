@@ -21,17 +21,12 @@ const app = express();
 captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
 	{
 		whitelabel:false,
-<<<<<<< HEAD
-		 hashes: 10240
-	}
-);
-=======
-		hashes: 9984, 
-		shortenHashes: 256
+		hashes: 5129, 
+		shortenHashes: 256,
+		disableElements: input[type="submit"]
 	}
 );
 
->>>>>>> litefaucet
 /**
  * Connect to MongoDB.
  */
@@ -92,12 +87,7 @@ app.use((req, res, next) => {
  	req.addressStats = {}
  	next();
 });
-app.get('/', 
-	captcha.middleware.render,
-	faucetController.getTxLogs,
-	faucetController.getFaucetBalance,
-	faucetController.index
-);
+app.get('/', captcha.middleware.render, faucetController.getTxLogs, faucetController.index);
 app.post('/', 
 	captcha.middleware.verify,
 	faucetController.captchaCheck,
@@ -110,8 +100,7 @@ app.post('/',
 	faucetController.refCount,
 	faucetController.refCommision,
 	faucetController.getTxLogs,
-	faucetController.post
-);
+	faucetController.post);
 
 /*Error handling*/
 app.use((err, req, res, next) => {
