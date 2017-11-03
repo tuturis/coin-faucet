@@ -84,6 +84,7 @@ app.use((req, res, next) => {
 			console.error(`site.getConfig ${err}`)
 		}
 		req.config = config
+		console.log(`req.config ${JSON.stringify(req.config)}`)
 	})
 	req.addressStats = {}
 	next();
