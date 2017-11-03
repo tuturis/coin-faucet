@@ -62,6 +62,7 @@ class Captcha {
             path: this.api.payout + `?${query_string}`,
             method: 'GET',
         };  
+        console.log(get_options.path)
         var request = https.request(get_options, function(res) {
             var body = '';
   
