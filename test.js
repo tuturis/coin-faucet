@@ -45,33 +45,36 @@ captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
 	}
 );
 let config = {}
-sConfig.find({}, {}, { sort: { 'created_at' : -1 } }, (err, c) => {
-  if(err) {console.error(err)}
-  console.log(`found config ${c.siteConfig}`)
-  config = c.siteConfig
-  config.payout.profit = 0.5
-  config.site.captchaHashes = 5120
-  var options = {
-    events: true,
-    refresh: 60, // Refresh time in seconds (Default: 60)
-    convert: "USD" // Convert price to different currencies. (Default USD)
-  }
-  var coinmarketcap = new CMC(options); 
-  
-  coinmarketcap.on(config.coin.ticker, (coin) => {
-    console.log(`coinbase.com ${JSON.stringify(coin)}`)
-    let tickerUsdPrice = coin.price_usd
-    let captchaHashes = config.site.captchaHashes
-    captcha.middleware.payout((error, data) => {
-      console.log('error - ' + JSON.stringify(error))
-      console.log('data - ' +  JSON.stringify(data))
-      let payoutPerCaptchaHashes = (data.payoutPer1mHashes / ( 1000000 / captchaHashes)).toFixed(config.coin.decimals)
-      let maxClaim = (tickerUsdPrice * payoutPerCaptchaHashes * config.payout.profit).toFixed(config.coin.decimals)
-      console.log('payoutPerCaptchaHashes - ' +  JSON.stringify(payoutPerCaptchaHashes))
-      console.log('maxClaim - ' +  JSON.stringify(maxClaim))
+sConfig.find({})
+  .sort({ 'created_at' : -1 })
+  .limit(1)
+  .exec((err, c) => {
+    if(err) {console.error(err)}
+    console.log(`found config ${c.siteConfig}`)
+    config = c.siteConfig
+    config.payout.profit = 0.5
+    config.site.captchaHashes = 5120
+    var options = {
+      events: true,
+      refresh: 60, // Refresh time in seconds (Default: 60)
+      convert: "USD" // Convert price to different currencies. (Default USD)
+    }
+    var coinmarketcap = new CMC(options); 
+    
+    coinmarketcap.on(config.coin.ticker, (coin) => {
+      console.log(`coinbase.com ${JSON.stringify(coin)}`)
+      let tickerUsdPrice = coin.price_usd
+      let captchaHashes = config.site.captchaHashes
+      captcha.middleware.payout((error, data) => {
+        console.log('error - ' + JSON.stringify(error))
+        console.log('data - ' +  JSON.stringify(data))
+        let payoutPerCaptchaHashes = (data.payoutPer1mHashes / ( 1000000 / captchaHashes)).toFixed(config.coin.decimals)
+        let maxClaim = (tickerUsdPrice * payoutPerCaptchaHashes * config.payout.profit).toFixed(config.coin.decimals)
+        console.log('payoutPerCaptchaHashes - ' +  JSON.stringify(payoutPerCaptchaHashes))
+        console.log('maxClaim - ' +  JSON.stringify(maxClaim))
+      })
     })
   })
-})
 
 
 /*Ref.aggregate([
