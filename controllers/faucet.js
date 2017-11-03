@@ -18,7 +18,7 @@ exports.index = (req, res) => {
     let top2  = req.config.ads.top2 !== "" ? toHTML(req.config.ads.top2)  : undefined
     let right = req.config.ads.right !== ""? toHTML(req.config.ads.right) : undefined
     let left  = req.config.ads.left !== ""  ? toHTML(req.config.ads.left)  : undefined
-
+    console.log(`claim from index - ${(parseFloat(req.config.payout.claim)).toFixed(req.config.coin.decimals)}`)
     res.render('home', {
         title: `${req.config.coin.name} Faucet`,
         captcha: req.captcha,
@@ -29,7 +29,7 @@ exports.index = (req, res) => {
             blockexpl : req.config.site.explorer,
             coinTicker: req.config.coin.ticker,
             coinName : req.config.coin.name,
-            claim : (req.config.payout.claim).toFixed(req.config.coin.decimals),
+            claim : (parseFloat(req.config.payout.claim)).toFixed(req.config.coin.decimals),
             referralCommision : (req.config.payout.referralCommision * 100).toFixed(2),
             treshold : req.config.payout.treshold,
             interval : req.config.payout.interval,
@@ -64,7 +64,7 @@ exports.post = (req, res) => {
     res.redirect('/');
 } 
 exports.claim = (req, res, next) => {
-    let claim = getRandomArbitrary(req.config.payout.min, req.config.payout.max).toFixed(req.config.coin.decimals)
+    let claim = (req.config.payout.claim).toFixed(req.config.coin.decimals)
     let ip = req.headers['x-real-ip'];
     if(ip) {
         if(!req.claimed){
