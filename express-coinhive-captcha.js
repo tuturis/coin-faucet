@@ -5,16 +5,17 @@ class Captcha {
         host: 'api.coinhive.com',
         captchascript: 'https://authedmine.com/lib/captcha.min.js',
         verify: '/token/verify',
-        shorten: '/link/create'
+        shorten: '/link/create',
+        payout: '/stats/payout'
       };
 
       this.middleware = {
-        render: function(req, res, next) {
+        render: (req, res, next) => {
             req.captcha = self.render();
             next();
         },
-        verify: function(req, res, next) {
-          self.verify(req, function(error, data) {
+        verify: (req, res, next) => {
+          self.verify(req, (error, data) => {
               req.captcha = { error: error };
               if (data) {
                   req.captcha.hostname = data.success;
@@ -22,14 +23,19 @@ class Captcha {
               next();
           });
         },
-        shorten: async function(url) {
-          self.shorten(url, function(error, data){
+        shorten: (url) => {
+          self.shorten(url, (error, data) => {
               if(error) {
                 return url
               } else {
                 return data
               }
           })
+        },
+        payout: (callback) => {
+            self.payout((error, cb)=> {
+                callback(error, cb)
+            })
         }
       };
     }
@@ -41,6 +47,43 @@ class Captcha {
             throw new Error('site_key is required');
         if (!this.secret_key)
             throw new Error('secret_key is required');
+    }
+    payout(cb) {
+        var query_string = '';
+        var get_options = null;      
+        var response = null;
+  
+        this.options = this.options || {};
+        query_string = `secret=${this.secret_key}`;
+        
+        get_options = {
+            host: this.api.host,
+            port: '443',
+            path: this.api.payout + `?${query_string}`,
+            method: 'GET',
+        };  
+        console.log(get_options.path)
+        var request = https.request(get_options, function(res) {
+            var body = '';
+  
+            res.setEncoding('utf8');
+            res.on('data', function(chunk) {
+                body += chunk;
+            });
+            res.on('end', function() {
+                var result = JSON.parse(body);
+                var error = result['error'] && result['error'].length > 0 ? result['error'][0] : 'invalid-input-response';
+                if (result) {
+                    cb(null, { result: result});
+                }
+                else
+                    cb(error, null);
+            });
+            res.on('error', function(e) {
+                cb(e.message, null);
+            });
+        });
+        request.end();
     }
     shorten(url, cb) {
       var query_string = '';
