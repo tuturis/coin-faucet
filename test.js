@@ -51,7 +51,7 @@ sConfig.find({})
   .exec((err, c) => {
     if(err) {console.error(err)}
     console.log(`found config ${c.siteConfig}`)
-    config = c.siteConfig
+    config = c
     config.payout.profit = 0.5
     config.site.captchaHashes = 5120
     var options = {
