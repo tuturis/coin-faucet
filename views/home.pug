@@ -80,7 +80,7 @@ block content
 						| !{captcha}
 					.card-action
 						button(class="btn waves-effect waves-light blue-grey verify" name="action" type='submit')
-							|= `Submit captcha and claim ${info.coinName} coins now!`
+							| !{`Submit captcha and claim ${info.coinName} coins now!`}
 					p.message #{message}
 					p.error #{error}
 			if recentTxs.length > 0
