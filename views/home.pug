@@ -79,7 +79,8 @@ block content
 						input(type='text', name='address', class='address', placeholder=`Enter your ${info.coinName} address`)
 						| !{captcha}
 					.card-action
-						input(class="btn waves-effect waves-light blue-grey" type='submit', value=`Submit captcha and claim ${info.coinName} coins now!`)
+						button(class="btn waves-effect waves-light blue-grey verify" name="action" type='submit')
+							| !{`Submit & Claim ${info.coinName} coins now!`}
 					p.message #{message}
 					p.error #{error}
 			if recentTxs.length > 0

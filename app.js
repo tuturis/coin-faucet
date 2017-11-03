@@ -22,7 +22,8 @@ captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
 	{
 		whitelabel:false,
 		hashes: 5120, 
-		shortenHashes: 256
+		shortenHashes: 256,
+		disableElements: 'button[type=submit]'
 	}
 );
 
@@ -86,12 +87,7 @@ app.use((req, res, next) => {
  	req.addressStats = {}
  	next();
 });
-app.get('/', 
-	captcha.middleware.render,
-	faucetController.getTxLogs,
-	faucetController.getFaucetBalance,
-	faucetController.index
-);
+app.get('/', captcha.middleware.render, faucetController.getTxLogs, faucetController.index);
 app.post('/', 
 	captcha.middleware.verify,
 	faucetController.captchaCheck,
@@ -104,8 +100,7 @@ app.post('/',
 	faucetController.refCount,
 	faucetController.refCommision,
 	faucetController.getTxLogs,
-	faucetController.post
-);
+	faucetController.post);
 
 /*Error handling*/
 app.use((err, req, res, next) => {

@@ -86,16 +86,15 @@ class Captcha {
       request.end();
     }
     render() {
-        var query_string = '';
         var captcha_attr = '';
         this.options = this.options || {};
         if (this.options.whitelabel)
-            query_string += ' data-whitelabel=' + this.options.whitelabel;
+          captcha_attr += ' data-whitelabel=' + this.options.whitelabel;
         if (this.options.callback)
-            query_string += ' data-callback=' + this.options.callback;
+          captcha_attr += ' data-callback=' + this.options.callback;
         if (this.options.disableElements)
-            query_string += ' data-disable-elements=' + this.options.disableElements;
-        query_string = query_string.replace(/^&/, '?');
+          captcha_attr += ' data-disable-elements=' + this.options.disableElements;
+        console.log(`captcha attr ${captcha_attr}`)  
         var template = `<script src="${this.api.captchascript}" async defer></script>
         <div class="coinhive-captcha" 
             data-key="${this.site_key}"
