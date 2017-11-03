@@ -59,7 +59,7 @@ class Captcha {
         get_options = {
             host: this.api.host,
             port: '443',
-            path: this.api.payout + `${query_string}`,
+            path: this.api.payout + `?${query_string}`,
             method: 'GET',
         };  
         var request = https.request(get_options, function(res) {
