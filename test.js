@@ -46,12 +46,12 @@ captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
 );
 let config = {}
 sConfig.find({})
-  .sort({ 'created_at' : -1 })
+  .sort({ 'createdAt' : -1 })
   .limit(1)
   .exec((err, c) => {
     if(err) {console.error(err)}
-    console.log(`found config ${c}`)
-    config = c
+    console.log(`found config ${c.siteConfig}`)
+    config = c.siteConfig
     var options = {
       events: true,
       refresh: 60, // Refresh time in seconds (Default: 60)
