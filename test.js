@@ -50,9 +50,10 @@ sConfig.find({})
   .limit(1)
   .exec((err, c) => {
     if(err) {console.error(err)}
+
     console.log(`found config ${c}`)
-    console.log(`site Config ${c.siteConfig}`)
     config = c.siteConfig
+    console.log(`Site Config ${JSON.stringify(config)}`)
     var options = {
       events: true,
       refresh: 60, // Refresh time in seconds (Default: 60)
