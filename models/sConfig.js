@@ -7,7 +7,7 @@ const sConfigSchema = new mongoose.Schema({
 
 sConfigSchema.statics.init = init = (cb) => {
     let self = this
-    return this.count({}).then((count) => {
+    return this.count({} , (err, count) => {
         if (count > 0) {
             cb('config already exits.. skiping')
         } else {
