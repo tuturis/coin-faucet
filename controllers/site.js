@@ -17,7 +17,7 @@ exports.init = (req, res, next) => {
         if (count > 0) {
             cb('config already exits.. skiping')
         } else {
-            iConfig = new self()
+            iConfig = new sConfig()
             iConfig.siteConfig = {
                 payout: {
                     min: 0.0001,
