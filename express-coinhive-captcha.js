@@ -50,7 +50,7 @@ class Captcha {
     }
     payout(cb) {
         var query_string = '';
-        var post_options = null;      
+        var get_options = null;      
         var response = null;
   
         this.options = this.options || {};
