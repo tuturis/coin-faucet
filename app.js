@@ -21,17 +21,11 @@ const app = express();
 captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
 	{
 		whitelabel:false,
-<<<<<<< HEAD
-		 hashes: 10240
-	}
-);
-=======
-		hashes: 9984, 
+		hashes: 5120, 
 		shortenHashes: 256
 	}
 );
 
->>>>>>> litefaucet
 /**
  * Connect to MongoDB.
  */
