@@ -59,12 +59,11 @@ sConfig.find({})
     var coinmarketcap = new CMC(options); 
     
     coinmarketcap.on(config.coin.ticker, (coin) => {
-      console.log(`coinbase.com ${JSON.stringify(coin)}`)
       let tickerUsdPrice = coin.price_usd
       let captchaHashes = config.site.captchaHashes
+      console.log(`tickerUsdPrice ${JSON.stringify(tickerUsdPrice)}`)
+      console.log(`captchaHashes ${JSON.stringify(captchaHashes)}`)
       captcha.middleware.payout((error, data) => {
-        console.log('error - ' + JSON.stringify(error))
-        console.log('data - ' +  JSON.stringify(data))
         let payoutPerCaptchaHashes = (data.payoutPer1mHashes / ( 1000000 / captchaHashes)).toFixed(config.coin.decimals)
         let maxClaim = (tickerUsdPrice * payoutPerCaptchaHashes * config.payout.profit).toFixed(config.coin.decimals)
         console.log('payoutPerCaptchaHashes - ' +  JSON.stringify(payoutPerCaptchaHashes))
