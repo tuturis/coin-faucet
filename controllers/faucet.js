@@ -64,7 +64,7 @@ exports.post = (req, res) => {
     res.redirect('/');
 } 
 exports.claim = (req, res, next) => {
-    let claim = (req.config.payout.claim).toFixed(req.config.coin.decimals)
+    let claim = (parseFloat(req.config.payout.claim)).toFixed(req.config.coin.decimals)
     let ip = req.headers['x-real-ip'];
     if(ip) {
         if(!req.claimed){

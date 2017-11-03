@@ -19,6 +19,7 @@ block content
 							th Faucet Balance
 							th Claim
 							th Threshold (min. payout)
+							th Claim Interval
 							th Payment Interval
 							th Refferal Commision
 					tbody
@@ -26,10 +27,12 @@ block content
 							td !{balance * 1000000} μ!{info.coinTicker}
 							td !{info.claim * 1000000} μ!{info.coinTicker}
 							td !{info.treshold * 1000000} μ!{info.coinTicker}
+							td 0 min
 							td 30 min
 							td !{info.referralCommision} %
 				p Get free !{info.coinName} to your !{info.coinName} address every !{info.interval}h
-				p Direct payments! No need to register anywhere!
+				p Direct payments! No need to register anywhere you can youse your own wallet address!
+				p No cooldown between claims! This means you can claim non-stop
 				p !{info.coinName} faucet donation address - !{info.address}.
 				p Affiliate link - https://!{info.siteName}/?ref=#{'<'}your !{info.coinName} address#{'>'}
 			if messages.ainfo
