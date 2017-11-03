@@ -51,7 +51,7 @@ sConfig.find({})
   .exec((err, c) => {
     if(err) {console.error(err)}
 
-    console.log(`found config ${c}`)
+    console.log(`found config _id ${c._id}`)
     let config = Object.assign({}, c);
     console.log(`Site Config ${JSON.stringify(config.siteConfig)}`)
     var options = {
