@@ -49,22 +49,6 @@ app.use(session({
 			clear_interval: 3600
 			})	*/
 }));
-// app.use(function(req,res,next){
-//     res.locals.shorten = captcha.middleware.shorten;
-//     next();
-// });
-
-// app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
-// app.use(lusca.xframe('SAMEORIGIN'));
-// app.use(lusca.xssProtection(true));
-// app.use(lusca.hsts({
-//     maxAge:            31536000,
-//     includeSubDomains: true,
-//     preload:           true,
-//   }));
-
-
-
 
 /**
  * Controllers (route handlers).
