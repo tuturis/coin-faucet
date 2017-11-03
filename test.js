@@ -50,7 +50,8 @@ sConfig.find({})
   .limit(1)
   .exec((err, c) => {
     if(err) {console.error(err)}
-    console.log(`found config ${c.siteConfig}`)
+    console.log(`found config ${c}`)
+    console.log(`site Config ${c.siteConfig}`)
     config = c.siteConfig
     var options = {
       events: true,
