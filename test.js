@@ -63,16 +63,18 @@ sConfig.find({})
       let tickerUsdPrice = coin.price_usd
       let captchaHashes = config.site.captchaHashes
       captcha.middleware.payout((error, d) => {
+        if(error) {
+          console.error(error)
+        }
         let data = d.result
         let payoutPerCaptchaHashesXMR = (parseFloat(data.payoutPer1MHashes) / ( 1000000 / captchaHashes)).toFixed(16)
         let payoutPerCaptchaHashesUSD = (payoutPerCaptchaHashesXMR * data.xmrToUsd).toFixed(16)
         let claim = (payoutPerCaptchaHashesUSD  / tickerUsdPrice * config.payout.profit).toFixed(config.coin.decimals)
         sC = new sConfig()
         sC.siteConfig = c[0].siteConfig
-        console.log(`sC ${JSON.stringify(sC)}`)
         sC.siteConfig.payout.claim = claim
         sC.save(()=> {
-          console.log(`saved new config ${sC}`)
+          console.log(`saved new config`)
         })
     })
   })
