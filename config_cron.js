@@ -60,7 +60,7 @@ function updateConfig() {
                     sC.siteConfig.payout.claim = claim
                     sC.save(() => {
                         console.log(`saved new config`)
-                        return true
+                        process.exit(0)
                     })
                 })
             })
