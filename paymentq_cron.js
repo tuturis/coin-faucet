@@ -5,11 +5,12 @@ const Client = require('bitcoin-core');
 const _ = require('underscore');
 const captcha = require('./express-coinhive-captcha')
 
-captcha.init(captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
+captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
     {
       shortenHashes: 256,
-    })
+    }
 )
+
 const client = new Client({
   username: process.env.rpcuser,
   password: process.env.rpcpassword,
