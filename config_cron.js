@@ -13,7 +13,7 @@ mongoose.connection.on('error', (err) => {
     process.exit();
 });
 let job2 = new CronJob({
-    cronTime: '7,21 ,42 * * * *',
+    cronTime: '7,21,42 * * * *',
     onTick: function() {
       updateConfig()
     },
