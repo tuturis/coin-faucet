@@ -3,7 +3,6 @@ require('dotenv').config()
 const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const recaptcha = require('express-recaptcha');
 const captcha = require('./express-coinhive-captcha')
 const flash = require('express-flash');
 const compression = require('compression');
@@ -19,7 +18,20 @@ const chalk = require('chalk');
 
 const app = express();
 
-captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,{whitelabel:false, hashes: 10240});
+captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
+	{
+		whitelabel:false,
+<<<<<<< HEAD
+		 hashes: 10240
+	}
+);
+=======
+		hashes: 9984, 
+		shortenHashes: 256
+	}
+);
+
+>>>>>>> litefaucet
 /**
  * Connect to MongoDB.
  */
@@ -52,6 +64,10 @@ app.use(session({
 	    clear_interval: 3600
   	})	*/
 }));
+// app.use(function(req,res,next){
+//     res.locals.shorten = captcha.middleware.shorten;
+//     next();
+// });
 
 // app.use(lusca.csrf({ secret: 'En9jJ36vzYwN87DGbWAzvxMWwXeb735W' }));
 // app.use(lusca.xframe('SAMEORIGIN'));
@@ -76,12 +92,16 @@ app.use((req, res, next) => {
  	req.addressStats = {}
  	next();
 });
-app.get('/', captcha.middleware.render, faucetController.getTxLogs, faucetController.index);
+app.get('/', 
+	captcha.middleware.render,
+	faucetController.getTxLogs,
+	faucetController.getFaucetBalance,
+	faucetController.index
+);
 app.post('/', 
 	captcha.middleware.verify,
 	faucetController.captchaCheck,
 	faucetController.validateAdress,
-	faucetController.proxyFilter,
 	faucetController.checkClaimed,
 	faucetController.claim,
 	faucetController.addressBalance,
@@ -90,7 +110,8 @@ app.post('/',
 	faucetController.refCount,
 	faucetController.refCommision,
 	faucetController.getTxLogs,
-	faucetController.post);
+	faucetController.post
+);
 
 /*Error handling*/
 app.use((err, req, res, next) => {
