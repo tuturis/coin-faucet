@@ -50,10 +50,8 @@ sConfig.find({})
   .limit(1)
   .exec((err, c) => {
     if(err) {console.error(err)}
-    console.log(`found config ${c.siteConfig}`)
+    console.log(`found config ${c}`)
     config = c
-    config.payout.profit = 0.5
-    config.site.captchaHashes = 5120
     var options = {
       events: true,
       refresh: 60, // Refresh time in seconds (Default: 60)
