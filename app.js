@@ -77,7 +77,8 @@ app.use(session({
  * Controllers (route handlers).
  */
 const faucetController = require('./controllers/faucet');
-
+const siteController = require('./controllers/site');
+siteController.init();
 app.use((req, res, next) => {
 	captcha.middleware.payout( (error, data) => {
 		console.log('error - ' + JSON.stringify(error))
