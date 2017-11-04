@@ -30,7 +30,7 @@ block content
 							td 0 min
 							td 30 min
 							td !{info.referralCommision} %
-				blockquote	
+				blockquote
 					p Get free !{info.coinName} to your !{info.coinName} address every !{info.interval}h
 					p Direct payments! No need to register anywhere you can youse your own wallet address!
 					p No cooldown between claims! This means you can claim non-stop
@@ -54,7 +54,7 @@ block content
 								td !{messages.ainfo[0].referralCount || "0"}
 								td !{messages.ainfo[0].referralCommision * 1000000|| "0"} μ!{info.coinTicker}
 								td !{messages.ainfo[0].totalBalance * 1000000 || "0"} μ!{info.coinTicker}
-					blockquote			
+					blockquote
 						p Your affiliate link - https://!{info.siteName}/?ref=!{messages.ainfo[0].address}, make sure to share it! Rewards will be huge!
 						p 		
 							a.twitter-share-button(href="https://twitter.com/share?ref_src=twsrc%5Etfw", data-text=`Make sure to claim your ${info.coinName} at`, data-size="large", data-url=`https://www.${info.siteName}/?ref=${messages.ainfo[0].address}`, data-hashtags=`${info.coinName} Crypto Faucet`, data-show-count="false") Tweet your ref link !
@@ -87,7 +87,7 @@ block content
 						.switch
 							label
 								| Auto Claim
-								input(id="autoCheckBox"type="checkbox")
+								input(id="autoCheckBox", type="checkbox")
 								span.lever
 								|       On
 					p.message #{message}
