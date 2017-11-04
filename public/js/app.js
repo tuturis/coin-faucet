@@ -25,10 +25,12 @@ function CaptchaCallback(token) {
     }
 }
 function start() {
-    if(localStorage.getItem('autoClaim')) {
+    if(localStorage.getItem('autoClaim') == true) {
         console.log('startcalled, autoclaim true')
         $('#verify-me').click();
         //$('#verify-me').click();        
+    } else { 
+        console.log(false)
     }
 }
 $(function() {
@@ -47,7 +49,7 @@ $(function() {
             localStorage.setItem('autoClaim', false)
         }
     })
-    if(localStorage.getItem('autoClaim')) {
+    if(localStorage.getItem('autoClaim') == true) {
         $('#autoCheckBox').prop('checked', true);
         $('#verify-me').click()
     } else {
