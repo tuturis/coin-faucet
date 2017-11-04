@@ -12,7 +12,7 @@ exports.getConfig = (cb) => {
 
 exports.init = (cb) => {
     sConfig.count({}, (err, count) => {
-        if (count > 21) {
+        if (count > 40) {
             cb('config already exits.. skiping')
         } else {
             iConfig = new sConfig()
