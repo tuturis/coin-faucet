@@ -18,7 +18,7 @@ exports.index = (req, res) => {
     let top2  = req.config.ads.top2 !== "" ? toHTML(req.config.ads.top2)  : undefined
     let right = req.config.ads.right !== ""? toHTML(req.config.ads.right) : undefined
     let left  = req.config.ads.left !== ""  ? toHTML(req.config.ads.left)  : undefined
-    console.log(`payout claim from index ${(parseFloat(req.config.payout.claim)).toFixed(req.config.coin.decimals)}`)
+    
     res.render('home', {
         title: `${req.config.coin.name} Faucet`,
         captcha: req.captcha,
