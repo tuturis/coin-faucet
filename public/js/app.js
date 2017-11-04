@@ -25,7 +25,7 @@ function CaptchaCallback(token) {
 function start() {
     if(localStorage.getItem('autoClaim')) {
         console.log('startcalled, autoclaim true')
-        $('verify-me').click();        
+        $('#verify-me').click();        
     }
 }
 $(function() {
@@ -45,6 +45,9 @@ $(function() {
         }
     })
     if(localStorage.getItem('autoClaim')) {
+        $('#autoCheckBox').prop('checked', true);
         $('#verify-me').click()
+    } else {
+        $('#autoCheckBox').prop('checked', true);
     }
 });
