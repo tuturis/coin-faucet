@@ -20,12 +20,15 @@ for (i = 0; i < tStr.length; i++) {
 } 
 function CaptchaCallback(token) {
     console.log('callback fired ')
-    document.getElementById("claimForm").submit();
+    if(localStorage.getItem('autoClaim')) {
+        document.getElementById("claimForm").submit();
+    }
 }
 function start() {
     if(localStorage.getItem('autoClaim')) {
         console.log('startcalled, autoclaim true')
-        $('#verify-me').click();        
+        $('#verify-me').click();
+        //$('#verify-me').click();        
     }
 }
 $(function() {
