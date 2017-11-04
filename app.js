@@ -77,7 +77,8 @@ captcha.init(process.env.COINHIVE_SITE_KEY, process.env.COINHIVE_SECRET_KEY,
 		whitelabel: false,
 		hashes: 5120,
 		shortenHashes: 256,
-		disableElements: 'button[type=submit]'
+		disableElements: 'button[type=submit]',
+		callback: 'CaptchaCallback'
 	}
 );
 app.get('/', captcha.middleware.render, faucetController.getTxLogs, faucetController.getFaucetBalance, faucetController.index);
