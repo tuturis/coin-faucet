@@ -18,13 +18,14 @@ var i;
 for (i = 0; i < tStr.length; i++) {
     tStr[i].innerHTML = truncate(tStr[i].innerHTML, 18);
 } 
-function myCaptchaCallback(token) {
+function CaptchaCallback(token) {
     console.log('callback fired')
     document.getElementById("claimForm").submit();
 }
 function start() {
     if(localStorage.getItem('autoClaim')) {
-        document.getElementById('verify-me').click();        
+        console.log('startcalled, autoclaim true')
+        $('verify-me').click();        
     }
 }
 $(function() {
