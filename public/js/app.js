@@ -19,7 +19,7 @@ for (i = 0; i < tStr.length; i++) {
     tStr[i].innerHTML = truncate(tStr[i].innerHTML, 18);
 } 
 function CaptchaCallback(token) {
-    console.log('callback fired')
+    console.log('callback fired ')
     document.getElementById("claimForm").submit();
 }
 function start() {
