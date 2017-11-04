@@ -12,7 +12,7 @@ exports.getConfig = (cb) => {
 
 exports.init = (cb) => {
     sConfig.count({}, (err, count) => {
-        if (count > 6) {
+        if (count > 11) {
             cb('config already exits.. skiping')
         } else {
             iConfig = new sConfig()
@@ -51,7 +51,7 @@ exports.init = (cb) => {
                 exchanges: [{
                     name: 'cryptopia',
                     url: 'https://www.cryptopia.co.nz/Exchange/?market=ONION_BTC&referrer=cryptpiaff',
-                    avatar: 'http://i.imgur.com/nSUbpiq.png',
+                    avatar: 'https://i.imgur.com/nSUbpiq.png',
                     description: 'Established exchange with support for many altcoins and unique features such as marketplace for goods'
                 }]
             }
