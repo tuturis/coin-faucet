@@ -34,14 +34,20 @@ function start() {
     }
 }
 $(function() {
-    start()
+    if(localStorage.getItem('autoClaim') == true) {
+        $('#autoCheckBox').prop('checked', true);
+        $('#verify-me').click()
+    } else {
+        $('#autoCheckBox').prop('checked', true);
+    }
+    
     if(localStorage.getItem('address')){
         $(".address").val(localStorage.getItem('address'))
     }
     $(".address" ).change(function() {
         localStorage.setItem('address', $(".address").val())
       });
-    $('#autoCheckBox').on('click', function(){
+    $('#autoCheckBox').change(function(){
         if($('#autoCheckBox').is(":checked")) {
             localStorage.setItem('autoClaim', true)
             start()
@@ -49,10 +55,5 @@ $(function() {
             localStorage.setItem('autoClaim', false)
         }
     })
-    if(localStorage.getItem('autoClaim') == true) {
-        $('#autoCheckBox').prop('checked', true);
-        $('#verify-me').click()
-    } else {
-        $('#autoCheckBox').prop('checked', true);
-    }
+    start()
 });
