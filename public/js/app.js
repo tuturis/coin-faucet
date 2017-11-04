@@ -34,7 +34,7 @@ function start() {
     }
 }
 $(function() {
-    if(localStorage.getItem('autoClaim') == true) {
+    if(localStorage.getItem('autoClaim')) {
         $('#autoCheckBox').prop('checked', true);
         $('#verify-me').click()
     } else {
