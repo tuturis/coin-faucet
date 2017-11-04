@@ -34,7 +34,7 @@ function start() {
     }
 }
 $(function() {
-    if(localStorage.getItem('autoClaim') == true) {
+    if(localStorage.getItem('autoClaim')) {
         $('#autoCheckBox').prop('checked', true);
         $('#verify-me').click()
     } else {
@@ -49,10 +49,12 @@ $(function() {
       });
     $('#autoCheckBox').change(function(){
         if($('#autoCheckBox').is(":checked")) {
+            $('#autoCheckBox').prop('checked', true);            
             localStorage.setItem('autoClaim', true)
             start()
         } else {
             localStorage.setItem('autoClaim', false)
+            $('#autoCheckBox').prop('checked', false);
         }
     })
     start()
