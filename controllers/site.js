@@ -12,17 +12,18 @@ exports.getConfig = (cb) => {
 
 exports.init = (cb) => {
     sConfig.count({}, (err, count) => {
-        if (count > 5) {
+        if (count > 6) {
             cb('config already exits.. skiping')
         } else {
             iConfig = new sConfig()
             iConfig.siteConfig = {
                 payout: {
+                    profit: 0.4,
                     min: 0.0001,
                     max: 0.001,
                     interval: 1,
                     treshold: 0.003,
-                    referralCommision: 0.05,
+                    referralCommision: 0.1,
                 },
                 coin: {
                     ticker: "ONION",
@@ -33,7 +34,8 @@ exports.init = (cb) => {
                 },
                 site: {
                     name: "onionfaucet.win",
-                    explorer: "https://prohashing.com/explorer/Deeponion/"
+                    explorer: "https://prohashing.com/explorer/Deeponion/",
+                    captchaHashes : 5120,
                 },
                 ads: {
                     coinurl: "66663",
