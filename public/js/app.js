@@ -18,3 +18,31 @@ var i;
 for (i = 0; i < tStr.length; i++) {
     tStr[i].innerHTML = truncate(tStr[i].innerHTML, 18);
 } 
+function myCaptchaCallback(token) {
+    document.getElementById("claimForm").submit();
+}
+function start() {
+    if(localStorage.getItem('autoClaim')) {
+        $('#verify-me').click()
+    }
+}
+$(function() {
+    start()
+    if(localStorage.getItem('address')){
+        $(".address").val(localStorage.getItem('address'))
+    }
+    $(".address" ).change(function() {
+        localStorage.setItem('address', $(".address").val())
+      });
+    $('#autoCheckBox').on('click', function(){
+        if($('#autoCheckBox').is(":checked")) {
+            localStorage.setItem('autoClaim', true)
+            start()
+        } else {
+            localStorage.setItem('autoClaim', false)
+        }
+    })
+    if(localStorage.getItem('autoClaim')) {
+        $('#verify-me').click()
+    }
+});
