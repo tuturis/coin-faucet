@@ -38,7 +38,7 @@ $(function() {
         $('#autoCheckBox').prop('checked', true);
         $('#verify-me').click()
     } else {
-        $('#autoCheckBox').prop('checked', true);
+        $('#autoCheckBox').prop('checked', false);
     }
     
     if(localStorage.getItem('address')){
