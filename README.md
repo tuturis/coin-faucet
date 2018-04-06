@@ -1,9 +1,5 @@
-# Cpyto Faucet
-Faucet written in express mongo 
-
-# TODO LIST
-1. build frontend
-2. Add donators 
-3. Add referals
-4. Add link to exchange
+# Crypto Faucet
+Runs by consuming JSON-RPC of [bitcoind server](https://www.google.com "Google's Homepage")
+ (https://github.com/bitcoin/bitcoin "Bitcoin Core integration/staging tree https://bitcoin.org/en/download
+") and other compatible servers 
 
